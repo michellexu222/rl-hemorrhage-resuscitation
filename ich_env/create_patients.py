@@ -1,0 +1,49 @@
+from pulse.cdm.patient import SEPatientConfiguration, eSex
+from pulse.engine.PulseEngine import PulseEngine
+from pulse.cdm.patient_actions import SEHemorrhage, eHemorrhage_Compartment, SESubstanceBolus, SESubstanceCompoundInfusion, eSubstance_Administration
+from pulse.cdm.scalars import VolumePerTimeUnit, VolumeUnit, MassPerVolumeUnit, TimeUnit, LengthUnit, MassUnit
+
+import os
+import numpy as np
+import random
+
+def create_patient(sex: eSex, age, bmi, filename):
+    engine = PulseEngine()
+    engine.log_to_console(False)
+
+    # Create patient config
+    pc = SEPatientConfiguration()
+    p = pc.get_patient()
+    p.set_sex(sex)
+    p.get_age().set_value(age, TimeUnit.yr)
+    #p.get_height().set_value(height, LengthUnit.inch)
+    p.get_body_mass_index().set_value(bmi)
+
+    init = engine.initialize_engine(pc, None)
+    if not init:
+        raise RuntimeError("Could not initialize engine")
+
+    x=engine.serialize_to_file(filename)
+    print(x)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+target_dir = os.path.join(script_dir, "..", "configs", "patient_configs")
+os.makedirs(target_dir, exist_ok=True)  # make sure it exists
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+
+n = 100
+for i in range(n):
+    if i % 2 == 0:
+        create_patient(eSex.Male, random.randint(20, 60), random.randint(18, 35), os.path.join(target_dir, f"Patient{i}@0s.json"))
+    else:
+        create_patient(eSex.Female, random.randint(20, 60), random.randint(18, 35), os.path.join(target_dir, f"Patient{i}@0s.json"))
+
+#
+# file_path = os.path.join(target_dir, "MyPatient@1s.json")
+#
+# create_patient("Male", 30, 70, 180, file_path)
+#
+#
+# print("CWD:", os.getcwd())
