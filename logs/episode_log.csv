@@ -1,0 +1,4 @@
+episode,patient_file,reward,length,outcome,loss
+1,7,7,unknown,n/a
+1,7,7,unknown,n/a
+1,C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\ich_env\..\configs\patient_configs\Patient0@0s.json,7,7,unknown,n/a
