@@ -13,7 +13,7 @@ from gymnasium import spaces
 import numpy as np
 from stable_baselines3.common.env_checker import check_env
 
-class IntracranialHemorrhageEnv (gym.Env):
+class HemorrhageEnv (gym.Env):
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     def __init__(self, state_file=None, log_file: string="episode_log.csv"):
@@ -97,6 +97,7 @@ class IntracranialHemorrhageEnv (gym.Env):
         self.pulse.advance_time_s(1)
         self.history = [] # list of List[action, reward, next_state]
         self.prev_obs = self.get_state()
+        self.baseline_map = self.prev_obs["MeanArterialPressure"]
 
         obs = self._obs_to_array(self.prev_obs)
         info = {}
@@ -107,10 +108,10 @@ class IntracranialHemorrhageEnv (gym.Env):
         #self.pulse.print_results
         features = {}
         for idx, req in enumerate(self.pulse._data_request_mgr.get_data_requests()):
-            #print(f"Index {idx}: {req.get_property_name()} ({req.get_unit()})")
-            #print(f"{req.get_property_name()} ({req.get_unit()}): {data[idx+1]}")
-            if idx < 9:
-                features[req.get_property_name()] = int(data[idx+1])
+            # #print(f"Index {idx}: {req.get_property_name()} ({req.get_unit()})")
+            # #print(f"{req.get_property_name()} ({req.get_unit()}): {data[idx+1]}")
+            # if idx < 9:
+            features[req.get_property_name()] = int(data[idx+1])
 
         features["age"] = self.patient_data["CurrentPatient"]["Age"]["ScalarTime"]["Value"]
         return features
@@ -207,10 +208,11 @@ class IntracranialHemorrhageEnv (gym.Env):
         if self.action_map[action_idx] == "blood": self.give_blood()
         if self.action_map[action_idx] == "epinephrine": self.give_epinephrine()
 
-        self.pulse.advance_time_s(15)
+        self.pulse.advance_time_s(60)
         new_obs_dict = self.get_state()
-        reward = self._compute_reward()
-        terminated = self.is_terminal()
+        print(new_obs_dict)
+        terminated, cause = self.is_terminal()
+        reward = self._compute_reward(new_obs_dict, cause)
         truncated = False # True if max steps reached
         obs = self._obs_to_array(new_obs_dict)
 
@@ -243,36 +245,175 @@ class IntracranialHemorrhageEnv (gym.Env):
         vals = list(features.values())
         return np.array(vals, dtype=np.float32)
 
-    def _compute_reward(self):
-        return 1
+    def _compute_reward(self, next_obs: dict, terminal_cause: string):
 
-    def is_terminal(self) -> bool:
+        # per-step components (compute each timestep)
+        # 1) MAP in-range reward (primary physiological signal)
+        MAP = next_obs["MeanArterialPressure"]
+        HR = next_obs["HeartRate"]
+        SBP = next_obs["SystolicArterialPressure"] # systolic arterial pressure = systolic blood pressure
+        shock_index = HR / max(1, SBP) # avoid division by zero
+        CO = next_obs["CardiacOutput"]
+
+        # previous state data to calculate trends
+        prev_map = self.prev_obs["MeanArterialPressure"]  # or store prev MAP
+        delta_map = MAP - prev_map
+        if delta_map < 0:  # dropping
+            r_trend = delta_map / 10.0  # e.g., -1 if drop by 10 mmHg in one step
+        else:
+            r_trend = 0.0
+
+        # deviation from start
+        baseline_map = self.baseline_map  # set at reset
+        deviation = baseline_map - MAP
+        if deviation > 0:
+            r_deviation = - deviation / 30.0  # -1 if 30 mmHg drop
+        else:
+            r_deviation = 0.0
+
+        # if 65 <= MAP <= 90:
+        #     r_map = 0.12
+        # else:
+        #     # scale penalty with distance from nearest bound
+        #     if MAP < 65:
+        #         r_map = -0.02 * (65 - MAP)  # stronger penalty the lower MAP is
+        #     else:
+        #         r_map = -0.01 * (MAP - 90)  # small penalty for overshoot
+
+        # 2) Shock-index penalty (early-warning)
+        if 70 <= MAP <= 100:
+            r_map = 1.0
+        elif MAP < 70:
+            r_map = - (70 - MAP) / (70 - 40)  # scales to -1 at 40
+        else:
+            r_map = - (MAP - 100) / (120 - 100)  # scales to -1 at 120
+        r_map = max(-1, min(1, r_map)) # clip to [-1, 1]
+
+        # shock_index = HR / SBP
+        # if shock_index > 1.0:
+        #     r_shock = -0.25
+        # elif shock_index > 0.9:
+        #     r_shock = -0.10
+        # else:
+        #     r_shock = 0.0
+
+        if shock_index <= 0.7:
+            r_shock = 0
+        elif shock_index >= 1.0:
+            r_shock = -1.0
+        else:
+            r_shock = - (shock_index - 0.7) / (1.0 - 0.7)
+        r_shock = max(-1, min(0, r_shock))  # only penalty
+
+        # 3) Cardiac output shaping (optional, mild)
+        # encourage CO not to be too low (CO in L/min)
+        # if CO < 3.0:
+        #     r_co = -0.05 * (3.0 - CO)
+        # else:
+        #     r_co = 0.0
+
+        if 4.0 <= CO <= 6.0:  # typical normal range
+            r_co = 1
+        elif CO < 4.0:
+            r_co = - (4.0 - CO) / 3.0  # down to -1 if CO=1
+        else:  # CO > 6
+            r_co = - (CO - 6.0) / 4.0  # down to -1 if CO=10
+        r_co = max(-1, min(0.5, r_co))  # clipped
+
+        # # 4) Action cost (discourage wasteful interventions)
+        # # fluid_vol_this_step in mL (e.g. 250 or 500)
+        # r_fluid_cost = -0.02 * (fluid_vol_this_step / 250.0)
+        # # blood_units_this_step: number of RBC units given this timestep
+        # r_blood_cost = -0.12 * blood_units_this_step
+
+        # 5) Small survival bonus (encourage lasting life)
+        r_survive = 0.005  # per step small positive
+
+        # Total per-step reward (clipped)
+        # r_step = r_map + r_shock + r_co + r_fluid_cost + r_blood_cost + r_survive
+
+        # ---- Weighted sum ----
+        reward = (
+                0.4 * r_map +
+                0.3 * r_shock +
+                0.1 * r_co +
+                0.1 * r_trend +
+                0.1 * r_deviation
+                + r_survive
+        )
+
+        # Terminal reward
+        # bias towards caution / avoid death
+        # Death
+        if terminal_cause == "death":
+            reward -= 10.0
+
+        # Stabilized
+        if terminal_cause == "stabilization":
+            # base stabilization reward
+            reward += 6.0
+
+            # # bonus adjustments to prefer "healthier" stabilization
+            # # use averages over the final K timesteps (e.g., last 5 steps)
+            # mean_MAP_final = mean(MAP over last K steps)
+            # total_fluids_L = cumulative_fluid_mL / 1000.0
+            # total_PRBC = cumulative_PRBC_units
+            #
+            # # positive bonus for higher mean MAP in final window (but small)
+            # bonus_map = +0.3 * ((mean_MAP_final - 65.0) / 10.0)  # ~ -0.3..+0.9 range
+            #
+            # # penalties for resource use (discourage huge volumes or transfusions)
+            # penalty_fluids = -0.6 * (total_fluids_L / 3.0)  # normalized to ~3L typical large resus
+            # penalty_prbc = -0.5 * total_PRBC
+            #
+            # R_terminal = R_base + bonus_map + penalty_fluids + penalty_prbc
+            #
+            # # clamp terminal reward
+            # R_terminal = max(-5.0, min(R_terminal, +10.0))
+
+        return reward
+
+    def is_terminal(self) -> tuple[bool, string]:
         """
         use arbitrary values for now
+        
+        death if MAP < 50 mmHg or organ perfusion <50%
         """
-        death_map_threshold = 60
+        death_map_threshold = 50
+        stable_map_low = 65
+        stable_map_high = 90
+        shock_index_limit = 0.9 # shock index HR/SBP must be <= this
 
-        if len(self.history) < 6:
-            return False
+        n_timesteps = 5 # number of timesteps needed to determine stablization/death
 
-        state_window = np.array(self.history[-10:])[:, 2]
-        maps = [s['MeanArterialPressure'] for s in state_window]
+        if len(self.history) < n_timesteps:
+            return False, "not terminal"
 
-        # return True if dead (max MAP below threshold) or if stable (all map values between 70 and 110)
-        if max(maps) < death_map_threshold or (min(maps) > 70 and max(maps) < 110):
-            return True
 
-        return False
+        state_window = np.array(self.history[-n_timesteps:])[:, 2] # next_state of last 5 List[prev_state, action, next_state, reward]
+        maps = np.array([s['MeanArterialPressure'] for s in state_window])
+        saps = np.array([s['SystolicArterialPressure'] for s in state_window])
+        heart_rates = np.array([s['HeartRate'] for s in state_window])
+        shock_indices = heart_rates / saps
+        # stabilization
+        if min(maps) >= stable_map_low and max(maps) <= stable_map_high and (shock_indices <= shock_index_limit).all():
+            return True, "stabilization"
+
+        # death --> if map drops low even once
+        if min(maps) < death_map_threshold:
+            return True, "death"
+
+        return False, "not terminal"
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 target_dir = os.path.join(script_dir, "..", "configs", "patient_configs")
 os.makedirs(target_dir, exist_ok=True)  # make sure it exists
 
-env = IntracranialHemorrhageEnv()
-env.induce_hemorrhage(eHemorrhage_Compartment.Brain, 0.7)
+env = HemorrhageEnv()
+env.induce_hemorrhage(eHemorrhage_Compartment.Liver, 0.7)
 env.give_blood(10, 0.7)
 obs, reward, terminated, truncated, info = env.step(action_idx=2)
 print(obs, "\n", reward, "\n", terminated)
 obs, reward, terminated, truncated, info = env.step(action_idx=2)
 print(obs, "\n", reward, "\n", terminated)
-check_env(env)
+#check_env(env)
