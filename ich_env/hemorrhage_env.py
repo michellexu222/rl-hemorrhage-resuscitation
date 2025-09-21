@@ -16,10 +16,11 @@ from stable_baselines3.common.env_checker import check_env
 class HemorrhageEnv (gym.Env):
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    def __init__(self, state_file=None, log_file: string="episode_log.csv"):
+    def __init__(self, seed=None, state_file=None, log_file: string="episode_log.csv"):
         super().__init__()
         self.pulse = PulseEngine()
         self.pulse.log_to_console(False)
+        self.seed = seed
         self.state_file = state_file
 
         # Discrete action space
@@ -35,7 +36,7 @@ class HemorrhageEnv (gym.Env):
         )
 
         # create list of all patient state files
-        patient_config_dir = os.path.join(script_dir, "..", "configs", "patient_configs")
+        patient_config_dir = os.path.join(self.script_dir, "..", "configs", "patient_configs")
         self.patient_files = [
             os.path.join(patient_config_dir, f)
             for f in os.listdir(patient_config_dir)
@@ -45,7 +46,7 @@ class HemorrhageEnv (gym.Env):
             raise FileNotFoundError("No patient config files found.")
 
         # set up logging
-        parent_dir = os.path.dirname(script_dir)
+        parent_dir = os.path.dirname(self.script_dir)
         log_dir = os.path.join(parent_dir, "logs")
         os.makedirs(log_dir, exist_ok=True)
         self.log_file = os.path.join(parent_dir, "logs", log_file)
@@ -59,27 +60,31 @@ class HemorrhageEnv (gym.Env):
         self.episode_count = 0
         # self.episode_reward = 0  set in reset()
         # self.safety_violations = 0
-        self.reset()
+        # self.reset()
 
-    def reset(self, seed=None, options=None):
-        super().reset(seed=seed)
-        if seed is not None:
-            random.seed(seed)
-            np.random.seed(seed)
+    def reset(self, options=None):
+        super().reset(seed=self.seed)
+        if self.seed is not None:
+            random.seed(self.seed)
+            np.random.seed(self.seed)
 
         self.pulse.clear() # Clear any existing state
-
+        chosen_file = None
         # Load initial state if given
         if self.state_file:
+
             loaded = self.pulse.serialize_from_file(self.state_file, None)
             if not loaded:
                 raise FileNotFoundError(f"State file {self.state_file} not found.")
-
+            print("loaded given state file")
             with open(self.state_file, "r") as f:
                 self.patient_data = json.load(f)
 
+
         else:
+            print("using random state file")
             # load random patient file
+            print(self.patient_files)
             chosen_file = random.choice(self.patient_files)
             loaded = self.pulse.serialize_from_file(chosen_file, None)
             if not loaded:
@@ -96,81 +101,182 @@ class HemorrhageEnv (gym.Env):
 
         self.pulse.advance_time_s(1)
         self.history = [] # list of List[action, reward, next_state]
-        self.prev_obs = self.get_state()
+        self.prev_obs = self._get_state()
         self.baseline_map = self.prev_obs["MeanArterialPressure"]
+        self.baseline_bv = self.prev_obs["BloodVolume"]
+        self.hemorrhage_type : tuple[string, float] = None # tuple["compartment", severity]
+
+        self.V_blood = self.prev_obs["BloodVolume"]
+        self.V_cryst = 0
+        self.k_form, self.k_form_base = 0.05, 0.05 #k_form=0.08, k_lysis=0.02
+        self.k_lysis, self.k_lysis_base = 0.015, 0.015
+        self.C_prev = 0.15 # current fraction of clot formed, no clot in beginning
+        self.S_base = 0
 
         obs = self._obs_to_array(self.prev_obs)
-        info = {}
+        info = {"state_file": self.last_patient_file}
         return obs, info
 
-    def get_state(self):
+    def _get_state(self):
         data = self.pulse.pull_data()
         #self.pulse.print_results
         features = {}
         for idx, req in enumerate(self.pulse._data_request_mgr.get_data_requests()):
-            # #print(f"Index {idx}: {req.get_property_name()} ({req.get_unit()})")
-            # #print(f"{req.get_property_name()} ({req.get_unit()}): {data[idx+1]}")
-            # if idx < 9:
-            features[req.get_property_name()] = int(data[idx+1])
+            features[req.get_property_name()] = float(data[idx+1])
 
         features["age"] = self.patient_data["CurrentPatient"]["Age"]["ScalarTime"]["Value"]
         return features
 
     def induce_hemorrhage(self, compartment, severity):
-        hemorrhage = SEHemorrhage()
-        hemorrhage.set_comment("Induced ICH")
-        hemorrhage.set_compartment(compartment)
-        hemorrhage.get_severity().set_value(severity)
-        self.pulse.process_action(hemorrhage)
+        self.hemorrhage = SEHemorrhage()
+        self.hemorrhage.set_comment("Induced hemorrhage")
+        self.hemorrhage.set_compartment(compartment)
+        self.hemorrhage.get_severity().set_value(severity)
+        self.pulse.process_action(self.hemorrhage)
 
-    def give_saline(self, volume: float = 250, rate: float = 10):
+        if compartment == eHemorrhage_Compartment.Liver: self.hemorrhage_type = ("liver", severity)
+        if compartment == eHemorrhage_Compartment.Spleen: self.hemorrhage_type = ("spleen", severity)
+        self.S_base = severity
+
+    def set_severity(self, MAP, temp, delta_t=1.0, alpha=0.05, beta=1.0, gamma=1.0):
+        """
+        Update clot strength and compute new hemorrhage severity.
+
+        Parameters:
+        - C_prev: previous clot strength (0-1)
+        - MAP: mean arterial pressure (mmHg)
+        - temp: skin temperature (°C)
+        - S_base: initial severity (0-1)
+        - MAP_ref: baseline mean arterial pressure (mmHg)
+        - delta_t: timestep in minutes
+
+        - k_form: baseline clot formation rate (per min) larger = clot forms faster
+        - k_lysis: baseline clot breakdown rate (per min) larger = clot dissolves faster (physiologically stands in for fibrinolysis)
+        - alpha: scaling factor for how strongly MAP disrupts clot formation; larger = more sensitive, i.e. small rises in MAP strongly slow clotting
+
+        Returns:
+        - C_new: updated clot strength (0-1)
+        - S_new: updated hemorrhage severity (0-1)
+        """
+        # MAP effect (higher MAP slows clot formation)
+        #self.k_form = min(self.k_form, 0.05) # upper bound for clotting rate
+        #self.k_lysis = min(self.k_lysis, 0.05) # upper bound for fibrinolysis
+
+        # f_MAP = max(0.0, 1.0 - alpha * max(0.0, (MAP - MAP_ref)) / MAP_ref)
+        MAP_ref = self.baseline_map
+        f_MAP = np.exp(-alpha * np.abs(MAP - MAP_ref) / MAP_ref)
+
+        # Temperature effect
+        if temp >= 36.0:
+            f_temp = 1.0
+        elif temp >= 34.0:
+            f_temp = 0.75
+        else:
+            f_temp = 0.5
+
+        # Clot formation update
+        dC_dt = self.k_form * f_MAP * f_temp * self.C_prev * (1.0 - self.C_prev) - self.k_lysis * self.C_prev
+        C_new = self.C_prev + delta_t * dC_dt
+        C_new = np.clip(C_new, 0, 1)  # clamp
+        #print(f"C: {self.C_prev} -> {C_new} | dC/dt: {dC_dt} | f_MAP: {f_MAP} | f_temp: {f_temp} | k_form: {self.k_form}")
+
+        self.C_prev = C_new
+
+        dilution_ratio = self.V_cryst / self.prev_obs["BloodVolume"]
+        # D = 1 + 1.5 * dilution_ratio
+        # beta = 1 # equal volumes of crystalloids and blood roughly halve clot effectiveness --> large volume crystalloid (>1:1 rel to BV) causes dilutional coagulopathy
+        effective_clot = C_new / (1 + beta * dilution_ratio)
+
+        if 0 <= self.S_base < 0.3: S_min = self.S_base * 0.25
+        elif 0.3 <= self.S_base <= 0.5: S_min = self.S_base * 0.5
+        else: S_min = self.S_base * 0.7
+
+        # New severity
+        #S_new = S_base * (1.0 - C_new) * D
+        S_prev = self.hemorrhage.get_severity().get_value()
+        alpha = 0.05 # smoothing factor, 0-1
+        target = self.S_base * (1 - effective_clot)
+        S_new = (1 - alpha) * S_prev + alpha * target
+        #print(self.S_base)
+        #max_delta = 0.02 * self.S_base
+        #S_new = np.clip(S_new, S_prev - max_delta, S_prev + max_delta)
+        S_new = np.clip(S_new, S_min, self.S_base) # hemorrhage can't get worse than initial severity and can't be lower than 0.25
+        # print(f"dilution ratio {dilution_ratio}, effective clot {effective_clot}")
+        self.hemorrhage.get_severity().set_value(S_new)
+        self.pulse.process_action(self.hemorrhage)
+
+        return S_new
+
+
+    def give_saline(self, volume: float = 250, rate: float = 250):
         """
         volume given in mL
         rate given in mL / min
         use high rate to simulate bolus
         """
+        self.decay_k()
+
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("Saline")
         substance.get_bag_volume().set_value(volume, VolumeUnit.mL)
         substance.get_rate().set_value(rate, VolumePerTimeUnit.mL_Per_min)
         self.pulse.process_action(substance)
 
-    def give_PRBCs(self, volume: float = 250, rate: float = 10):
+        self.V_cryst += rate
+
+    def give_PRBCs(self, volume: float = 250, rate: float = 250):
         """
         packed red blood cells
         volume given in mL
         rate given in mL / min
         use high rate to simulate bolus
         """
+        self.decay_k()
+
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("PackedRBC")
         substance.get_bag_volume().set_value(volume, VolumeUnit.mL)
         substance.get_rate().set_value(rate, VolumePerTimeUnit.mL_Per_min)
         self.pulse.process_action(substance)
 
-    def give_blood(self, volume: float = 250, rate: float = 10):
+        k_form *= 1 + 0.00002 * rate * 1
+        self.V_blood += rate
+
+    def give_blood(self, volume: float = 250, rate: float = 250):
         """
         volume given in mL
         rate given in mL/min
         use high rate to simulate bolus
         """
+        self.decay_k()
+
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("Blood")
         substance.get_bag_volume().set_value(volume, VolumeUnit.mL)
         substance.get_rate().set_value(rate, VolumePerTimeUnit.mL_Per_min)
         self.pulse.process_action(substance)
+        # print(self.k_form)
+        self.V_blood += rate
+        factor = 1 + 0.001 * rate * 1
+        self.k_form *= factor
+        # print(f"new k_form = {self.k_form}")
+        self.k_lysis *= 1 / factor
 
-    def give_lactated_ringers(self, volume: float = 250, rate: float = 10):
+    def give_lactated_ringers(self, volume: float = 250, rate: float = 250):
         """
         volume given in mL
         rate given in mL/min
         use high rate to simulate bolus
         """
+        self.decay_k()
+
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("LactatedRingers")
         substance.get_bag_volume().set_value(volume, VolumeUnit.mL)
         substance.get_rate().set_value(rate, VolumePerTimeUnit.mL_Per_min)
         self.pulse.process_action(substance)
+
+        self.V_cryst += rate * 1
 
     def give_epinephrine(self, volume = 250, concentration = 10):
         """
@@ -178,6 +284,8 @@ class HemorrhageEnv (gym.Env):
         concentration in mg/mL
         use high rate to simulate bolus
         """
+        self.decay_k()
+
         bolus = SESubstanceBolus()
         bolus.set_admin_route(eSubstance_Administration.Intramuscular)
         bolus.set_substance("Epinephrine")
@@ -186,15 +294,12 @@ class HemorrhageEnv (gym.Env):
         bolus.get_admin_duration().set_value(2, TimeUnit.s)
         self.pulse.process_action(bolus)
 
+    def decay_k(self):
+        LAMBDA = 0.02
+        self.k_form = self.k_form + LAMBDA * (self.k_form_base - self.k_form) * 1 # 1 minute
+        self.k_lysis = self.k_lysis + LAMBDA * (self.k_lysis_base - self.k_lysis) * 1  # 1 minute
+
     def step(self, action_idx):
-        """
-        advances time by 15 s
-
-        the action parameter is only for appending to history
-
-        returns next state observation, reward, if next state is terminal
-
-        """
 
         # if action not in ["saline", "PRBC", "blood", "lactated_ringers", "epinephrine", "nothing"]:
         #     raise ValueError(f"Invalid action {action}")
@@ -207,20 +312,27 @@ class HemorrhageEnv (gym.Env):
         if self.action_map[action_idx] == "PRBC": self.give_PRBCs()
         if self.action_map[action_idx] == "blood": self.give_blood()
         if self.action_map[action_idx] == "epinephrine": self.give_epinephrine()
+        if self.action_map[action_idx] == "nothing": self.decay_k()
 
-        self.pulse.advance_time_s(60)
-        new_obs_dict = self.get_state()
-        print(new_obs_dict)
-        terminated, cause = self.is_terminal()
+        advanced = self.pulse.advance_time_s(60)
+
+        new_obs_dict = self._get_state()
+        # print(new_obs_dict)
+        sev = self.set_severity(new_obs_dict["MeanArterialPressure"], new_obs_dict["SkinTemperature"])
+        # print(sev)
+        terminated, cause = self.is_terminal(new_obs_dict)
+        if not advanced:
+            terminated = True
         reward = self._compute_reward(new_obs_dict, cause)
-        truncated = False # True if max steps reached
+        truncated = True if cause == "truncated" else False # True if max steps reached
         obs = self._obs_to_array(new_obs_dict)
 
         self.episode_reward += reward
         self.episode_length += 1
 
-        if terminated:
+        if terminated or truncated:
             self.episode_count += 1
+            self.episode_outcome = cause
             self._log_episode()
 
         self.history.append([self.prev_obs, self.action_map[action_idx], new_obs_dict, reward])
@@ -373,47 +485,56 @@ class HemorrhageEnv (gym.Env):
 
         return reward
 
-    def is_terminal(self) -> tuple[bool, string]:
-        """
-        use arbitrary values for now
-        
-        death if MAP < 50 mmHg or organ perfusion <50%
-        """
-        death_map_threshold = 50
+    def is_terminal(self, new_obs) -> tuple[bool, string]:
+
+        death_map_threshold = 10
         stable_map_low = 65
-        stable_map_high = 90
+        stable_map_high = 100
         shock_index_limit = 0.9 # shock index HR/SBP must be <= this
 
-        n_timesteps = 5 # number of timesteps needed to determine stablization/death
+        # n_timesteps = 10
+        type, severity = self.hemorrhage_type
+        if type == "liver" and 0 <= severity < 0.3: n_timesteps = 70 # number of timesteps needed to determine stablization
+        if type == "liver" and 0.3 <= severity < 0.5: n_timesteps = 50
+        if type == "liver" and 0.5 <= severity <= 1: n_timesteps = 30
+        if type == "spleen": n_timesteps = 60
+
+        if new_obs["CardiacOutput"] < 1.5 or new_obs["BloodVolume"] < 2500 or new_obs["MeanArterialPressure"] < 45: return True, "death"
 
         if len(self.history) < n_timesteps:
             return False, "not terminal"
-
-
-        state_window = np.array(self.history[-n_timesteps:])[:, 2] # next_state of last 5 List[prev_state, action, next_state, reward]
+        if len(self.history) > 150:
+            return True, "truncated"
+        state_window = np.concatenate((np.array(self.history[-n_timesteps:])[:, 2], np.array([new_obs]))) # next_state of last 5 List[prev_state, action, next_state, reward]
         maps = np.array([s['MeanArterialPressure'] for s in state_window])
         saps = np.array([s['SystolicArterialPressure'] for s in state_window])
         heart_rates = np.array([s['HeartRate'] for s in state_window])
         shock_indices = heart_rates / saps
+        COs = np.array([s['CardiacOutput'] for s in state_window])
+        BVs = np.array([s['BloodVolume'] for s in state_window])
         # stabilization
         if min(maps) >= stable_map_low and max(maps) <= stable_map_high and (shock_indices <= shock_index_limit).all():
             return True, "stabilization"
 
         # death --> if map drops low even once
-        if min(maps) < death_map_threshold:
+        if min(COs) < 1.5 or min(BVs) < 2500 or min(maps) < 45: #  or len(np.unique(maps)) == 1
             return True, "death"
+
 
         return False, "not terminal"
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-target_dir = os.path.join(script_dir, "..", "configs", "patient_configs")
-os.makedirs(target_dir, exist_ok=True)  # make sure it exists
+    def get_state(self):
+        return self.prev_obs # after calling step() prev_obs becomes the new obs
 
-env = HemorrhageEnv()
-env.induce_hemorrhage(eHemorrhage_Compartment.Liver, 0.7)
-env.give_blood(10, 0.7)
-obs, reward, terminated, truncated, info = env.step(action_idx=2)
-print(obs, "\n", reward, "\n", terminated)
-obs, reward, terminated, truncated, info = env.step(action_idx=2)
-print(obs, "\n", reward, "\n", terminated)
-#check_env(env)
+# script_dir = os.path.dirname(os.path.abspath(__file__))
+# target_dir = os.path.join(script_dir, "..", "configs", "patient_configs")
+# os.makedirs(target_dir, exist_ok=True)  # make sure it exists
+#
+# env = HemorrhageEnv()
+# env.induce_hemorrhage(eHemorrhage_Compartment.Liver, 0.7)
+# env.give_blood(10, 0.7)
+# obs, reward, terminated, truncated, info = env.step(action_idx=2)
+# print(obs, "\n", reward, "\n", terminated)
+# obs, reward, terminated, truncated, info = env.step(action_idx=2)
+# print(obs, "\n", reward, "\n", terminated)
+# #check_env(env)

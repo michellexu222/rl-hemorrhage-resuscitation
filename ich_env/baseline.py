@@ -1,7 +1,7 @@
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
 import os
-from ich_env import IntracranialHemorrhageEnv
+from hemorrhage_env import IntracranialHemorrhageEnv
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
