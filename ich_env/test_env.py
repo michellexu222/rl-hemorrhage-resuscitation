@@ -6,28 +6,38 @@ import os
 import csv
 from pulse.cdm.patient import SEPatientConfiguration
 from pulse.engine.PulseEngine import PulseEngine
-from pulse.cdm.patient_actions import SEHemorrhage, eHemorrhage_Compartment, SESubstanceBolus, SESubstanceCompoundInfusion, eSubstance_Administration
+from pulse.cdm.patient_actions import SEHemorrhage, eHemorrhage_Compartment, SESubstanceBolus, SESubstanceCompoundInfusion, eSubstance_Administration, SESubstanceInfusion
 from pulse.cdm.scalars import VolumePerTimeUnit, VolumeUnit, MassPerVolumeUnit, TimeUnit, LengthUnit, MassUnit
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(script_dir)
-env_check_dir = os.path.join(parent_dir, "env_check")
-os.makedirs(env_check_dir, exist_ok=True)
-#env_check_file = os.path.join(parent_dir, "env_check")
-if not os.path.exists(os.path.join(parent_dir, "seed_check.csv")):
-    with open(os.path.join(parent_dir, "seed_check.csv"), "w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(["seed", "step", "obs", "patient_file"])
-
-
-env = HemorrhageEnv(seed=5)
+pulse = PulseEngine()
+substance = SESubstanceInfusion()
+substance.set_substance("Norepinephrine")
+#substance.get_bag_volume().set_value(2, VolumeUnit.mL)
+#substance.get_rate().set_value(rate, VolumePerTimeUnit.mL_Per_min)
+pulse.process_action(substance)
+# bolus = SESubstanceBolus()
+# bolus.set_admin_route(eSubstance_Administration.Intramuscular)
+# bolus.set_substance("Vasopressin")
+# script_dir = os.path.dirname(os.path.abspath(__file__))
+# parent_dir = os.path.dirname(script_dir)
+# env_check_dir = os.path.join(parent_dir, "env_check")
+# os.makedirs(env_check_dir, exist_ok=True)
+# #env_check_file = os.path.join(parent_dir, "env_check")
+# if not os.path.exists(os.path.join(parent_dir, "seed_check.csv")):
+#     with open(os.path.join(parent_dir, "seed_check.csv"), "w", newline="") as f:
+#         writer = csv.writer(f)
+#         writer.writerow(["seed", "step", "obs", "patient_file"])
+#
+#
+env = HemorrhageEnv()
 _, info = env.reset()
 print(info)
 env.induce_hemorrhage(eHemorrhage_Compartment.Liver, 0.3)
 
 for i in range(5):
     obs, reward, terminated, truncated, _ = env.step(action_idx=5)
-    print(env.history)
+    print(obs)
+    print(env.history[-1])
     # with open(os.path.join(parent_dir, "seed_check.csv"), "a", newline="") as f:
     #     writer = csv.writer(f)
     #     writer.writerow([5, i+1, obs, info["state_file"][-9]])
