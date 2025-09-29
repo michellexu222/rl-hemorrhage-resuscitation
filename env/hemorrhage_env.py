@@ -62,7 +62,7 @@ class HemorrhageEnv (gym.Env):
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
         if seed is not None:
-            # initialize reproducible RNG
+            # random number generator
             self._rng, _ = gym.utils.seeding.np_random(seed)
 
         self.pulse.clear() # Clear any existing state
@@ -71,10 +71,10 @@ class HemorrhageEnv (gym.Env):
         self.episode_reward = 0
         self.episode_length = 0
         self.safety_violations = 0
-        self.episode_outcome = None # "death", "stabilized", "max length reached"
+        self.episode_outcome = None # "death", "stabilized", "truncated", or "failed to advance"
 
         self.pulse.advance_time_s(1)
-        self.history = [] # list of List[action, reward, next_state]
+        self.history = [] # list of List[prev_state, action, reward, next_state]
         self.prev_obs = self._get_state()
         self.baseline_map = self.prev_obs["MeanArterialPressure"]
         self.baseline_bv = self.prev_obs["BloodVolume"]
@@ -82,9 +82,9 @@ class HemorrhageEnv (gym.Env):
 
         self.V_blood = self.prev_obs["BloodVolume"]
         self.V_cryst = 0
-        self.k_form, self.k_form_base = 0.05, 0.05 #k_form=0.08, k_lysis=0.02
-        self.k_lysis, self.k_lysis_base = 0.015, 0.015
-        self.C_prev = 0.15 # current fraction of clot formed, no clot in beginning
+        self.k_form, self.k_form_base = 0.05, 0.05 # clot formation rate
+        self.k_lysis, self.k_lysis_base = 0.015, 0.015 # clot breakdown rate (fibrinolysis)
+        self.C_prev = 0.15 # current fraction of clot formed
         self.S_base = 0
 
         self.induce_hemorrhage()
@@ -120,6 +120,7 @@ class HemorrhageEnv (gym.Env):
         self.last_patient_file = chosen_file if chosen_file else self.state_file
 
     def _get_state(self):
+        # check speed of getting data from data_request_mgr
         data = self.pulse.pull_data()
         f = ["HeartRate", "SystolicArterialPressure", "MeanArterialPressure",]
         #self.pulse.print_results
@@ -134,29 +135,6 @@ class HemorrhageEnv (gym.Env):
         return features
 
     def induce_hemorrhage(self, compartment=None, severity=None):
-        # if not compartment:
-        #     compartment = np.random.choice(["liver", "spleen", "both"], p=[50, 25, 25])
-        #     liver_severity = np.random.choice([0.1, 0.3, 0.5, 0.7, 0.9], p=[0.1, 0.2, 0.3, 0.25, 0.15])
-        #     spleen_severity = np.random.choice([0.3, 0.5, 0.7, 0.9, 1.0], p=[0.1, 0.2, 0.3, 0.25, 0.15])
-        #
-        # self.liver_hemorrhage = SEHemorrhage()
-        # self.spleen_hemorrhage = SEHemorrhage()
-        # # self.hemorrhage.set_comment("Induced hemorrhage")
-        #
-        # if compartment == "liver" or compartment == "both":
-        #     self.liver_hemorrhage.set_compartment(eHemorrhage_Compartment.Liver)
-        #     self.hemorrhage.get_severity().set_value(liver_severity)
-        #     self.pulse.process_action(self.liver_hemorrhage)
-        #
-        # if compartment == "spleen" or compartment == "both":
-        #     self.spleen_hemorrhage.set_compartment(eHemorrhage_Compartment.Spleen)
-        #     self.spleen_hemorrhage.get_severity().set_value(spleen_severity)
-        #     self.pulse.process_action(self.spleen_hemorrhage)
-        #
-        # if compartment == "liver": self.hemorrhage_type = ("liver", severity)
-        # if compartment == "spleen": self.hemorrhage_type = ("spleen", severity)
-        # if compartment == "both": self.hemorrhage_type = ("both", liver_severity + spleen_severity)
-        # self.S_base = liver_severity + spleen_severity if compartment == "both" else liver_severity if compartment == "liver" else spleen_severity
 
         if not compartment:
             compartment = self._rng.choice(["liver", "spleen"], p=[0.7, 0.3])
@@ -182,25 +160,17 @@ class HemorrhageEnv (gym.Env):
 
     def set_severity(self, MAP, temp, delta_t=1.0, alpha=0.05, beta=1.0, gamma=1.0):
         """
-        Update clot strength and compute new hemorrhage severity.
+        Update clot strength and compute new severity
 
-        Parameters:
-        - C_prev: previous clot strength (0-1)
-        - MAP: mean arterial pressure (mmHg)
-        - temp: skin temperature (°C)
-        - S_base: initial severity (0-1)
-        - MAP_ref: baseline mean arterial pressure (mmHg)
+        Params:
+        - MAP: current mean arterial pressure (mmHg)
+        - temp: current skin temperature)
         - delta_t: timestep in minutes
-
-        - k_form: baseline clot formation rate (per min) larger = clot forms faster
-        - k_lysis: baseline clot breakdown rate (per min) larger = clot dissolves faster (physiologically stands in for fibrinolysis)
         - alpha: scaling factor for how strongly MAP disrupts clot formation; larger = more sensitive, i.e. small rises in MAP strongly slow clotting
 
         Returns:
-        - C_new: updated clot strength (0-1)
         - S_new: updated hemorrhage severity (0-1)
         """
-        # MAP effect (higher MAP slows clot formation)
         #self.k_form = min(self.k_form, 0.05) # upper bound for clotting rate
         #self.k_lysis = min(self.k_lysis, 0.05) # upper bound for fibrinolysis
 
@@ -252,9 +222,7 @@ class HemorrhageEnv (gym.Env):
 
     def give_saline(self, volume: float = 250, rate: float = 250):
         """
-        volume given in mL
-        rate given in mL / min
-        use high rate to simulate bolus
+        unused currently
         """
         self.decay_k()
 
@@ -319,6 +287,7 @@ class HemorrhageEnv (gym.Env):
         self.pulse.process_action(infusion)
 
     def decay_k(self):
+        # every step decay k_form and k_lysis towards base values
         LAMBDA = 0.02
         self.k_form = self.k_form + LAMBDA * (self.k_form_base - self.k_form) * 1 # 1 minute
         self.k_lysis = self.k_lysis + LAMBDA * (self.k_lysis_base - self.k_lysis) * 1  # 1 minute
@@ -403,7 +372,7 @@ class HemorrhageEnv (gym.Env):
         else:
             r_deviation = 0.0
 
-        # 2) Shock-index penalty (early-warning)
+        # mean arterial pressure within range
         if 70 <= MAP <= 100:
             r_map = 1.0
         elif MAP < 70:
@@ -412,7 +381,7 @@ class HemorrhageEnv (gym.Env):
             r_map = - (MAP - 100) / (120 - 100)  # scales to -1 at 120
         r_map = max(-1, min(1, r_map)) # clip to [-1, 1]
 
-
+        # shock index
         if shock_index <= 0.7:
             r_shock = 0
         elif shock_index >= 1.0:
@@ -421,6 +390,7 @@ class HemorrhageEnv (gym.Env):
             r_shock = - (shock_index - 0.7) / (1.0 - 0.7)
         r_shock = max(-1, min(0, r_shock))  # only penalty
 
+        # cardiac output
         if 4.0 <= CO <= 6.0:  # typical normal range
             r_co = 1
         elif CO < 4.0:
@@ -429,16 +399,16 @@ class HemorrhageEnv (gym.Env):
             r_co = - (CO - 6.0) / 4.0  # down to -1 if CO=10
         r_co = max(-1, min(0.5, r_co))  # clipped
 
-        # # Action cost (discourage wasteful interventions)
+        # # Action cost
         # # fluid_vol_this_step in mL (e.g. 250 or 500)
         # r_fluid_cost = -0.02 * (fluid_vol_this_step / 250.0)
         # # blood_units_this_step: number of RBC units given this timestep
         # r_blood_cost = -0.12 * blood_units_this_step
 
-        # Small survival bonus (encourage lasting life)
+        # Small survival bonus
         r_survive = 0.005  # per step small positive
 
-        # ---- Weighted sum ----
+        # Weighted sum of components
         reward = (
                 0.4 * r_map +
                 0.3 * r_shock +
@@ -482,7 +452,6 @@ class HemorrhageEnv (gym.Env):
         if len(self.history) > 250:
             return True, "truncated"
 
-        # state_window = np.concatenate((np.array(self.history[-n_timesteps:])[:, 2], np.array([new_obs]))) # next_state of last 5 List[prev_state, action, next_state, reward]
         # Extract next_state dicts from history
         next_states = [h[2] for h in self.history[-n_timesteps:]]
         state_window = np.array(next_states + [new_obs])

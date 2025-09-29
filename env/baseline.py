@@ -26,7 +26,7 @@ class RewardCallback(BaseCallback):
 torch.manual_seed(42)
 script_dir = os.path.dirname(os.path.abspath(__file__))
 target_dir = os.path.join(script_dir, "..", "configs")
-os.makedirs(target_dir, exist_ok=True)  # make sure it exists
+os.makedirs(target_dir, exist_ok=True)
 
 def make_env():
     env = HemorrhageEnv()
@@ -34,14 +34,11 @@ def make_env():
     return env
 
 venv = DummyVecEnv([make_env])
-# lambda: ... is a function with no args, when called returns a fresh ICHEnv
 venv.seed(42)
-# Add normalization (running mean/std for obs, optional for rewards)
+# Add normalization (running mean/std for obs)
 venv = VecNormalize(venv, norm_obs=True, norm_reward=False, clip_obs=10.)
 model = PPO("MlpPolicy", venv, seed=42, learning_rate=3e-4, verbose=1)
 model.learn(total_timesteps=100, callback=RewardCallback())
 
-# Save running statistics so evaluation uses the same normalization
 venv.save(os.path.join(target_dir, "venv_stats.pkl"))
-# model.save("ppo_hemorrhage")
 
