@@ -6,7 +6,12 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from stable_baselines3.common.monitor import Monitor
 import torch
 
-from stable_baselines3.common.callbacks import BaseCallback
+from stable_baselines3.common.callbacks import BaseCallback, CheckpointCallback
+
+torch.manual_seed(42)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(script_dir)
+os.makedirs(parent_dir, exist_ok=True)
 
 class RewardCallback(BaseCallback):
     def __init__(self, verbose=0):
@@ -22,11 +27,9 @@ class RewardCallback(BaseCallback):
                       f"Hemorrhage: {info['hem']}")
         return True
 
-
-torch.manual_seed(42)
-script_dir = os.path.dirname(os.path.abspath(__file__))
-target_dir = os.path.join(script_dir, "..", "configs")
-os.makedirs(target_dir, exist_ok=True)
+checkpoint_callback = CheckpointCallback(save_freq=180, # number of steps (not episodes) between checkpoints
+                                         save_path=os.path.join(parent_dir, "models", "checkpoints"),
+                                         name_prefix="baseline_ppo")
 
 def make_env():
     env = HemorrhageEnv()
@@ -37,8 +40,10 @@ venv = DummyVecEnv([make_env])
 venv.seed(42)
 # Add normalization (running mean/std for obs)
 venv = VecNormalize(venv, norm_obs=True, norm_reward=False, clip_obs=10.)
-model = PPO("MlpPolicy", venv, seed=42, learning_rate=3e-4, verbose=1)
-model.learn(total_timesteps=100, callback=RewardCallback())
 
-venv.save(os.path.join(target_dir, "venv_stats.pkl"))
+log_dir = "./ppo_pulse_logs/"
+model = PPO("MlpPolicy", venv, n_steps=1024, seed=42, learning_rate=3e-4, verbose=1, tensorboard_log=log_dir)
+model.learn(total_timesteps=100, callback=[RewardCallback(), checkpoint_callback])
+
+venv.save(os.path.join(parent_dir, "venv_stats.pkl"))
 
