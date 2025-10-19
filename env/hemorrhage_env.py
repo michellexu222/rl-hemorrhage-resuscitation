@@ -63,10 +63,8 @@ class HemorrhageEnv (gym.Env):
 
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
-        if seed is not None:
-            # random number generator
-            self._rng, _ = gym.utils.seeding.np_random(seed)
 
+        self._rng, _ = gym.utils.seeding.np_random(seed)
         self.pulse.clear() # Clear any existing state
         self.load_state()
 
@@ -105,12 +103,13 @@ class HemorrhageEnv (gym.Env):
             loaded = self.pulse.serialize_from_file(self.state_file, None)
             if not loaded:
                 raise FileNotFoundError(f"State file {self.state_file} not found.")
-            print("loaded given state file")
+            #print("loaded given state file")
             with open(self.state_file, "r") as f:
                 self.patient_data = json.load(f)
+            #print(self.patient_data["Configuration"]["TimeStep"]["ScalarTime"]["Value"])
 
         else:
-            print("loading random state file")
+            # print("loading random state file")
             # load random patient file
             chosen_file = self._rng.choice(self.patient_files)
             # chosen_file = os.path.join(self.script_dir, "configs", "patient_configs", "Patient2@0s.json")
@@ -122,7 +121,7 @@ class HemorrhageEnv (gym.Env):
                 self.patient_data = json.load(f)
 
         self.last_patient_file = chosen_file if chosen_file else self.state_file
-        print(self.patient_data["CurrentPatient"]["MeanArterialPressureBaseline"]["ScalarPressure"]["Value"])
+        # print(self.patient_data["CurrentPatient"]["MeanArterialPressureBaseline"]["ScalarPressure"]["Value"])
 
     def _get_state(self):
         # check speed of getting data from data_request_mgr
@@ -142,7 +141,7 @@ class HemorrhageEnv (gym.Env):
     def induce_hemorrhage(self, compartment=None, given_severity=None):
 
         if not compartment:
-            compartment = self._rng.choice(["liver", "spleen"], p=[0.9, 0.1])
+            compartment = self._rng.choice(["liver", "spleen"], p=[0.6, 0.4])
 
         self.hemorrhage = SEHemorrhage()
         self.hemorrhage.set_comment("Induced hemorrhage")
@@ -161,7 +160,7 @@ class HemorrhageEnv (gym.Env):
 
         if compartment == "liver": self.hemorrhage_type = ("liver", severity)
         if compartment == "spleen": self.hemorrhage_type = ("spleen", severity)
-        print(severity)
+        # print(severity)
         self.S_base = severity
 
     def set_severity(self, MAP, temp, delta_t=1.0, alpha=0.05, beta=1.0, gamma=1.0):
@@ -375,6 +374,7 @@ class HemorrhageEnv (gym.Env):
             ])
 
     def _obs_to_array(self, features: dict):
+        #print(features)
         vals = list(features.values())
         return np.array(vals, dtype=np.float32)
 
@@ -468,16 +468,18 @@ class HemorrhageEnv (gym.Env):
         death_map_threshold = 10
         stable_map_low = 65
         stable_map_high = 100
-        shock_index_limit = 0.9 # shock index HR/SBP must be <= this
+        shock_index_limit = 0.9  # shock index HR/SBP must be <= this
+        stable_hr_low = 50  # bpm
+        stable_hr_high = 120
         base_time = 20
         # n_timesteps = 10
         type, severity = self.hemorrhage_type
-        if type == "liver" or type == "both" and 0 <= severity < 0.3: n_timesteps = 5 # number of timesteps needed to determine stablization
+        if type == "liver" or type == "both" and 0 <= severity < 0.3: n_timesteps = 5  # number of timesteps needed to determine stablization
         if type == "liver" or type == "both" and 0.3 <= severity < 0.5: n_timesteps = 4
         if type == "liver" or type == "both" and 0.5 <= severity <= 1: n_timesteps = 3
         if type == "spleen": n_timesteps = 5
 
-        # if new_obs["CardiacOutput"] < 1.5 or new_obs["BloodVolume"] < 2500 or new_obs["MeanArterialPressure"] < 45: return True, "death"
+        # if new_obs["CardiacOutput"] < 1.5 or new_obs["BloodVolume"] < 2500 or new_obs["MeanArterialPressure"] < 35: return True, "death"
 
         if len(self.history) < base_time:
             return False, "not terminal"
@@ -495,9 +497,13 @@ class HemorrhageEnv (gym.Env):
         COs = np.array([s['CardiacOutput'] for s in state_window])
         BVs = np.array([s['BloodVolume'] for s in state_window])
         # stabilization
-        if min(maps) >= stable_map_low and max(maps) <= stable_map_high and (shock_indices <= shock_index_limit).all():
+        if (min(maps) >= stable_map_low and max(maps) <= stable_map_high
+                and (shock_indices <= shock_index_limit).all()
+                and min(heart_rates) >= stable_hr_low and max(heart_rates) <= stable_hr_high):
             return True, "stabilization"
 
+        if max(heart_rates) < 35:
+            return True, "death (HR)"
         # if min(COs) < 1.5 or min(BVs) < 2500 or min(maps) < 45: #  or len(np.unique(maps)) == 1
         #    return True, "death"
 

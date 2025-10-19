@@ -1,2 +1,5 @@
 *.json
 *.pkl
+*.zip
+*.csv
+ppo_pulse_logs/
