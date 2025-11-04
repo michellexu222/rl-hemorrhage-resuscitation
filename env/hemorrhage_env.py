@@ -24,7 +24,7 @@ class HemorrhageEnv (gym.Env):
 
         self.state_file = state_file
 
-        self.action_space = spaces.Box(low=-1, high=1, shape=(3,), dtype=np.float32)
+        self.action_space = spaces.Box(low=0, high=1, shape=(3,), dtype=np.float32)
 
         self.f = ["HeartRate", "SystolicArterialPressure", "MeanArterialPressure", "OxygenSaturation", "RespirationRate", "SkinTemperature", "EndTidalCarbonDioxidePressure", "age", "sex", "bmi"]
         n_features = len(self.f)
@@ -87,7 +87,7 @@ class HemorrhageEnv (gym.Env):
         self.C_prev = 0.15 # current fraction of clot formed
         self.S_base = 0
 
-        self.induce_hemorrhage()
+        self.induce_hemorrhage("spleen", 0)
 
         obs = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
         info = {"state_file": self.last_patient_file}
@@ -220,6 +220,7 @@ class HemorrhageEnv (gym.Env):
         S_new = np.clip(S_new, S_min, self.S_base) # hemorrhage can't get worse than initial severity and can't be lower than 0.25
         # print(f"dilution ratio {dilution_ratio}, effective clot {effective_clot}")
         self.hemorrhage.get_severity().set_value(S_new)
+
         self.pulse.process_action(self.hemorrhage)
 
         return S_new
@@ -246,7 +247,7 @@ class HemorrhageEnv (gym.Env):
         use high rate to simulate bolus
         """
         # self.decay_k()
-        rate = (rate + 1) / 2 * 300 # scale from [-1, 1] to [0, 750]
+        rate = rate * 300 # scale from [0, 1] to [0, 300]
 
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("Blood")
@@ -267,7 +268,7 @@ class HemorrhageEnv (gym.Env):
         use high rate to simulate bolus
         """
         # self.decay_k()
-        rate = (rate + 1) / 2 * 750 # scale from [-1, 1] to [0, 750]
+        rate = rate * 750 # scale from [0, 1] to [0, 750]
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("LactatedRingers")
         substance.get_bag_volume().set_value(rate, VolumeUnit.mL)
@@ -283,7 +284,7 @@ class HemorrhageEnv (gym.Env):
         use high rate to simulate bolus
         """
 
-        rate = (rate + 1) / 2 * 0.04 # scale from [-1, 1] to [0, 0.04] mL/min = [0, 1] mcg/kg/min
+        rate = rate * 0.04 # scale from [0, 1] to [0, 0.04] mL/min = [0, 1] mcg/kg/min
 
         infusion = SESubstanceInfusion()
         infusion.set_substance("Norepinephrine")
@@ -348,7 +349,7 @@ class HemorrhageEnv (gym.Env):
             self.episode_count += 1
             self.episode_outcome = cause
             # t0 = time.time()
-            self._log_episode()
+            #self._log_episode()
             # t1 = time.time()
             # print(f"time to log episode: {t1 - t0} seconds")
             info = {"episode": {"r": self.episode_reward, "l": self.episode_length}, "o": self.episode_outcome, "hem": self.hemorrhage_type}

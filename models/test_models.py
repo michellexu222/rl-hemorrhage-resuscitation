@@ -11,18 +11,20 @@ from env.hemorrhage_env import HemorrhageEnv
 # save as eval_plot.py and run in same project / venv where Pulse and model exist
 import pandas as pd
 import matplotlib.pyplot as plt
-from stable_baselines3 import PPO
+from stable_baselines3 import PPO, SAC
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from stable_baselines3.common.monitor import Monitor
+from env.env_wrappers import SmoothActionDelayWrapper
 
 def make_env():
     env = HemorrhageEnv()
+    # env = SmoothActionDelayWrapper(env)
     env = Monitor(env)
     return env
 
 # ---------- Load eval env & model ----------
-venv_stats_path = os.path.join(parent_dir, "venv_stats_7.pkl")
-model_path = os.path.join(parent_dir, "models", "checkpoints", "ppo_baseline_final")
+venv_stats_path = os.path.join(parent_dir, "venv_stats_16.pkl")
+model_path = os.path.join(parent_dir, "models", "ppo_baseline_16.zip")
 
 
 base_env = make_env()
@@ -32,6 +34,7 @@ eval_env = VecNormalize.load(venv_stats_path, eval_env)
 eval_env.training = False
 eval_env.norm_reward = False
 
+#model = PPO.load(model_path, env=eval_env)
 model = PPO.load(model_path, env=eval_env)
 
 # ---------- Run one deterministic episode and collect history ----------
@@ -61,7 +64,7 @@ def run_and_collect(model, base_env, eval_env, max_steps=100, deterministic=True
         # except Exception:
         #     state_dict = None
 
-        # Option B: try to read MAP from observation array if present
+        # try to read MAP from observation array if present
         map_val = None
         hr_val = None
         sap_val = None
@@ -84,11 +87,10 @@ def run_and_collect(model, base_env, eval_env, max_steps=100, deterministic=True
             except Exception:
                 pass
 
-        # Convert normalized actions back to meaningful units using the scaling in your env:
-        # IMPORTANT: ensure these match the scaling in give_* functions in your env
-        cryst_rate_ml = (a[0] + 1.0) / 2.0 * 750.0    # example scaling used in your code
-        blood_rate_ml = (a[1] + 1.0) / 2.0 * 300.0
-        vp_rate_ml = (a[2] + 1.0) / 2.0 * 0.04       # mL/min or concentration scale as in your env
+        # Convert normalized actions back
+        cryst_rate_ml = a[0] * 750
+        blood_rate_ml = a[1] * 300
+        vp_rate_ml = a[2] * 0.04
 
         rec = {
             "timestep": step,
@@ -147,7 +149,7 @@ def plot_episode(df, save_fig=None, show=True):
     ax2.set_xlabel("Timestep (min)")
     ax2.grid(True)
 
-    # Optionally, overlay small text labels for actions (only if few timesteps)
+    # overlay small text labels for actions
     if len(df) <= 60:
         for _, row in df.iterrows():
             t = row["timestep"]
@@ -162,91 +164,92 @@ def plot_episode(df, save_fig=None, show=True):
         plt.show()
     plt.close(fig)
 
-# # ---------- Run & plot one episode ----------
-# records, total_reward, final_info = run_and_collect(model, base_env, eval_env, max_steps=400, deterministic=True)
+# ---------- Run & plot one episode ----------
+records, total_reward, final_info = run_and_collect(model, base_env, eval_env, max_steps=400, deterministic=True)
+
+# save CSV
+df = pd.DataFrame(records)
+out_csv = os.path.join(parent_dir, "eval_episode.csv")
+df.to_csv(out_csv, index=False)
+print(f"Saved episode CSV to: {out_csv}")
+
+plot_path = os.path.join(parent_dir, "episode_map_actions_1000s.png")
+plot_episode(df, save_fig=plot_path, show=True)
+
+# # ---------- Run & calculate metrics for multiple episodes ----------
+# # vars for stabilization metrics
+# num_eps = 50
+# base_seed = 42
+# n_death = 0
+# n_stable_liver = 0
+# n_stable_spleen = 0
+# total_liver = 0
+# total_spleen = 0
 #
-# # save CSV
-# df = pd.DataFrame(records)
-# out_csv = os.path.join(parent_dir, "eval_episode_1000s.csv")
-# df.to_csv(out_csv, index=False)
-# print(f"Saved episode CSV to: {out_csv}")
+# # vars for reward metric
+# total_return = 0
 #
-# plot_path = os.path.join(parent_dir, "episode_map_actions_1000s.png")
-# plot_episode(df, save_fig=plot_path, show=True)
-
-# ---------- Run & calculate metrics for multiple episodes ----------
-# vars for stabilization metrics
-num_eps = 50
-base_seed = 42
-n_death = 0
-n_stable_liver = 0
-n_stable_spleen = 0
-total_liver = 0
-total_spleen = 0
-
-# vars for reward metric
-total_return = 0
-
-# vars for resource metrics
-cryst_used = []
-blood_used = []
-vp_used = []
-fluids_used = []
-stabilized_fluids_used = []  # fluids used in stabilized episodes
-
-for i in range(num_eps):
-    seed = base_seed + i
-    records, total_reward, final_info = run_and_collect(model, base_env, eval_env, max_steps=400, deterministic=True, seed=seed)
-
-    # increment outcome counts
-    if final_info['o'] in ['death', 'failed to advance', 'death (HR)']:
-        n_death += 1
-
-        if final_info['hem'][0] == 'liver': total_liver += 1
-        else: total_spleen += 1
-
-    elif final_info['o'] == 'stabilization':
-        if final_info['hem'][0] == 'spleen':
-            n_stable_spleen += 1
-            total_spleen += 1
-        elif final_info['hem'][0] == 'liver':
-            n_stable_liver += 1
-            total_liver += 1
-
-    elif final_info['o'] == 'truncated': pass # truncated episodes ignored
-    else: print("Unknown outcome:", final_info['o'])
-
-    # accumulate return
-    total_return += total_reward
-
-    # track resource usage
-    total_cryst = sum(r["cryst_ml_per_min"] for r in records) # total crystalloid infused in episode
-    total_blood = sum(r["blood_ml_per_min"] for r in records) # total blood infused in episode
-    total_vp = sum(r["vp_ml_per_min"] for r in records)         # total vasopressor infused in episode
-    total_fluids = total_cryst + total_blood
-
-    cryst_used.append(total_cryst)
-    blood_used.append(total_blood)
-    vp_used.append(total_vp)
-    fluids_used.append(total_fluids)
-
-    if final_info['o'] == "stabilization": stabilized_fluids_used.append(total_fluids)
-
-# ---------- Print stabilization metrics ----------
-n_stable = n_stable_liver + n_stable_spleen
-total = total_liver + total_spleen
-print(f"% stabilized total: {n_stable}/{total} = {n_stable/total*100:.1f}%")
-print(f"% stabilized liver: {n_stable_liver}/{total_liver} = {n_stable_liver/total_liver*100:.1f}%")
-print(f"% stabilized spleen: {n_stable_spleen}/{total_spleen} = {n_stable_spleen/total_spleen*100:.1f}%")
-print(f"% died: {n_death}/{total} = {n_death/total*100:.1f}%")
-
-# ---------- Print reward metric ----------
-average_return = total_return / num_eps
-print(f"Average return over {num_eps} episodes: {average_return:.2f}")
-
-# ---------- Print resource usage metrics ----------
-print(f"Median crystalloid used: {np.median(cryst_used):.1f} mL (mean {np.mean(cryst_used):.1f} mL)")
-print(f"Median blood used: {np.median(blood_used):.1f} mL (mean {np.mean(blood_used):.1f} mL)")
-print(f"Median vasopressor used: {np.median(vp_used):.3f} mL (mean {np.mean(vp_used):.3f} mL)")
-
-print(f"Resource efficiency: {np.mean(stabilized_fluids_used):.2f} mL")
+# # vars for resource metrics
+# cryst_used = []
+# blood_used = []
+# vp_used = []
+# fluids_used = []
+# stabilized_fluids_used = []  # fluids used in stabilized episodes
+#
+# for i in range(num_eps):
+#     seed = base_seed + i
+#     records, total_reward, final_info = run_and_collect(model, base_env, eval_env, max_steps=400, deterministic=True, seed=seed)
+#
+#     # increment outcome counts
+#     if final_info['o'] in ['death', 'failed to advance', 'death (HR)']:
+#         n_death += 1
+#
+#         if final_info['hem'][0] == 'liver': total_liver += 1
+#         else: total_spleen += 1
+#
+#     elif final_info['o'] == 'stabilization':
+#         if final_info['hem'][0] == 'spleen':
+#             n_stable_spleen += 1
+#             total_spleen += 1
+#         elif final_info['hem'][0] == 'liver':
+#             n_stable_liver += 1
+#             total_liver += 1
+#
+#     elif final_info['o'] == 'truncated': pass # truncated episodes ignored
+#     else: print("Unknown outcome:", final_info['o'])
+#
+#     # accumulate return
+#     total_return += total_reward
+#
+#     # track resource usage
+#     total_cryst = sum(r["cryst_ml_per_min"] for r in records) # total crystalloid infused in episode
+#     total_blood = sum(r["blood_ml_per_min"] for r in records) # total blood infused in episode
+#     total_vp = sum(r["vp_ml_per_min"] for r in records)         # total vasopressor infused in episode
+#     total_fluids = total_cryst + total_blood
+#
+#     cryst_used.append(total_cryst)
+#     blood_used.append(total_blood)
+#     vp_used.append(total_vp)
+#     fluids_used.append(total_fluids)
+#
+#     if final_info['o'] == "stabilization": stabilized_fluids_used.append(total_fluids)
+#     print(f"Episode {i+1} done")
+#
+# # ---------- Print stabilization metrics ----------
+# n_stable = n_stable_liver + n_stable_spleen
+# total = total_liver + total_spleen
+# print(f"% stabilized total: {n_stable}/{total} = {n_stable/total*100:.1f}%")
+# print(f"% stabilized liver: {n_stable_liver}/{total_liver} = {n_stable_liver/total_liver*100:.1f}%")
+# print(f"% stabilized spleen: {n_stable_spleen}/{total_spleen} = {n_stable_spleen/total_spleen*100:.1f}%")
+# print(f"% died: {n_death}/{total} = {n_death/total*100:.1f}%")
+#
+# # ---------- Print reward metric ----------
+# average_return = total_return / num_eps
+# print(f"Average return over {num_eps} episodes: {average_return:.2f}")
+#
+# # ---------- Print resource usage metrics ----------
+# print(f"Median crystalloid used: {np.median(cryst_used):.1f} mL (mean {np.mean(cryst_used):.1f} mL)")
+# print(f"Median blood used: {np.median(blood_used):.1f} mL (mean {np.mean(blood_used):.1f} mL)")
+# print(f"Median vasopressor used: {np.median(vp_used):.3f} mL (mean {np.mean(vp_used):.3f} mL)")
+#
+# print(f"Resource efficiency: {np.mean(stabilized_fluids_used):.2f} mL")

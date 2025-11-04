@@ -20,6 +20,7 @@ def create_patient(sex: eSex, age, bmi, base_map, base_hr, filename):
     p.get_body_mass_index().set_value(bmi)
     p.get_mean_arterial_pressure_baseline().set_value(base_map, PressureUnit.mmHg)
     p.get_heart_rate_baseline().set_value(base_hr, FrequencyUnit.Per_min)
+    #p.get_blood_volume_baseline().set_value(base_bv, VolumeUnit.mL)
 
     init = engine.initialize_engine(pc, None)
     if not init:
@@ -31,12 +32,12 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 target_dir = os.path.join(script_dir, "..", "configs", "patient_configs")
 os.makedirs(target_dir, exist_ok=True)  # make sure it exists
 
-SEED = 42
+SEED = 7
 random.seed(SEED)
 np.random.seed(SEED)
 
-n = 50
-i = 0
+n = 250
+i = 50
 while i < n:
     if i % 2 == 0:
         try:
