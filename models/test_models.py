@@ -23,8 +23,8 @@ def make_env():
     return env
 
 # ---------- Load eval env & model ----------
-venv_stats_path = os.path.join(parent_dir, "venv_stats_16.pkl")
-model_path = os.path.join(parent_dir, "models", "ppo_baseline_16.zip")
+venv_stats_path = os.path.join(parent_dir, "venv_stats_ppo_14_clotting.pkl")
+model_path = os.path.join(parent_dir, "models", "ppo_14_clotting.zip")
 
 
 base_env = make_env()

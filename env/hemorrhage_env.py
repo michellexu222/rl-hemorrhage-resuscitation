@@ -78,16 +78,48 @@ class HemorrhageEnv (gym.Env):
         self.prev_obs = self._get_state()
         self.baseline_map = self.prev_obs["MeanArterialPressure"]
         self.baseline_bv = self.prev_obs["BloodVolume"]
+        #self.base_hct = self.patient_data["BloodChemistry"]["Common"][["Hematocrit"]["Scalar0To1"]["Value"]
         self.hemorrhage_type : tuple[string, float] = None # tuple["compartment", severity]
 
-        self.V_blood = self.prev_obs["BloodVolume"]
-        self.V_cryst = 0
-        self.k_form, self.k_form_base = 0.05, 0.05 # clot formation rate
-        self.k_lysis, self.k_lysis_base = 0.015, 0.015 # clot breakdown rate (fibrinolysis)
-        self.C_prev = 0.15 # current fraction of clot formed
-        self.S_base = 0
+        #self.V_blood = self.prev_obs["BloodVolume"]
+        # ------- Clotting model variables -------
+        # updated 11/4/2025
+        # clot formation
+        self.k_form, self.k_form_base = 0.13, 0.13  # clot formation rate
+        self.k_blood = 0.002 # how much giving blood improves clotting
+        self.tau_blood = 5 # (mins) decay time for recent blood effect
 
-        self.induce_hemorrhage("spleen", 0)
+        # clot breakdown
+        self.k_lysis, self.k_lysis_base = 0.01, 0.01  # clot breakdown rate (fibrinolysis)
+        self.beta_0 = 0.5 # base sensitivity of clot breakdown to MAP above threshold
+        self.map_thresh = 70 # MAP threshold above which clot breakdown increases (mmHg)
+        self.delta_c = 0.05 # amount clot breaks down by when it "pops"
+
+        # MAP effects
+        self.alpha = 1  # sensitivity of clot formation to MAP deviations
+        self.map_opt = 70 # optimal MAP for clotting (mmHg)
+
+        # clot / severity caps
+        self.gamma = 0.2 # C_max = 1 - gamma * S_base
+        self.eps_min, self.eps_max = 0.05, 0.2
+        self.n = 1.5  # controls steepness of clotting effect on severity, n=1 (linear) -> bleed decrease steadily w/ clot,
+        # n=1.5-2 -> bleed stays moderate, then drops faster when clot matures (respond quickly to clotting)
+        # n=3-4-> clot has little effect until it almost complete (bleed resists clotting)
+
+        # dilution effects
+        self.tau_clear = 5 # time constant for redistribution of crystalloid from the bloodstream (minutes) (cryst redistr. half life)
+        # k_beta_dil possibly
+
+        # other stuff
+        self.dt = 1.0
+        self.V_blood_step = 0 # current blood given as action
+        self.V_blood_recent = 0
+        self.V_cryst = 0
+
+        self.C_prev = 0.05 # current fraction of clot formed
+        #self.S_base = 0
+
+        self.induce_hemorrhage()
 
         obs = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
         info = {"state_file": self.last_patient_file}
@@ -163,7 +195,7 @@ class HemorrhageEnv (gym.Env):
         # print(severity)
         self.S_base = severity
 
-    def set_severity(self, MAP, temp, delta_t=1.0, alpha=0.05, beta=1.0, gamma=1.0):
+    def set_severity(self, map, temp):
         """
         Update clot strength and compute new severity
 
@@ -180,44 +212,58 @@ class HemorrhageEnv (gym.Env):
         #self.k_lysis = min(self.k_lysis, 0.05) # upper bound for fibrinolysis
 
         # f_MAP = max(0.0, 1.0 - alpha * max(0.0, (MAP - MAP_ref)) / MAP_ref)
-        MAP_ref = self.baseline_map
-        f_MAP = np.exp(-alpha * np.abs(MAP - MAP_ref) / MAP_ref)
-
+        self.V_blood_recent = self.V_blood_recent * np.exp(-self.dt / self.tau_blood) + self.V_blood_step
+        #print(f"V_blood_recent: {self.V_blood_recent}")
+        k_form = self.k_form_base * (1 + self.k_blood * self.V_blood_recent)
+        #print(f"k_form: {k_form}")
+        # MAP_ref = self.baseline_map
+        f_map = np.exp(-self.alpha * np.abs(map - self.map_opt) / self.map_opt)
+        #print(f"f_map: {f_map}")
         # Temperature effect
-        if temp >= 36.0:
+        if temp >= 36.0 :
             f_temp = 1.0
         elif temp >= 34.0:
             f_temp = 0.75
         else:
             f_temp = 0.5
 
-        # Clot formation update
-        dC_dt = self.k_form * f_MAP * f_temp * self.C_prev * (1.0 - self.C_prev) - self.k_lysis * self.C_prev
-        C_new = self.C_prev + delta_t * dC_dt
-        C_new = np.clip(C_new, 0, 1)  # clamp
-        #print(f"C: {self.C_prev} -> {C_new} | dC/dt: {dC_dt} | f_MAP: {f_MAP} | f_temp: {f_temp} | k_form: {self.k_form}")
+        self.dilution_ratio = min(self.V_cryst / self.prev_obs["BloodVolume"], 1)
+        #print(f"dilution_ratio: {dilution_ratio}")
+        beta_eff = self.beta_0 * (1 + self.dilution_ratio) # increased dilution increases beta increase clot breakdown
+        #print(f"beta_eff: {beta_eff}")
 
+        form_rate = k_form * f_map * f_temp * (1 - self.dilution_ratio) * self.C_prev * (1.0 - self.C_prev)
+        #print(f"form_rate: {form_rate}")
+        lysis_rate = self.k_lysis + beta_eff * max(0, map - self.map_thresh) / self.map_thresh
+        #print(f"lysis_rate: {lysis_rate}")
+
+        self.dC_dt = form_rate - lysis_rate * self.C_prev
+        #print(f"dC_dt: {dC_dt}")
+        C_new = self.C_prev + self.dt * self.dC_dt
+        #print(f"C_new before pop / clip: {C_new}")
+        # stochastic clot "pops" - clot failure more likely if lysis rate high and clot is not strong
+        if np.random.rand() < lysis_rate * (1 - C_new) * self.dt:
+            C_new -= self.delta_c
+            C_new = max(0.05, C_new)
+            #print("clot popped")
+
+        C_max = 1 - self.gamma * self.S_base
+        C_new = np.clip(C_new, 0.05, C_max)  # clamp
+        #print(f"C_new: {C_new}")
         self.C_prev = C_new
+        self.V_cryst -= self.V_cryst * (1 - np.exp(-self.dt / self.tau_clear))
 
-        dilution_ratio = self.V_cryst / self.prev_obs["BloodVolume"]
-        # D = 1 + 1.5 * dilution_ratio
-        # beta = 1 # equal volumes of crystalloids and blood roughly halve clot effectiveness --> large volume crystalloid (>1:1 rel to BV) causes dilutional coagulopathy
-        effective_clot = C_new / (1 + beta * dilution_ratio)
-
-        if 0 <= self.S_base < 0.3: S_min = self.S_base * 0.25
-        elif 0.3 <= self.S_base <= 0.5: S_min = self.S_base * 0.5
-        else: S_min = self.S_base * 0.7
-
-        # New severity
-        #S_new = S_base * (1.0 - C_new) * D
-        S_prev = self.hemorrhage.get_severity().get_value()
-        alpha = 0.05 # smoothing factor, 0-1
-        target = self.S_base * (1 - effective_clot)
-        S_new = (1 - alpha) * S_prev + alpha * target
+        # new severity
+        epsilon = self.eps_min + (self.eps_max - self.eps_min) * self.S_base # residual bleeding when clot is perfect
+        #print(f"epsilon: {epsilon}")
+        #print(f"S_base: {self.S_base}")
+        S_new = self.S_base * (epsilon + (1 - epsilon) * (1 - C_new/C_max) ** self.n) * (1 + self.dilution_ratio)
+        S_new = np.clip(S_new, 0, 1)
+        #print(f"S_new: {S_new}")
         #print(self.S_base)
         #max_delta = 0.02 * self.S_base
         #S_new = np.clip(S_new, S_prev - max_delta, S_prev + max_delta)
-        S_new = np.clip(S_new, S_min, self.S_base) # hemorrhage can't get worse than initial severity and can't be lower than 0.25
+        # S_new = np.clip(S_new, S_min, self.S_base) # hemorrhage can't get worse than initial severity and can't be lower than 0.25
         # print(f"dilution ratio {dilution_ratio}, effective clot {effective_clot}")
         self.hemorrhage.get_severity().set_value(S_new)
 
@@ -230,7 +276,6 @@ class HemorrhageEnv (gym.Env):
         """
         unused currently
         """
-        self.decay_k()
 
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("Saline")
@@ -255,11 +300,12 @@ class HemorrhageEnv (gym.Env):
         substance.get_rate().set_value(rate, VolumePerTimeUnit.mL_Per_min)
         self.pulse.process_action(substance)
         # print(self.k_form)
-        self.V_blood += rate
-        factor = 1 + 0.001 * rate * 1
-        self.k_form *= factor
+        #self.V_blood += rate
+        self.V_blood_step = rate
+        # factor = 1 + 0.001 * rate * 1
+        # self.k_form *= factor
         # print(f"new k_form = {self.k_form}")
-        self.k_lysis *= 1 / factor
+        # self.k_lysis *= 1 / factor
 
     def give_lactated_ringers(self, rate):
         """
@@ -302,8 +348,6 @@ class HemorrhageEnv (gym.Env):
         """
         action order: lactated ringer's rate, blood rate, norepinephrine rate
         """
-
-        self.decay_k()
         self.give_lactated_ringers(rate=action[0])
         self.give_blood(rate=action[1])
         self.give_norepinephrine(rate=action[2])
@@ -397,7 +441,7 @@ class HemorrhageEnv (gym.Env):
             r_trend = 0.0
 
         # deviation from start
-        baseline_map = self.baseline_map  # set at reset
+        baseline_map = 70  # targetting permissive hypo
         deviation = baseline_map - MAP
         if deviation > 0:
             r_deviation = - deviation / 30.0  # -1 if 30 mmHg drop
@@ -405,15 +449,15 @@ class HemorrhageEnv (gym.Env):
             r_deviation = 0.0
 
         # mean arterial pressure within range
-        if 70 <= MAP <= 100:
+        if 65 <= MAP <= 100:
             r_map = 1.0
-        elif MAP < 70:
-            r_map = - (70 - MAP) / (70 - 40)  # scales to -1 at 40
+        elif MAP < 65:
+            r_map = - (65 - MAP) / (65 - 40)  # scales to -1 at 40
         else:
             r_map = - (MAP - 100) / (120 - 100)  # scales to -1 at 120
         r_map = max(-1, min(1, r_map)) # clip to [-1, 1]
 
-        # shock index
+        # ------- shock index --------
         if shock_index <= 0.7:
             r_shock = 0
         elif shock_index >= 1.0:
@@ -422,7 +466,7 @@ class HemorrhageEnv (gym.Env):
             r_shock = - (shock_index - 0.7) / (1.0 - 0.7)
         r_shock = max(-1, min(0, r_shock))  # only penalty
 
-        # cardiac output
+        # ------ cardiac output -------
         if 4.0 <= CO <= 6.0:  # typical normal range
             r_co = 1
         elif CO < 4.0:
@@ -437,10 +481,26 @@ class HemorrhageEnv (gym.Env):
         # # blood_units_this_step: number of RBC units given this timestep
         # r_blood_cost = -0.12 * blood_units_this_step
 
+        # ------- Clotting reward -------
+        r_clot = (
+            1.5 * self.C_prev  # reward stronger clot
+            + 1.0 * self.dC_dt  # reward new clot formation
+            - 1.0 * self.dilution_ratio  # penalize excessive crystalloids
+        )
+        #print(f"raw r_clot: {r_clot}")
+        if r_clot >= 0.6:
+            r_clot = 1
+        elif r_clot >= 0.088:
+            r_clot = (r_clot - 0.088) / (0.6 - 0.088)  # scale to [0, 1]
+        else:
+            r_clot = (r_clot - 0.088) / (0.6 - 0.088)  # extend linearly below 0.088
+
         # Small survival bonus
         r_survive = 0.005  # per step small positive
 
         # Weighted sum of components
+        #print(f"r_map: {r_map}, r_shock: {r_shock}, r_co: {r_co}, r_trend: {r_trend}, r_deviation: {r_deviation}, r_survive: {r_survive}")
+        #print(f"r_clot: {r_clot}")
         reward = (
                 0.4 * r_map +
                 0.3 * r_shock +
@@ -448,8 +508,10 @@ class HemorrhageEnv (gym.Env):
                 0.1 * r_trend +
                 0.1 * r_deviation
                 + r_survive
+                + 0.4 * r_clot
         )
-
+        
+        #print(reward)
         # Terminal reward
         # bias towards caution / avoid death
         # Death

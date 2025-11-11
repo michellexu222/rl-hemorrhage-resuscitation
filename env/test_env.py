@@ -43,7 +43,7 @@ import numpy as np
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)
-env = HemorrhageEnv(state_file=os.path.join(parent_dir, "configs", "patient_configs", "Patient10@0s.json"))
+env = HemorrhageEnv(state_file=os.path.join(parent_dir, "configs", "patient_configs", "Patient0@0s.json"))
 # num_episodes = 30
 episode_rewards = []
 all_rewards = []
@@ -60,7 +60,9 @@ while not done:
     # if i >= 11:
     #     action = [0.3, 1, 0]
     obs, reward, done, truncated, info = env.step(action)
-    print(obs)
+    print(f"MAP: {obs[1]}")
+    print("-------------------------------------------------------")
+
     if done:
         print(info['o'])
     i += 1
