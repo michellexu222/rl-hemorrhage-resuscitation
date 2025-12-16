@@ -17,14 +17,18 @@ from stable_baselines3.common.monitor import Monitor
 from env.env_wrappers import SmoothActionDelayWrapper
 
 def make_env():
-    env = HemorrhageEnv()
+    env = HemorrhageEnv(eval=True)
     # env = SmoothActionDelayWrapper(env)
     env = Monitor(env)
     return env
 
 # ---------- Load eval env & model ----------
-venv_stats_path = os.path.join(parent_dir, "venv_stats_ppo_14_clotting.pkl")
-model_path = os.path.join(parent_dir, "models", "ppo_14_clotting.zip")
+# venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_ppo_modsev_4.pkl")
+# model_path = os.path.join(parent_dir, "models", "ppo_modsev_4.zip")
+
+venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_rppo_highsev_1.pkl")
+model_path = os.path.join(parent_dir, "models", "rppo_highsev_1.zip")
+
 
 
 base_env = make_env()
@@ -39,7 +43,9 @@ model = PPO.load(model_path, env=eval_env)
 
 # ---------- Run one deterministic episode and collect history ----------
 def run_and_collect(model, base_env, eval_env, max_steps=100, deterministic=True, seed=None):
-    obs, info = base_env.reset(seed=seed)
+    #obs, info = base_env.reset(seed=seed)
+    obs, info = base_env.reset(organ="liver", severity=0.3)
+    print(f"hemorrhage: {info['hem']}")
     obs_norm = eval_env.normalize_obs(obs)
     done = False
     step = 0
@@ -88,8 +94,8 @@ def run_and_collect(model, base_env, eval_env, max_steps=100, deterministic=True
                 pass
 
         # Convert normalized actions back
-        cryst_rate_ml = a[0] * 750
-        blood_rate_ml = a[1] * 300
+        cryst_rate_ml = a[0] * 400
+        blood_rate_ml = a[1] * 400
         vp_rate_ml = a[2] * 0.04
 
         rec = {
@@ -102,10 +108,13 @@ def run_and_collect(model, base_env, eval_env, max_steps=100, deterministic=True
             "vp_ml_per_min": vp_rate_ml,
             "MAP": map_val,
             "SAP": sap_val,
+            "ShockIndex": hr_val / sap_val,
             "HR": hr_val,
             "BloodVolume": bv_val,
             "reward": float(reward),
             "done": done_flag,
+            "clot_frac": info["clot_frac"],
+            "sev_new": info["sev_new"],
             "info": info if isinstance(info, dict) else {}
         }
         records.append(rec)
@@ -117,8 +126,8 @@ def run_and_collect(model, base_env, eval_env, max_steps=100, deterministic=True
 
 # ---------- Plotting ----------
 def plot_episode(df, save_fig=None, show=True):
-    fig = plt.figure(figsize=(12, 8))
-    gs = fig.add_gridspec(3, 1, height_ratios=[2, 1, 1], hspace=0.3)
+    fig = plt.figure(figsize=(14, 12))
+    gs = fig.add_gridspec(5, 1, height_ratios=[1.5, 1, 1, 1.5, 1], hspace=0.3)
 
     # Panel 1: MAP vs time
     ax0 = fig.add_subplot(gs[0])
@@ -149,6 +158,20 @@ def plot_episode(df, save_fig=None, show=True):
     ax2.set_xlabel("Timestep (min)")
     ax2.grid(True)
 
+    # Panel 4: Heart Rate
+    ax3 = fig.add_subplot(gs[3], sharex=ax0)
+    ax3.step(df["timestep"], df["HR"], where='post', label="Heart Rate")
+    ax3.set_ylabel("Heart Rate")
+    ax3.set_xlabel("Timestep (min)")
+    ax3.grid(True)
+
+    # Panel 5: Shock Index
+    ax4 = fig.add_subplot(gs[4], sharex=ax0)
+    ax4.step(df["timestep"], df["clot_frac"], where='post', label="Clot Fraction")
+    ax4.set_ylabel("Clot Fraction")
+    ax4.set_xlabel("Timestep (min)")
+    ax4.grid(True)
+
     # overlay small text labels for actions
     if len(df) <= 60:
         for _, row in df.iterrows():
@@ -173,7 +196,7 @@ out_csv = os.path.join(parent_dir, "eval_episode.csv")
 df.to_csv(out_csv, index=False)
 print(f"Saved episode CSV to: {out_csv}")
 
-plot_path = os.path.join(parent_dir, "episode_map_actions_1000s.png")
+plot_path = os.path.join(parent_dir, "episode_map_actions_mod_sev_bloodcost.png")
 plot_episode(df, save_fig=plot_path, show=True)
 
 # # ---------- Run & calculate metrics for multiple episodes ----------
@@ -233,7 +256,7 @@ plot_episode(df, save_fig=plot_path, show=True)
 #     fluids_used.append(total_fluids)
 #
 #     if final_info['o'] == "stabilization": stabilized_fluids_used.append(total_fluids)
-#     print(f"Episode {i+1} done")
+#     print(f"Episode {i+1} done. Outcome: {final_info['o']}")
 #
 # # ---------- Print stabilization metrics ----------
 # n_stable = n_stable_liver + n_stable_spleen

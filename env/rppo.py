@@ -50,24 +50,24 @@ if __name__ == '__main__':
     n_envs = 8
     train_env = SubprocVecEnv([make_env for _ in range(n_envs)])
     train_env.seed(42)
-    train_env = VecNormalize(train_env, norm_obs=True, norm_reward=True, clip_obs=10.)
-    # train_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats_rppo_1.pkl"), train_env)
+    #train_env = VecNormalize(train_env, norm_obs=True, norm_reward=True, clip_obs=10.)
+    train_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats_rppo_highsev_1.pkl"), train_env)
     train_env.training = True
     train_env.norm_reward = True
 
     eval_env = DummyVecEnv([make_env])
-    eval_env = VecNormalize(eval_env, norm_obs=True, norm_reward=False, clip_obs=10.)
-    #eval_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats_rppo_1.pkl"), eval_env)
-    eval_env.obs_rms = train_env.obs_rms
-    eval_env.ret_rms = train_env.ret_rms
+    #eval_env = VecNormalize(eval_env, norm_obs=True, norm_reward=False, clip_obs=10.)
+    eval_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats_rppo_highsev_1.pkl"), eval_env)
+    #eval_env.obs_rms = train_env.obs_rms
+    #eval_env.ret_rms = train_env.ret_rms
     eval_env.training = False
     eval_env.norm_reward = False
 
     # ----- Callbacks -----
     checkpoint_callback = CheckpointCallback(
         save_freq=2048//n_envs,
-        save_path=os.path.join(parent_dir, "models", "checkpoints", "rppo_clotting_1"),
-        name_prefix="rppo_clotting_1"
+        save_path=os.path.join(parent_dir, "models", "checkpoints", "rppo_highsev_1"),
+        name_prefix="rppo_highsev_1"
     )
 
     eval_callback = EvalCallback(
@@ -79,21 +79,27 @@ if __name__ == '__main__':
     )
 
     log_dir = os.path.join(parent_dir, "rppo_pulse_logs")
-    model = RecurrentPPO(
-        "MlpLstmPolicy",
-        train_env,
-        n_steps=1024 // n_envs,
-        batch_size=256,
-        n_epochs=10,
-        seed=42,
-        learning_rate=1e-4,
-        verbose=1,
-        tensorboard_log=log_dir,
-    )
-    #checkpoint_path = os.path.join(parent_dir, "models", "rppo_1.zip")
-    #model = RecurrentPPO.load(checkpoint_path, env=train_env, tensorboard_log=log_dir)
-    model.learn(total_timesteps=40000, reset_num_timesteps=True, callback=[RewardCallback(), eval_callback, checkpoint_callback], tb_log_name="rppo_clotting")
+    # model = RecurrentPPO(
+    #     "MlpLstmPolicy",
+    #     train_env,
+    #     n_steps=512 // n_envs,
+    #     batch_size=128,
+    #     n_epochs=10,
+    #     seed=42,
+    #     learning_rate=3e-4,
+    #     clip_range=0.2,
+    #     ent_coef=0.0,
+    #     gamma=0.86,
+    #     gae_lambda=0.95,
+    #     policy_kwargs={"log_std_init": -2},
+    #     verbose=1,
+    #     tensorboard_log=log_dir,
+    # )
 
-    train_env.save(os.path.join(parent_dir, "venv_stats_rppo_clotting_1.pkl"))
-    model.save(os.path.join(parent_dir, "models", "rppo_clotting_1"))
+    checkpoint_path = os.path.join(parent_dir, "models", "rppo_highsev_1.zip")
+    model = RecurrentPPO.load(checkpoint_path, env=train_env, tensorboard_log=log_dir)
+    model.learn(total_timesteps=20000, reset_num_timesteps=False, callback=[RewardCallback(), eval_callback, checkpoint_callback], tb_log_name="rppo_highsev")
+
+    train_env.save(os.path.join(parent_dir, "venv_stats_rppo_highsev_1.pkl"))
+    model.save(os.path.join(parent_dir, "models", "rppo_highsev_1"))
 

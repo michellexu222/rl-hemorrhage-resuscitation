@@ -48,20 +48,34 @@ env = HemorrhageEnv(state_file=os.path.join(parent_dir, "configs", "patient_conf
 episode_rewards = []
 all_rewards = []
 
-obs = env.reset()
+obs, info = env.reset(organ="liver", severity=0.3)
+#print(info["gating_obs"])
 # env.induce_hemorrhage(compartment="spleen", given_severity=1)
+print(obs)
 done = False
 ep_rewards = []
 i = 0
+prev_bv =0
+brs = []
 while not done:
-    action = [0, 0, 0]
+    # cryst = float(input("enter cryst"))
+    # blood = float(input("enter blood"))
+    # vp = float(input("enter vp"))
+    action=[0,0,0]
     # if 2 < i < 11:
     #     action = [0.7, 0.5, 0.08]
     # if i >= 11:
     #     action = [0.3, 1, 0]
     obs, reward, done, truncated, info = env.step(action)
-    print(f"MAP: {obs[1]}")
-    print("-------------------------------------------------------")
+    bv = info["br"]
+    print(bv)
+    if prev_bv != 0 and bv != prev_bv:
+        #print(bv - prev_bv)
+        brs.append(np.abs(bv - prev_bv))
+    prev_bv = bv
+    #print(obs)
+    #print(f"MAP: {obs[1]}")
+    # print(obs)
 
     if done:
         print(info['o'])
@@ -70,6 +84,13 @@ while not done:
     # all_rewards.append(reward)
     # episode_rewards.append(ep_rewards)
     # print(f"Episode {ep+1}: Total reward = {np.sum(ep_rewards):.2f}, Length = {len(ep_rewards)}, outcome = {info['o']}, hemorrhage = {info['hem']}")
+
+# fig, ax = plt.subplots()
+# ax.plot(brs)
+# ax.set_title("Bleed Rate vs. Time Step")
+# ax.set_xlabel("Time Step")
+# ax.set_ylabel("Bleed Rate (mL/min)")
+# plt.show()
 
 #
 # # plot per-step rewards of first few episodes

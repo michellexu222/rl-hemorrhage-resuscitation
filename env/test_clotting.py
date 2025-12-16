@@ -27,15 +27,15 @@ tau_clear = 5  # time constant for redistribution of crystalloid from the bloods
 
 # other stuff
 dt = 1.0
-V_blood_step = 350  # current blood given as action
+V_blood_step = 0  # current blood given as action
 V_blood_recent = 0
-V_cryst = 500
-V_blood = 4000  # initial blood volume
-map = 130  # current MAP
+V_cryst = 0
+V_blood = 4600  # initial blood volume
+map = 70  # current MAP
 temp = 37
 
 C_prev = 0.05  # current fraction of clot formed
-S_base = 0.7
+S_base = 0.4
 for i in range(15):
 
     V_blood_recent = V_blood_recent * np.exp(-dt / tau_blood) + V_blood_step
@@ -85,7 +85,7 @@ for i in range(15):
     epsilon = eps_min + (eps_max - eps_min) * S_base  # residual bleeding when clot is perfect
     #print(f"epsilon: {epsilon}")
     #print(f"S_base: {S_base}")
-    S_new = S_base * (epsilon + (1 - epsilon) * (1 - C_new / C_max) ** n) * (1 + dilution_ratio)
+    S_new = S_base * (epsilon + (1 - epsilon) * (1 - C_new / C_max) ** n) * (1 + 0.5* dilution_ratio)
     print(f"S_new: {S_new}")
 
     r_clot = (
@@ -103,4 +103,18 @@ for i in range(15):
     print(f"r_clot: {r_clot}")
 
     print("-------------------------------------------------------")
+
+# HR = 45
+# dHR = -4
+# # Penalize big negative drops and low absolute HR
+# w_hr_drop = 0.06
+# w_hr_low = 0.05
+# hr_low_thresh = 60  # or tuned to your simulation
+#
+# r_hr = 0.0
+# if dHR < 0:  # drop of >5 bpm in one step is bad
+#     r_hr -= w_hr_drop * abs(dHR)
+# if HR < hr_low_thresh:
+#     r_hr -= w_hr_low * (hr_low_thresh - HR)
+# print(r_hr)
 
