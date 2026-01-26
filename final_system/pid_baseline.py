@@ -41,23 +41,23 @@ class PIDBaseline:
 
         return max(u, 0.0)  # no negative fluids
 
-controller = PIDBaseline(kp=0.1, ki=0.1/50, kd=0.1*0.7, target_map=75)
-env = HemorrhageEnv(state_file=r"C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\configs\patient_configs\patient0@0s.json")
-obs, info = env.reset(organ="liver", severity=0.3)
-print(info['hem'])
-done = False
-
-n_stable = 0
-n_dead = 0
-total = 0
-
-while not done:
-    current_map = obs[1]
-    print(obs[1])
-    fluid_rate = controller.step(current_map)
-    action = [0.0,fluid_rate, 0.0]  # only crystalloid for low severity
-    print(fluid_rate)
-    obs, reward, terminated, truncated, info = env.step(action)
-    done = terminated or truncated
-print(info['o'])
+# controller = PIDBaseline(kp=0.1, ki=0.07/40, kd=0.07*0.7, target_map=75)
+# env = HemorrhageEnv(state_file=r"C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\configs\patient_configs\patient0@0s.json")
+# obs, info = env.reset(organ="liver", severity=0.3)
+# print(info['hem'])
+# done = False
+#
+# n_stable = 0
+# n_dead = 0
+# total = 0
+#
+# while not done:
+#     current_map = obs[1]
+#     print(obs[1])
+#     fluid_rate = controller.step(current_map)
+#     action = [0.0,fluid_rate, 0.0]  # only crystalloid for low severity
+#     print(fluid_rate)
+#     obs, reward, terminated, truncated, info = env.step(action)
+#     done = terminated or truncated
+# print(info['o'])
 

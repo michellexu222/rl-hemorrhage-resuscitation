@@ -51,13 +51,13 @@ if __name__ == '__main__':
     train_env = SubprocVecEnv([make_env for _ in range(n_envs)])
     train_env.seed(42)
     #train_env = VecNormalize(train_env, norm_obs=True, norm_reward=True, clip_obs=10.)
-    train_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats_rppo_highsev_1.pkl"), train_env)
+    train_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats", "venv_stats_rppo_highsev_2.pkl"), train_env)
     train_env.training = True
     train_env.norm_reward = True
 
     eval_env = DummyVecEnv([make_env])
     #eval_env = VecNormalize(eval_env, norm_obs=True, norm_reward=False, clip_obs=10.)
-    eval_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats_rppo_highsev_1.pkl"), eval_env)
+    eval_env = VecNormalize.load(os.path.join(parent_dir, "venv_stats", "venv_stats_rppo_highsev_2.pkl"), eval_env)
     #eval_env.obs_rms = train_env.obs_rms
     #eval_env.ret_rms = train_env.ret_rms
     eval_env.training = False
@@ -96,10 +96,10 @@ if __name__ == '__main__':
     #     tensorboard_log=log_dir,
     # )
 
-    checkpoint_path = os.path.join(parent_dir, "models", "rppo_highsev_1.zip")
+    checkpoint_path = os.path.join(parent_dir, "models", "rppo_highsev_2.zip")
     model = RecurrentPPO.load(checkpoint_path, env=train_env, tensorboard_log=log_dir)
-    model.learn(total_timesteps=20000, reset_num_timesteps=False, callback=[RewardCallback(), eval_callback, checkpoint_callback], tb_log_name="rppo_highsev")
+    model.learn(total_timesteps=10000, reset_num_timesteps=True, callback=[RewardCallback(), eval_callback, checkpoint_callback], tb_log_name="rppo_highsev")
 
-    train_env.save(os.path.join(parent_dir, "venv_stats_rppo_highsev_1.pkl"))
-    model.save(os.path.join(parent_dir, "models", "rppo_highsev_1"))
+    train_env.save(os.path.join(parent_dir, "venv_stats", "venv_stats_rppo_highsev_3.pkl"))
+    model.save(os.path.join(parent_dir, "models", "rppo_highsev_3"))
 

@@ -1,0 +1,51 @@
+id,organ,severity,gating,patient,outcome,length,blood_total,cryst_total,vp_total,map_violations
+0,liver,0.4,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient104@0s.json,stabilization,21,3944.4937,0.0,0.19396085,0
+1,liver,0.2,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient125@0s.json,stabilization,23,2492.1174,0.0,0.28557205,0
+2,liver,0.3,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient133@0s.json,failed to advance,25,3975.3179,0.0,0.25873268,4
+3,spleen,1.0,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient146@0s.json,failed to advance,58,6522.0977,0.0,0.47442546,7
+4,liver,0.2,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient125@0s.json,stabilization,23,2492.1167,0.0,0.28556937,0
+5,spleen,0.9,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient104@0s.json,truncated,62,4360.788,0.0,0.51725787,0
+6,spleen,1.0,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient106@0s.json,failed to advance,37,4844.221,0.0,0.38697037,1
+7,spleen,0.9,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient102@0s.json,failed to advance,61,5698.06,0.0,0.353034,15
+8,spleen,1.0,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient139@0s.json,failed to advance,46,4362.783,0.0,0.5076509,0
+9,liver,0.2,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient119@0s.json,failed to advance,24,3085.3606,0.0,0.27153355,0
+10,spleen,1.0,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient148@0s.json,stabilization,26,2508.6619,0.0,0.17131053,0
+11,spleen,0.9,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient137@0s.json,failed to advance,27,1279.8381,0.64602494,0.0,1
+12,spleen,0.9,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient115@0s.json,failed to advance,19,728.56287,0.0,0.0,6
+13,spleen,0.9,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient148@0s.json,failed to advance,52,5025.2295,0.0,0.39328018,0
+14,liver,0.4,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient118@0s.json,stabilization,21,3709.2566,0.0,0.20932904,1
+15,liver,0.4,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient103@0s.json,stabilization,21,3701.6138,0.0,0.23933224,0
+16,spleen,0.9,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient125@0s.json,stabilization,30,1028.1471,382.87085,0.0,0
+17,spleen,0.9,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient139@0s.json,stabilization,34,1262.8933,104.00234,0.0,0
+18,liver,0.2,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient108@0s.json,failed to advance,16,1752.5757,0.0,0.14393607,5
+19,spleen,1.0,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient121@0s.json,failed to advance,42,4206.0503,0.0,0.2774731,3
+20,spleen,1.0,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient122@0s.json,stabilization,21,2503.212,0.0,0.17287241,0
+21,spleen,0.9,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient122@0s.json,stabilization,36,2480.4573,0.0,0.31830785,1
+22,spleen,0.9,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient125@0s.json,stabilization,37,1381.568,487.89337,0.0,0
+23,spleen,0.9,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient108@0s.json,stabilization,40,1881.1053,0.0,0.3920712,2
+24,spleen,0.9,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient147@0s.json,truncated,62,1976.0968,115.28352,0.0021244078,2
+25,liver,0.12,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient139@0s.json,failed to advance,26,762.7027,0.0,0.0,0
+26,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient124@0s.json,failed to advance,22,541.80994,0.0,0.0006252262,0
+27,spleen,0.8,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient102@0s.json,stabilization,27,2344.724,0.0,0.15488806,0
+28,spleen,0.6,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient132@0s.json,failed to advance,30,606.99786,0.0,0.00019118818,0
+29,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient147@0s.json,failed to advance,21,551.55853,0.0,0.0,0
+30,liver,0.1,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient147@0s.json,failed to advance,22,463.21518,0.0,0.0,0
+31,liver,0.1,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient140@0s.json,truncated,62,1404.2673,0.0,0.0019616373,0
+32,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient109@0s.json,truncated,62,1468.9213,28.645206,0.0,0
+33,liver,0.12,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient133@0s.json,truncated,62,2183.794,81.82692,0.0,0
+34,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient128@0s.json,failed to advance,23,465.8944,0.0,0.001098388,0
+35,spleen,0.6,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient102@0s.json,stabilization,42,1302.9655,0.0,0.00038479228,0
+36,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient136@0s.json,failed to advance,21,464.9944,0.0,0.0004592343,0
+37,liver,0.15,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient105@0s.json,truncated,62,1599.9222,54.604225,0.0,0
+38,liver,0.1,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient145@0s.json,truncated,62,1808.2958,0.0,0.0,0
+39,liver,0.15,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient102@0s.json,stabilization,40,3677.1729,0.0,0.23845498,0
+40,spleen,0.6,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient135@0s.json,truncated,62,1622.5236,0.0,0.0,0
+41,liver,0.12,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient137@0s.json,failed to advance,25,876.24866,0.009965897,0.0,0
+42,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient132@0s.json,failed to advance,24,474.2514,0.0,0.0,0
+43,liver,0.12,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient135@0s.json,failed to advance,27,773.50146,0.0,0.0,0
+44,liver,0.12,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient147@0s.json,truncated,62,1808.0654,52.893658,0.0,0
+45,spleen,0.5,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient130@0s.json,stabilization,59,2748.8794,0.0,0.0,0
+46,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient125@0s.json,truncated,62,2140.6099,25.625801,0.0042117224,0
+47,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient142@0s.json,truncated,62,1679.7686,0.0,0.00048801955,0
+48,spleen,0.7,tensor([0]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient132@0s.json,failed to advance,24,474.2514,0.0,0.0,0
+49,spleen,0.8,tensor([1]),C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient136@0s.json,stabilization,40,3645.046,0.0,0.21551885,0

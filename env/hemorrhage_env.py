@@ -73,9 +73,9 @@ class HemorrhageEnv (gym.Env):
 
         # self.safety_violations = 0
 
-    def reset(self, *, seed=None, options=None, organ=None, severity=None):
+    def reset(self, *, seed=None, options=None, organ=None, severity=None, sev: string="high"):
         super().reset(seed=seed)
-
+        self.sev = sev
         if seed is not None:
             self._rng, _ = gym.utils.seeding.np_random(seed)
 
@@ -111,7 +111,7 @@ class HemorrhageEnv (gym.Env):
 
         # MAP effects
         self.alpha = 1  # sensitivity of clot formation to MAP deviations
-        self.map_opt = 70 # optimal MAP for clotting (mmHg) used 80 for low sev
+        self.map_opt = 67 # optimal MAP for clotting (mmHg) used 80 for low sev
 
         # clot / severity caps
         self.gamma = 0.2 # C_max = 1 - gamma * S_base
@@ -157,13 +157,14 @@ class HemorrhageEnv (gym.Env):
         bv2 = self._get_state()["BloodVolume"]
         self.pulse.advance_time_s(15)
         bv3 = self._get_state()["BloodVolume"]
-        gating_obs_3 = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
+        #gating_obs_3 = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
 
         obs = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
         info = {"state_file": self.last_patient_file, "hem": self.hemorrhage_type}
         info["bv1"] = bv1
         info["bv2"] = bv2
         info["bv3"] = bv3
+        info["sev"] = self.sev
 
         return obs, info
 
@@ -214,14 +215,15 @@ class HemorrhageEnv (gym.Env):
 
         if not compartment:
             compartment = self._rng.choice(["liver", "spleen"], p=[0.5, 0.5])
-            sev = self._rng.choice(["low", "high"], p=[0.5, 0.5])
-        sev = "high"
+            sev = self.sev if self.sev else self._rng.choice(["low", "high"], p=[0.5, 0.5])
+        #sev = "high"
+        self.sev = sev
         self.hemorrhage = SEHemorrhage()
         self.hemorrhage.set_comment("Induced hemorrhage")
 
         if compartment == "liver":
             if sev == "low":
-                severity = given_severity if given_severity else self._rng.choice([0.1, 0.15], p=[0.5, 0.5]) # low severities (/moderate)
+                severity = given_severity if given_severity else self._rng.choice([0.1, 0.12, 0.15], p=[0.33, 0.34, 0.33]) # low severities (/moderate)
             else:
                 severity = given_severity if given_severity else self._rng.choice([0.2, 0.3, 0.4], p=[0.3, 0.4, 0.3]) # high severity
 
@@ -494,7 +496,7 @@ class HemorrhageEnv (gym.Env):
         elif organ == "spleen":
             return "high"
 
-        if organ == "liver" and sev <= 0.1:
+        if organ == "liver" and sev <= 0.19:
             return "moderate"
         elif organ == "liver" and sev <= 0.4:
             return "high"
@@ -772,10 +774,10 @@ class HemorrhageEnv (gym.Env):
                 #0.1 * r_trend +
                 + 0.1 * r_deviation
                 #+ r_survive
-                #+ 0.4 * r_clot # no clot reward for low sev
-                + 0.4 * r_hr
-                #+ 0.2 * r_cryst # for high severity
-                + 0.3 * r_blood_cost # for low severity
+                + 0.4 * r_clot # no clot reward for low sev
+                + 0.2 * r_hr # 0.4 for low sev, 0.2 for high sev
+                + 0.2 * r_cryst # for high severity
+                #+ 0.3 * r_blood_cost # for low severity
         )
         
         #print(reward)
@@ -790,24 +792,31 @@ class HemorrhageEnv (gym.Env):
             # base stabilization reward
             reward += 7.0
 
+        # if terminal_cause == "truncated":
+        #     penalty = -0.5 * max(0, MAP - 70)
+        #     reward += penalty
+
         return reward
 
     def is_terminal(self, new_obs) -> tuple[bool, string]:
         # criteria for stabilization or truncation, death determined by if engine can advance time
 
         death_map_threshold = 10
-        stable_map_low = 70 # 70 for low sev, 50 for high sev
-        stable_map_high = 100 # 100 for low sev, 80 for high sev
+        stable_map_low = 70 if self.sev == "low" else 50 # 70 for low sev, 50 for high sev
+        #print(stable_map_low)
+        stable_map_high = 100 if self.sev == "low" else 80 # 100 for low sev, 80 for high sev
         shock_index_limit = 0.9  # shock index HR/SBP must be <= this
         stable_hr_low = 50  # bpm
         stable_hr_high = 130
         base_time = 20
         # n_timesteps = 10
         type, severity = self.hemorrhage_type
-        if type == "liver" or type == "both" and 0 <= severity < 0.3: n_timesteps = 5  # number of timesteps needed to determine stablization
-        if type == "liver" or type == "both" and 0.3 <= severity < 0.5: n_timesteps = 4
-        if type == "liver" or type == "both" and 0.5 <= severity <= 1: n_timesteps = 3
-        if type == "spleen": n_timesteps = 5
+        # if type == "liver" or type == "both" and 0 <= severity < 0.3: n_timesteps = 5  # number of timesteps needed to determine stablization
+        # if type == "liver" or type == "both" and 0.3 <= severity < 0.5: n_timesteps = 4
+        # if type == "liver" or type == "both" and 0.5 <= severity <= 1: n_timesteps = 3
+        # if type == "spleen": n_timesteps = 5
+        if self.sev == "high": n_timesteps = 4
+        if self.sev == "low": n_timesteps = 5
 
         # if new_obs["CardiacOutput"] < 1.5 or new_obs["BloodVolume"] < 2500 or new_obs["MeanArterialPressure"] < 35: return True, "death"
 

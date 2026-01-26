@@ -48,7 +48,7 @@ env = HemorrhageEnv(state_file=os.path.join(parent_dir, "configs", "patient_conf
 episode_rewards = []
 all_rewards = []
 
-obs, info = env.reset(organ="liver", severity=0.3)
+obs, info = env.reset(organ="liver", severity=0.2, seed=42)
 #print(info["gating_obs"])
 # env.induce_hemorrhage(compartment="spleen", given_severity=1)
 print(obs)
@@ -68,10 +68,11 @@ while not done:
     #     action = [0.3, 1, 0]
     obs, reward, done, truncated, info = env.step(action)
     bv = info["br"]
-    print(bv)
+    #print(bv)
     if prev_bv != 0 and bv != prev_bv:
         #print(bv - prev_bv)
         brs.append(np.abs(bv - prev_bv))
+        print(np.abs(bv - prev_bv))
     prev_bv = bv
     #print(obs)
     #print(f"MAP: {obs[1]}")

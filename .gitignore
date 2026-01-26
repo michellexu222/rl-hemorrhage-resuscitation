@@ -1,7 +1,8 @@
 *.json
 *.pkl
 *.zip
-*.csv
+*.png
+
 ppo_pulse_logs/
 env/wandb/
 rppo_pulse_logs/
