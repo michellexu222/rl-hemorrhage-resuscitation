@@ -1,0 +1,27 @@
+2025-11-27 22:18:17,471 INFO    MainThread:36012 [wandb_setup.py:_flush():80] Current SDK version is 0.23.0
+2025-11-27 22:18:17,473 INFO    MainThread:36012 [wandb_setup.py:_flush():80] Configure stats pid to 36012
+2025-11-27 22:18:17,473 INFO    MainThread:36012 [wandb_setup.py:_flush():80] Loading settings from C:\Users\michellexu\.config\wandb\settings
+2025-11-27 22:18:17,473 INFO    MainThread:36012 [wandb_setup.py:_flush():80] Loading settings from C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\wandb\settings
+2025-11-27 22:18:17,473 INFO    MainThread:36012 [wandb_setup.py:_flush():80] Loading settings from environment variables
+2025-11-27 22:18:17,473 INFO    MainThread:36012 [wandb_init.py:setup_run_log_directory():713] Logging user logs to C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\wandb\run-20251127_221817-hgm45xsc\logs\debug.log
+2025-11-27 22:18:17,473 INFO    MainThread:36012 [wandb_init.py:setup_run_log_directory():714] Logging internal logs to C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\wandb\run-20251127_221817-hgm45xsc\logs\debug-internal.log
+2025-11-27 22:18:17,482 INFO    MainThread:36012 [wandb_init.py:init():840] calling init triggers
+2025-11-27 22:18:17,482 INFO    MainThread:36012 [wandb_init.py:init():845] wandb.init called with sweep_config: {'batch_size': 64, 'clip_range': 0.3, 'ent_coef': 0, 'gamma': 0.8829373804022405, 'learning_rate': 0.0001, 'log_std_init': -2, 'n_steps': 1024, 'total_timesteps': 40000}
+config: {'program': 'train.py', 'name': 'rppo_rlhr', 'project': 'rlhr', 'method': 'bayes', 'metric': {'name': 'rollout/ep_rew_mean', 'goal': 'maximize'}, 'parameters': {'total_timesteps': {'values': [20000, 40000]}, 'learning_rate': {'values': [3e-05, 0.0003, 0.0001]}, 'gamma': {'min': 0.8, 'max': 0.9997}, 'n_steps': {'values': [512, 1024]}, 'clip_range': {'values': [0.1, 0.2, 0.3]}, 'batch_size': {'values': [64, 128, 256]}, 'ent_coef': {'values': [0.0, 0.001, 0.01]}, 'log_std_init': {'values': [-2, -1, 0, 1, 2]}}, '_wandb': {}}
+2025-11-27 22:18:17,482 INFO    MainThread:36012 [wandb_init.py:init():888] starting backend
+2025-11-27 22:18:20,492 INFO    MainThread:36012 [wandb_init.py:init():891] sending inform_init request
+2025-11-27 22:18:20,552 INFO    MainThread:36012 [wandb_init.py:init():899] backend started and connected
+2025-11-27 22:18:20,554 INFO    MainThread:36012 [wandb_run.py:_config_callback():1385] config_cb None None {'batch_size': 64, 'clip_range': 0.3, 'ent_coef': 0, 'gamma': 0.8829373804022405, 'learning_rate': 0.0001, 'log_std_init': -2, 'n_steps': 1024, 'total_timesteps': 40000}
+2025-11-27 22:18:20,555 INFO    MainThread:36012 [wandb_init.py:init():969] updated telemetry
+2025-11-27 22:18:20,623 INFO    MainThread:36012 [wandb_init.py:init():993] communicating run to backend with 90.0 second timeout
+2025-11-27 22:18:21,508 INFO    MainThread:36012 [wandb_init.py:init():1040] starting run threads in backend
+2025-11-27 22:18:22,040 INFO    MainThread:36012 [wandb_run.py:_console_start():2504] atexit reg
+2025-11-27 22:18:22,040 INFO    MainThread:36012 [wandb_run.py:_redirect():2352] redirect: wrap_raw
+2025-11-27 22:18:22,040 INFO    MainThread:36012 [wandb_run.py:_redirect():2421] Wrapping output streams.
+2025-11-27 22:18:22,040 INFO    MainThread:36012 [wandb_run.py:_redirect():2444] Redirects installed.
+2025-11-27 22:18:22,043 INFO    MainThread:36012 [wandb_init.py:init():1080] run started, returning control to user process
+2025-11-27 22:18:34,715 INFO    MainThread:36012 [wandb_run.py:_finish():2270] finishing run michellexu37-none/rlhr/hgm45xsc
+2025-11-27 22:18:34,716 INFO    MainThread:36012 [wandb_run.py:_atexit_cleanup():2469] got exitcode: 1
+2025-11-27 22:18:34,716 INFO    MainThread:36012 [wandb_run.py:_restore():2451] restore
+2025-11-27 22:18:34,717 INFO    MainThread:36012 [wandb_run.py:_restore():2457] restore done
+2025-11-27 22:18:35,460 INFO    MainThread:36012 [wandb_run.py:_footer_sync_info():3853] logging synced files

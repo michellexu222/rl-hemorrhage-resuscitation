@@ -1,0 +1,1453 @@
+Using cpu device
+[34m[1mwandb[0m: [33mWARNING[0m Found log directory outside of given root_logdir, dropping given root_logdir for event file in C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\ppo_wandb_logs\ppo_wandb_7
+Logging to C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\ppo_wandb_logs\ppo_wandb_7
+Episode Reward: -18.532499 | Episode Length: 21 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -16.543402 | Episode Length: 21 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -16.658025 | Episode Length: 22 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -6.814615 | Episode Length: 23 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -18.057995 | Episode Length: 25 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -23.479332 | Episode Length: 31 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -17.971685 | Episode Length: 40 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -32.594053 | Episode Length: 46 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -19.934896 | Episode Length: 26 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -20.401746 | Episode Length: 27 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -33.226435 | Episode Length: 42 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 29.5     |
+|    ep_rew_mean     | -20.4    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 1        |
+|    time_elapsed    | 268      |
+|    total_timesteps | 512      |
+---------------------------------
+Episode Reward: -16.28564 | Episode Length: 27 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -26.038069 | Episode Length: 30 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -31.826095 | Episode Length: 37 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -37.74677 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -40.125533 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -19.461774 | Episode Length: 21 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -49.902489 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -37.079296 | Episode Length: 48 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -25.113965 | Episode Length: 28 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -4.589707 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -17.336863 | Episode Length: 23 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -19.831442 | Episode Length: 32 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -53.27357 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -29.307841 | Episode Length: 42 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -22.660179 | Episode Length: 25 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 34.8        |
+|    ep_rew_mean          | -25.2       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 2           |
+|    time_elapsed         | 579         |
+|    total_timesteps      | 1024        |
+| train/                  |             |
+|    approx_kl            | 0.009757878 |
+|    clip_fraction        | 0.067       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.26       |
+|    explained_variance   | -0.171      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.271       |
+|    n_updates            | 10          |
+|    policy_gradient_loss | -0.0161     |
+|    std                  | 1           |
+|    value_loss           | 1.57        |
+-----------------------------------------
+Episode Reward: -15.867225 | Episode Length: 24 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -2.018147 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -45.846677 | Episode Length: 60 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -4.0479 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -27.376724 | Episode Length: 31 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -22.605396 | Episode Length: 28 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -22.136208 | Episode Length: 31 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -33.09361 | Episode Length: 39 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -18.808267 | Episode Length: 23 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -33.472163 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -14.627009 | Episode Length: 22 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -29.436154 | Episode Length: 42 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -27.754808 | Episode Length: 36 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.8))
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 34.5         |
+|    ep_rew_mean          | -24.4        |
+| time/                   |              |
+|    fps                  | 1            |
+|    iterations           | 3            |
+|    time_elapsed         | 897          |
+|    total_timesteps      | 1536         |
+| train/                  |              |
+|    approx_kl            | 0.0103141945 |
+|    clip_fraction        | 0.0768       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -4.27        |
+|    explained_variance   | -2.25        |
+|    learning_rate        | 0.0003       |
+|    loss                 | 0.00625      |
+|    n_updates            | 20           |
+|    policy_gradient_loss | -0.017       |
+|    std                  | 1            |
+|    value_loss           | 0.0527       |
+------------------------------------------
+Episode Reward: -34.167742 | Episode Length: 46 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -27.004756 | Episode Length: 31 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -46.099042 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -28.961038 | Episode Length: 35 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -40.860611 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -19.236467 | Episode Length: 25 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -39.638708 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -46.269947 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -22.980621 | Episode Length: 38 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -44.681604 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -22.331104 | Episode Length: 30 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Eval num_timesteps=2048, episode_reward=-16.07 +/- 3.42
+Episode length: 18.60 +/- 7.12
+------------------------------------------
+| eval/                   |              |
+|    mean_ep_length       | 18.6         |
+|    mean_reward          | -16.1        |
+| time/                   |              |
+|    total_timesteps      | 2048         |
+| train/                  |              |
+|    approx_kl            | 0.0122278575 |
+|    clip_fraction        | 0.0658       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -4.26        |
+|    explained_variance   | -0.315       |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.000562    |
+|    n_updates            | 30           |
+|    policy_gradient_loss | -0.0165      |
+|    std                  | 0.995        |
+|    value_loss           | 0.0271       |
+------------------------------------------
+New best mean reward!
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 37.2     |
+|    ep_rew_mean     | -26.5    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 4        |
+|    time_elapsed    | 1385     |
+|    total_timesteps | 2048     |
+---------------------------------
+Episode Reward: -23.059066 | Episode Length: 39 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -25.827227 | Episode Length: 30 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -37.279783 | Episode Length: 44 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -20.933868 | Episode Length: 33 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -29.938717 | Episode Length: 42 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -37.03405 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -49.441736 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -19.37303 | Episode Length: 26 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -13.58311 | Episode Length: 13 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -28.630584 | Episode Length: 50 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -37.225839 | Episode Length: 49 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -25.941806 | Episode Length: 36 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -35.46374 | Episode Length: 43 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -46.677583 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 38.3        |
+|    ep_rew_mean          | -27.4       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 5           |
+|    time_elapsed         | 1643        |
+|    total_timesteps      | 2560        |
+| train/                  |             |
+|    approx_kl            | 0.016999785 |
+|    clip_fraction        | 0.124       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.23       |
+|    explained_variance   | -0.457      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0154     |
+|    n_updates            | 40          |
+|    policy_gradient_loss | -0.0241     |
+|    std                  | 0.989       |
+|    value_loss           | 0.0135      |
+-----------------------------------------
+Episode Reward: -27.106445 | Episode Length: 33 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -24.646714 | Episode Length: 34 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -33.734429 | Episode Length: 42 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -5.409919 | Episode Length: 22 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -38.940938 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -31.626843 | Episode Length: 47 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -40.94704 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -46.867872 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -40.080092 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 39.4         |
+|    ep_rew_mean          | -28          |
+| time/                   |              |
+|    fps                  | 1            |
+|    iterations           | 6            |
+|    time_elapsed         | 1961         |
+|    total_timesteps      | 3072         |
+| train/                  |              |
+|    approx_kl            | 0.0073674596 |
+|    clip_fraction        | 0.0512       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -4.21        |
+|    explained_variance   | -0.238       |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.0154      |
+|    n_updates            | 50           |
+|    policy_gradient_loss | -0.0147      |
+|    std                  | 0.982        |
+|    value_loss           | 0.0156       |
+------------------------------------------
+Episode Reward: -42.995642 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -40.516009 | Episode Length: 53 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -30.356419 | Episode Length: 40 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -28.657202 | Episode Length: 37 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: 0.453185 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -34.177126 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -42.187644 | Episode Length: 61 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -38.223408 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -34.028479 | Episode Length: 46 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -39.139738 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 40.8        |
+|    ep_rew_mean          | -28.6       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 7           |
+|    time_elapsed         | 2275        |
+|    total_timesteps      | 3584        |
+| train/                  |             |
+|    approx_kl            | 0.017060647 |
+|    clip_fraction        | 0.154       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.19       |
+|    explained_variance   | -0.303      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0235     |
+|    n_updates            | 60          |
+|    policy_gradient_loss | -0.0281     |
+|    std                  | 0.972       |
+|    value_loss           | 0.0141      |
+-----------------------------------------
+Episode Reward: -23.003715 | Episode Length: 33 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -18.729088 | Episode Length: 24 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -36.803322 | Episode Length: 50 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -40.337739 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -23.860042 | Episode Length: 27 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -40.820126 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -41.876417 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -10.372165 | Episode Length: 37 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -35.716647 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -20.926883 | Episode Length: 30 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -34.213443 | Episode Length: 45 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\hemorrhage_env.py:239: RuntimeWarning: invalid value encountered in scalar divide
+  self.dilution_ratio = min(self.V_cryst / self.prev_obs["BloodVolume"], 1)
+Eval num_timesteps=4096, episode_reward=nan +/- nan
+Episode length: 20.40 +/- 7.42
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 20.4        |
+|    mean_reward          | nan         |
+| time/                   |             |
+|    total_timesteps      | 4096        |
+| train/                  |             |
+|    approx_kl            | 0.025707874 |
+|    clip_fraction        | 0.23        |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.15       |
+|    explained_variance   | -0.1        |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0458     |
+|    n_updates            | 70          |
+|    policy_gradient_loss | -0.0313     |
+|    std                  | 0.961       |
+|    value_loss           | 0.0145      |
+-----------------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 41.3     |
+|    ep_rew_mean     | -28.7    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 8        |
+|    time_elapsed    | 2789     |
+|    total_timesteps | 4096     |
+---------------------------------
+Episode Reward: -22.384357 | Episode Length: 25 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -3.934571 | Episode Length: 23 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -40.015031 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -28.76367 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -36.097736 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -35.657066 | Episode Length: 45 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -18.553082 | Episode Length: 21 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -22.462508 | Episode Length: 29 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -28.439519 | Episode Length: 36 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -23.196626 | Episode Length: 38 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -18.896596 | Episode Length: 26 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -23.417446 | Episode Length: 32 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -18.99924 | Episode Length: 31 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 41.9        |
+|    ep_rew_mean          | -29         |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 9           |
+|    time_elapsed         | 3067        |
+|    total_timesteps      | 4608        |
+| train/                  |             |
+|    approx_kl            | 0.015822614 |
+|    clip_fraction        | 0.131       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.13       |
+|    explained_variance   | -0.0643     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0239     |
+|    n_updates            | 80          |
+|    policy_gradient_loss | -0.0264     |
+|    std                  | 0.958       |
+|    value_loss           | 0.0139      |
+-----------------------------------------
+Episode Reward: -44.085062 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -27.283061 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -15.547596 | Episode Length: 18 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -25.110583 | Episode Length: 39 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -21.382846 | Episode Length: 25 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -41.81106 | Episode Length: 50 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.569584 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -21.280269 | Episode Length: 27 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -3.94224 | Episode Length: 29 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -22.717605 | Episode Length: 30 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -32.617452 | Episode Length: 52 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: 0.110568 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -28.403781 | Episode Length: 40 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -40.908805 | Episode Length: 60 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -29.065825 | Episode Length: 44 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -41.149358 | Episode Length: 54 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42.7        |
+|    ep_rew_mean          | -29         |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 10          |
+|    time_elapsed         | 3391        |
+|    total_timesteps      | 5120        |
+| train/                  |             |
+|    approx_kl            | 0.010896882 |
+|    clip_fraction        | 0.0818      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.12       |
+|    explained_variance   | 0.0312      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0315     |
+|    n_updates            | 90          |
+|    policy_gradient_loss | -0.0186     |
+|    std                  | 0.956       |
+|    value_loss           | 0.0135      |
+-----------------------------------------
+Episode Reward: -19.069799 | Episode Length: 32 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -0.032833 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -19.648897 | Episode Length: 23 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.172952 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -29.209828 | Episode Length: 39 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -30.957611 | Episode Length: 44 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -2.96371 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -35.710722 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -14.031197 | Episode Length: 15 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -4.884243 | Episode Length: 26 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -44.042672 | Episode Length: 58 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -39.360818 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -34.942159 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42.9        |
+|    ep_rew_mean          | -28.5       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 11          |
+|    time_elapsed         | 3717        |
+|    total_timesteps      | 5632        |
+| train/                  |             |
+|    approx_kl            | 0.010409248 |
+|    clip_fraction        | 0.0943      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.12       |
+|    explained_variance   | 0.165       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0083     |
+|    n_updates            | 100         |
+|    policy_gradient_loss | -0.0154     |
+|    std                  | 0.953       |
+|    value_loss           | 0.0224      |
+-----------------------------------------
+Episode Reward: -15.710982 | Episode Length: 19 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -18.456996 | Episode Length: 25 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -16.494664 | Episode Length: 21 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: 1.60418 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -5.481613 | Episode Length: 27 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -37.761193 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -27.970263 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -16.457224 | Episode Length: 21 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -19.249806 | Episode Length: 24 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -32.074904 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -25.245002 | Episode Length: 32 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\hemorrhage_env.py:239: RuntimeWarning: divide by zero encountered in scalar divide
+  self.dilution_ratio = min(self.V_cryst / self.prev_obs["BloodVolume"], 1)
+Eval num_timesteps=6144, episode_reward=-15.69 +/- 2.41
+Episode length: 15.80 +/- 2.14
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 15.8        |
+|    mean_reward          | -15.7       |
+| time/                   |             |
+|    total_timesteps      | 6144        |
+| train/                  |             |
+|    approx_kl            | 0.010233648 |
+|    clip_fraction        | 0.0797      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.11       |
+|    explained_variance   | 0.185       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00797    |
+|    n_updates            | 110         |
+|    policy_gradient_loss | -0.0197     |
+|    std                  | 0.955       |
+|    value_loss           | 0.0251      |
+-----------------------------------------
+New best mean reward!
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 41.8     |
+|    ep_rew_mean     | -27.1    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 12       |
+|    time_elapsed    | 4183     |
+|    total_timesteps | 6144     |
+---------------------------------
+Episode Reward: -21.14127 | Episode Length: 28 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -21.567717 | Episode Length: 24 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -37.731729 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -11.812627 | Episode Length: 32 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -32.49345 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -34.824744 | Episode Length: 57 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -34.199913 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -39.664904 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -25.720099 | Episode Length: 31 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -15.763625 | Episode Length: 24 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -7.670707 | Episode Length: 23 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.100947 | Episode Length: 51 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -24.871897 | Episode Length: 35 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42          |
+|    ep_rew_mean          | -26.8       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 13          |
+|    time_elapsed         | 4458        |
+|    total_timesteps      | 6656        |
+| train/                  |             |
+|    approx_kl            | 0.013464296 |
+|    clip_fraction        | 0.114       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.11       |
+|    explained_variance   | 0.0415      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0077     |
+|    n_updates            | 120         |
+|    policy_gradient_loss | -0.0215     |
+|    std                  | 0.948       |
+|    value_loss           | 0.0197      |
+-----------------------------------------
+Episode Reward: -33.394772 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -42.176386 | Episode Length: 59 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -33.587721 | Episode Length: 50 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -0.063138 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -0.035271 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -5.755119 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -10.397129 | Episode Length: 13 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -1.872157 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -37.124506 | Episode Length: 58 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -31.245315 | Episode Length: 44 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -1.394887 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -22.981092 | Episode Length: 39 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -30.64567 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 40.7         |
+|    ep_rew_mean          | -24.9        |
+| time/                   |              |
+|    fps                  | 1            |
+|    iterations           | 14           |
+|    time_elapsed         | 4795         |
+|    total_timesteps      | 7168         |
+| train/                  |              |
+|    approx_kl            | 0.0118379425 |
+|    clip_fraction        | 0.0971       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -4.09        |
+|    explained_variance   | 0.1          |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.0241      |
+|    n_updates            | 130          |
+|    policy_gradient_loss | -0.0154      |
+|    std                  | 0.946        |
+|    value_loss           | 0.0163       |
+------------------------------------------
+Episode Reward: -10.108808 | Episode Length: 7 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.656059 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: 0.818144 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -46.449236 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -35.358609 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -28.196725 | Episode Length: 44 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -38.077655 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -12.358506 | Episode Length: 9 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -22.143116 | Episode Length: 47 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.601972 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -34.561266 | Episode Length: 49 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -27.705283 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -34.113557 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 40.3        |
+|    ep_rew_mean          | -24.1       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 15          |
+|    time_elapsed         | 5119        |
+|    total_timesteps      | 7680        |
+| train/                  |             |
+|    approx_kl            | 0.007314628 |
+|    clip_fraction        | 0.048       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.08       |
+|    explained_variance   | 0.0747      |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.00794     |
+|    n_updates            | 140         |
+|    policy_gradient_loss | -0.0113     |
+|    std                  | 0.94        |
+|    value_loss           | 0.0333      |
+-----------------------------------------
+Episode Reward: -33.765941 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -19.495592 | Episode Length: 43 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -38.709009 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -27.520944 | Episode Length: 38 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -13.737709 | Episode Length: 32 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -27.977652 | Episode Length: 39 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -42.263945 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -30.321926 | Episode Length: 37 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.257648 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -20.943827 | Episode Length: 31 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -19.372957 | Episode Length: 25 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -17.574136 | Episode Length: 37 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Eval num_timesteps=8192, episode_reward=-24.59 +/- 10.90
+Episode length: 33.40 +/- 15.76
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 33.4        |
+|    mean_reward          | -24.6       |
+| time/                   |             |
+|    total_timesteps      | 8192        |
+| train/                  |             |
+|    approx_kl            | 0.010287971 |
+|    clip_fraction        | 0.101       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.06       |
+|    explained_variance   | 0.157       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00324    |
+|    n_updates            | 150         |
+|    policy_gradient_loss | -0.018      |
+|    std                  | 0.932       |
+|    value_loss           | 0.0215      |
+-----------------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 40       |
+|    ep_rew_mean     | -23.9    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 16       |
+|    time_elapsed    | 5765     |
+|    total_timesteps | 8192     |
+---------------------------------
+Episode Reward: -24.714215 | Episode Length: 28 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -28.079203 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -37.558018 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -32.540844 | Episode Length: 49 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -33.385017 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -43.209394 | Episode Length: 59 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.268061 | Episode Length: 45 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -32.909779 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -31.778072 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -11.452254 | Episode Length: 11 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -1.130673 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 40.8        |
+|    ep_rew_mean          | -24.1       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 17          |
+|    time_elapsed         | 6036        |
+|    total_timesteps      | 8704        |
+| train/                  |             |
+|    approx_kl            | 0.012828735 |
+|    clip_fraction        | 0.0926      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.04       |
+|    explained_variance   | 0.105       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0148     |
+|    n_updates            | 160         |
+|    policy_gradient_loss | -0.019      |
+|    std                  | 0.93        |
+|    value_loss           | 0.0237      |
+-----------------------------------------
+Episode Reward: -31.179758 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -14.477162 | Episode Length: 18 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -20.030558 | Episode Length: 31 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -0.285271 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -1.512517 | Episode Length: 25 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -41.740895 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -34.435264 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -29.642899 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -15.393054 | Episode Length: 21 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 41.1        |
+|    ep_rew_mean          | -23.8       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 18          |
+|    time_elapsed         | 6346        |
+|    total_timesteps      | 9216        |
+| train/                  |             |
+|    approx_kl            | 0.010649547 |
+|    clip_fraction        | 0.0762      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.04       |
+|    explained_variance   | -0.0487     |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00871    |
+|    n_updates            | 170         |
+|    policy_gradient_loss | -0.011      |
+|    std                  | 0.935       |
+|    value_loss           | 0.0137      |
+-----------------------------------------
+Episode Reward: -36.170108 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -39.458548 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.898484 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -26.728805 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -32.256883 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -23.926525 | Episode Length: 32 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -38.696621 | Episode Length: 58 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -28.21024 | Episode Length: 40 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -27.750125 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -31.847625 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 43.2        |
+|    ep_rew_mean          | -24.9       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 19          |
+|    time_elapsed         | 6673        |
+|    total_timesteps      | 9728        |
+| train/                  |             |
+|    approx_kl            | 0.014758193 |
+|    clip_fraction        | 0.136       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.04       |
+|    explained_variance   | 0.0245      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0509     |
+|    n_updates            | 180         |
+|    policy_gradient_loss | -0.0238     |
+|    std                  | 0.928       |
+|    value_loss           | 0.0163      |
+-----------------------------------------
+Episode Reward: -34.887361 | Episode Length: 52 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -30.8963 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -30.108405 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -28.102687 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -17.002092 | Episode Length: 47 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -42.206332 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -29.379297 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -37.125839 | Episode Length: 55 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.235842 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -19.343574 | Episode Length: 26 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -18.266463 | Episode Length: 50 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -1.10302 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Eval num_timesteps=10240, episode_reward=-19.43 +/- 13.40
+Episode length: 49.60 +/- 15.30
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 49.6        |
+|    mean_reward          | -19.4       |
+| time/                   |             |
+|    total_timesteps      | 10240       |
+| train/                  |             |
+|    approx_kl            | 0.012190515 |
+|    clip_fraction        | 0.128       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4.02       |
+|    explained_variance   | -1.01       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0491     |
+|    n_updates            | 190         |
+|    policy_gradient_loss | -0.025      |
+|    std                  | 0.924       |
+|    value_loss           | 0.00703     |
+-----------------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 44.7     |
+|    ep_rew_mean     | -25.2    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 20       |
+|    time_elapsed    | 7462     |
+|    total_timesteps | 10240    |
+---------------------------------
+Episode Reward: -33.949801 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -34.04384 | Episode Length: 50 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -2.507276 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.162625 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -35.02414 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -33.404891 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -17.086386 | Episode Length: 45 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -3.446026 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -32.970693 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -42.153915 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -31.545469 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -1.655065 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 45.2        |
+|    ep_rew_mean          | -25         |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 21          |
+|    time_elapsed         | 7737        |
+|    total_timesteps      | 10752       |
+| train/                  |             |
+|    approx_kl            | 0.013792902 |
+|    clip_fraction        | 0.114       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -4          |
+|    explained_variance   | 0.00145     |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.0178      |
+|    n_updates            | 200         |
+|    policy_gradient_loss | -0.0209     |
+|    std                  | 0.917       |
+|    value_loss           | 0.0334      |
+-----------------------------------------
+Episode Reward: -0.965005 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -8.273299 | Episode Length: 27 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -33.691743 | Episode Length: 54 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -22.947551 | Episode Length: 29 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -17.607803 | Episode Length: 22 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -6.466427 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -12.346862 | Episode Length: 11 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -18.456211 | Episode Length: 46 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -5.955243 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -37.806009 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -41.446544 | Episode Length: 53 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -18.50547 | Episode Length: 36 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -41.181038 | Episode Length: 55 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 44.2        |
+|    ep_rew_mean          | -24.4       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 22          |
+|    time_elapsed         | 8055        |
+|    total_timesteps      | 11264       |
+| train/                  |             |
+|    approx_kl            | 0.016085748 |
+|    clip_fraction        | 0.158       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.98       |
+|    explained_variance   | 0.123       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.00361     |
+|    n_updates            | 210         |
+|    policy_gradient_loss | -0.0236     |
+|    std                  | 0.91        |
+|    value_loss           | 0.0324      |
+-----------------------------------------
+Episode Reward: -10.344258 | Episode Length: 12 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -19.997881 | Episode Length: 27 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -25.393284 | Episode Length: 35 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -1.539604 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -23.546835 | Episode Length: 27 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -17.316645 | Episode Length: 40 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -39.356696 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: 0.401392 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -12.712663 | Episode Length: 16 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -19.610937 | Episode Length: 22 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -4.178777 | Episode Length: 24 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -30.896077 | Episode Length: 49 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -19.669941 | Episode Length: 22 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -15.863999 | Episode Length: 18 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -12.996524 | Episode Length: 31 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -27.877342 | Episode Length: 45 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42.9        |
+|    ep_rew_mean          | -23.7       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 23          |
+|    time_elapsed         | 8381        |
+|    total_timesteps      | 11776       |
+| train/                  |             |
+|    approx_kl            | 0.012639856 |
+|    clip_fraction        | 0.113       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.97       |
+|    explained_variance   | 0.0518      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00943    |
+|    n_updates            | 220         |
+|    policy_gradient_loss | -0.0209     |
+|    std                  | 0.911       |
+|    value_loss           | 0.0323      |
+-----------------------------------------
+Episode Reward: -29.360135 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -28.417457 | Episode Length: 44 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -30.831005 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -41.147145 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -19.185382 | Episode Length: 53 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -34.313486 | Episode Length: 54 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -32.475274 | Episode Length: 46 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -0.356302 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -34.848986 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -1.58603 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -33.720722 | Episode Length: 54 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Eval num_timesteps=12288, episode_reward=-14.13 +/- 13.26
+Episode length: 37.40 +/- 20.09
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 37.4        |
+|    mean_reward          | -14.1       |
+| time/                   |             |
+|    total_timesteps      | 12288       |
+| train/                  |             |
+|    approx_kl            | 0.009720886 |
+|    clip_fraction        | 0.106       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.96       |
+|    explained_variance   | 0.311       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0219     |
+|    n_updates            | 230         |
+|    policy_gradient_loss | -0.0209     |
+|    std                  | 0.902       |
+|    value_loss           | 0.0354      |
+-----------------------------------------
+New best mean reward!
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 43.1     |
+|    ep_rew_mean     | -23.8    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 24       |
+|    time_elapsed    | 9056     |
+|    total_timesteps | 12288    |
+---------------------------------
+Episode Reward: -19.180936 | Episode Length: 23 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -35.136856 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -6.261442 | Episode Length: 31 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -37.251932 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -4.824 | Episode Length: 22 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -7.931614 | Episode Length: 28 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -25.380493 | Episode Length: 33 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -37.988589 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -40.128485 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -42.68142 | Episode Length: 53 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -40.718428 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -26.387193 | Episode Length: 39 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -18.785236 | Episode Length: 23 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -2.426889 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42.1        |
+|    ep_rew_mean          | -22.9       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 25          |
+|    time_elapsed         | 9344        |
+|    total_timesteps      | 12800       |
+| train/                  |             |
+|    approx_kl            | 0.013336974 |
+|    clip_fraction        | 0.124       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.94       |
+|    explained_variance   | 0.295       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00337    |
+|    n_updates            | 240         |
+|    policy_gradient_loss | -0.0187     |
+|    std                  | 0.9         |
+|    value_loss           | 0.0191      |
+-----------------------------------------
+Episode Reward: -20.663569 | Episode Length: 22 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -18.30769 | Episode Length: 20 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -15.747707 | Episode Length: 15 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.213227 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -32.416905 | Episode Length: 43 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -33.376563 | Episode Length: 54 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -37.932559 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -23.082012 | Episode Length: 32 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -9.86965 | Episode Length: 9 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -40.636651 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -32.271131 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -14.704802 | Episode Length: 13 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42.1        |
+|    ep_rew_mean          | -23.7       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 26          |
+|    time_elapsed         | 9660        |
+|    total_timesteps      | 13312       |
+| train/                  |             |
+|    approx_kl            | 0.015751652 |
+|    clip_fraction        | 0.137       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.93       |
+|    explained_variance   | 0.162       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0185     |
+|    n_updates            | 250         |
+|    policy_gradient_loss | -0.0208     |
+|    std                  | 0.897       |
+|    value_loss           | 0.025       |
+-----------------------------------------
+Episode Reward: -32.819526 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: 0.731448 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -28.511429 | Episode Length: 42 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -2.301462 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -33.487436 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -25.564329 | Episode Length: 38 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -15.462419 | Episode Length: 25 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -6.737863 | Episode Length: 23 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -39.325934 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -27.203643 | Episode Length: 60 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -24.695105 | Episode Length: 40 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+----------------------------------------
+| rollout/                |            |
+|    ep_len_mean          | 40.5       |
+|    ep_rew_mean          | -22.5      |
+| time/                   |            |
+|    fps                  | 1          |
+|    iterations           | 27         |
+|    time_elapsed         | 9983       |
+|    total_timesteps      | 13824      |
+| train/                  |            |
+|    approx_kl            | 0.01631183 |
+|    clip_fraction        | 0.174      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -3.91      |
+|    explained_variance   | -0.164     |
+|    learning_rate        | 0.0003     |
+|    loss                 | -0.0332    |
+|    n_updates            | 260        |
+|    policy_gradient_loss | -0.0284    |
+|    std                  | 0.89       |
+|    value_loss           | 0.0142     |
+----------------------------------------
+Episode Reward: -13.127115 | Episode Length: 45 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -2.046225 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -36.669889 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -4.21734 | Episode Length: 29 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -34.571003 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -0.83443 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -10.658785 | Episode Length: 47 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -37.458007 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -35.402794 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -14.711743 | Episode Length: 14 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -4.689333 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Eval num_timesteps=14336, episode_reward=-30.42 +/- 17.20
+Episode length: 54.20 +/- 15.60
+------------------------------------------
+| eval/                   |              |
+|    mean_ep_length       | 54.2         |
+|    mean_reward          | -30.4        |
+| time/                   |              |
+|    total_timesteps      | 14336        |
+| train/                  |              |
+|    approx_kl            | 0.0133786015 |
+|    clip_fraction        | 0.113        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -3.89        |
+|    explained_variance   | 0.198        |
+|    learning_rate        | 0.0003       |
+|    loss                 | -0.0317      |
+|    n_updates            | 270          |
+|    policy_gradient_loss | -0.0211      |
+|    std                  | 0.882        |
+|    value_loss           | 0.0283       |
+------------------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 39.6     |
+|    ep_rew_mean     | -21.9    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 28       |
+|    time_elapsed    | 10849    |
+|    total_timesteps | 14336    |
+---------------------------------
+Episode Reward: -37.159759 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -40.610684 | Episode Length: 62 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -38.933823 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.976651 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -33.02094 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -32.505525 | Episode Length: 58 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -34.419228 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -20.548236 | Episode Length: 28 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: 0.15739 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -8.778763 | Episode Length: 33 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -3.305443 | Episode Length: 24 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -35.271357 | Episode Length: 49 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.550357 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -27.673846 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -1.193991 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 39.6        |
+|    ep_rew_mean          | -21.9       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 29          |
+|    time_elapsed         | 11076       |
+|    total_timesteps      | 14848       |
+| train/                  |             |
+|    approx_kl            | 0.012804834 |
+|    clip_fraction        | 0.116       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.86       |
+|    explained_variance   | 0.315       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0298     |
+|    n_updates            | 280         |
+|    policy_gradient_loss | -0.0181     |
+|    std                  | 0.875       |
+|    value_loss           | 0.0303      |
+-----------------------------------------
+Episode Reward: -22.019749 | Episode Length: 36 | Episode Outcome: death (HR) | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -35.20093 | Episode Length: 52 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -1.462332 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -10.816373 | Episode Length: 34 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -34.282859 | Episode Length: 47 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -2.151878 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -38.505847 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -32.942808 | Episode Length: 54 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -14.074718 | Episode Length: 19 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -5.169013 | Episode Length: 29 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -20.710591 | Episode Length: 26 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -34.323075 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 40.3        |
+|    ep_rew_mean          | -21.9       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 30          |
+|    time_elapsed         | 11388       |
+|    total_timesteps      | 15360       |
+| train/                  |             |
+|    approx_kl            | 0.012192457 |
+|    clip_fraction        | 0.121       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.84       |
+|    explained_variance   | 0.245       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00498    |
+|    n_updates            | 290         |
+|    policy_gradient_loss | -0.0175     |
+|    std                  | 0.87        |
+|    value_loss           | 0.0347      |
+-----------------------------------------
+Episode Reward: -19.197733 | Episode Length: 25 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -3.88726 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -1.850907 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -24.199231 | Episode Length: 34 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -39.999392 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -32.207473 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -35.309427 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -25.918316 | Episode Length: 35 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -1.634803 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -33.616936 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+------------------------------------------
+| rollout/                |              |
+|    ep_len_mean          | 41.1         |
+|    ep_rew_mean          | -22.3        |
+| time/                   |              |
+|    fps                  | 1            |
+|    iterations           | 31           |
+|    time_elapsed         | 11725        |
+|    total_timesteps      | 15872        |
+| train/                  |              |
+|    approx_kl            | 0.0079885665 |
+|    clip_fraction        | 0.0592       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -3.83        |
+|    explained_variance   | 0.256        |
+|    learning_rate        | 0.0003       |
+|    loss                 | 0.0119       |
+|    n_updates            | 300          |
+|    policy_gradient_loss | -0.0161      |
+|    std                  | 0.868        |
+|    value_loss           | 0.0269       |
+------------------------------------------
+Episode Reward: -35.260595 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -2.965649 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.330381 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -23.282093 | Episode Length: 35 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -31.412203 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -34.672338 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -37.92107 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.157886 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -21.526851 | Episode Length: 25 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -33.340119 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -27.18794 | Episode Length: 41 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -4.768627 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -24.937486 | Episode Length: 45 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -27.347241 | Episode Length: 37 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Eval num_timesteps=16384, episode_reward=-10.02 +/- 13.21
+Episode length: 29.20 +/- 16.40
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 29.2        |
+|    mean_reward          | -10         |
+| time/                   |             |
+|    total_timesteps      | 16384       |
+| train/                  |             |
+|    approx_kl            | 0.010185113 |
+|    clip_fraction        | 0.082       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.82       |
+|    explained_variance   | 0.413       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0451     |
+|    n_updates            | 310         |
+|    policy_gradient_loss | -0.0158     |
+|    std                  | 0.864       |
+|    value_loss           | 0.0163      |
+-----------------------------------------
+New best mean reward!
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 40.9     |
+|    ep_rew_mean     | -22.1    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 32       |
+|    time_elapsed    | 12333    |
+|    total_timesteps | 16384    |
+---------------------------------
+Episode Reward: -0.270058 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -33.335968 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -18.617975 | Episode Length: 49 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -32.243449 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -19.72702 | Episode Length: 27 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -36.009165 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -28.333882 | Episode Length: 43 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -12.170464 | Episode Length: 10 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -30.02906 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -8.871975 | Episode Length: 28 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -17.47489 | Episode Length: 45 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 40.7        |
+|    ep_rew_mean          | -21.6       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 33          |
+|    time_elapsed         | 12603       |
+|    total_timesteps      | 16896       |
+| train/                  |             |
+|    approx_kl            | 0.016438164 |
+|    clip_fraction        | 0.168       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.81       |
+|    explained_variance   | 0.431       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.032      |
+|    n_updates            | 320         |
+|    policy_gradient_loss | -0.0254     |
+|    std                  | 0.865       |
+|    value_loss           | 0.0209      |
+-----------------------------------------
+Episode Reward: -35.428844 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -33.600759 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -3.348523 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -26.813463 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -34.08732 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -0.022965 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -37.104065 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -6.315486 | Episode Length: 29 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -31.257408 | Episode Length: 46 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -38.526018 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42          |
+|    ep_rew_mean          | -21.6       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 34          |
+|    time_elapsed         | 12934       |
+|    total_timesteps      | 17408       |
+| train/                  |             |
+|    approx_kl            | 0.008574664 |
+|    clip_fraction        | 0.0609      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.81       |
+|    explained_variance   | 0.174       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0199     |
+|    n_updates            | 330         |
+|    policy_gradient_loss | -0.0162     |
+|    std                  | 0.861       |
+|    value_loss           | 0.0232      |
+-----------------------------------------
+Episode Reward: -29.682542 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -35.868129 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -36.337896 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -1.597354 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -33.893052 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -32.260869 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: 0.288946 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -36.647785 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -34.126417 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -17.721979 | Episode Length: 45 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -1.542407 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -3.021521 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -35.865296 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -25.271539 | Episode Length: 33 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 43.2        |
+|    ep_rew_mean          | -21.8       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 35          |
+|    time_elapsed         | 13263       |
+|    total_timesteps      | 17920       |
+| train/                  |             |
+|    approx_kl            | 0.009016616 |
+|    clip_fraction        | 0.0889      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.79       |
+|    explained_variance   | 0.411       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00664    |
+|    n_updates            | 340         |
+|    policy_gradient_loss | -0.0148     |
+|    std                  | 0.859       |
+|    value_loss           | 0.0177      |
+-----------------------------------------
+Episode Reward: -25.919917 | Episode Length: 37 | Episode Outcome: death (HR) | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -2.750224 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -3.054134 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: 0.554187 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -28.200694 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -34.383879 | Episode Length: 61 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -2.241681 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -34.756847 | Episode Length: 53 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -33.26238 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -12.086073 | Episode Length: 12 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -1.645924 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -23.78472 | Episode Length: 56 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Eval num_timesteps=18432, episode_reward=-15.04 +/- 13.69
+Episode length: 31.20 +/- 12.37
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 31.2        |
+|    mean_reward          | -15         |
+| time/                   |             |
+|    total_timesteps      | 18432       |
+| train/                  |             |
+|    approx_kl            | 0.012612052 |
+|    clip_fraction        | 0.128       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.78       |
+|    explained_variance   | 0.0146      |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0129     |
+|    n_updates            | 350         |
+|    policy_gradient_loss | -0.0208     |
+|    std                  | 0.857       |
+|    value_loss           | 0.0314      |
+-----------------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 41.9     |
+|    ep_rew_mean     | -21.1    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 36       |
+|    time_elapsed    | 13886    |
+|    total_timesteps | 18432    |
+---------------------------------
+Episode Reward: -1.930396 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -27.83236 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -12.112543 | Episode Length: 39 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -25.107386 | Episode Length: 30 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -37.892622 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -33.172947 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -33.400354 | Episode Length: 51 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -3.371351 | Episode Length: 25 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -33.729647 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -2.476182 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -34.977491 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -33.876205 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 42.5        |
+|    ep_rew_mean          | -21.3       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 37          |
+|    time_elapsed         | 14166       |
+|    total_timesteps      | 18944       |
+| train/                  |             |
+|    approx_kl            | 0.009747393 |
+|    clip_fraction        | 0.0914      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.77       |
+|    explained_variance   | 0.243       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.00374    |
+|    n_updates            | 360         |
+|    policy_gradient_loss | -0.0166     |
+|    std                  | 0.854       |
+|    value_loss           | 0.0297      |
+-----------------------------------------
+Episode Reward: -6.060907 | Episode Length: 23 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -36.534676 | Episode Length: 52 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -34.55544 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -7.891211 | Episode Length: 25 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -35.312865 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -24.470792 | Episode Length: 32 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -46.186833 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -1.00442 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -11.414557 | Episode Length: 8 | Episode Outcome: failed to advance | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -37.501943 | Episode Length: 52 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -27.556479 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 43.2        |
+|    ep_rew_mean          | -22.2       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 38          |
+|    time_elapsed         | 14491       |
+|    total_timesteps      | 19456       |
+| train/                  |             |
+|    approx_kl            | 0.012909248 |
+|    clip_fraction        | 0.108       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.77       |
+|    explained_variance   | 0.086       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.011      |
+|    n_updates            | 370         |
+|    policy_gradient_loss | -0.0212     |
+|    std                  | 0.852       |
+|    value_loss           | 0.0245      |
+-----------------------------------------
+Episode Reward: -34.870848 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -36.490647 | Episode Length: 48 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -34.065286 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -28.983216 | Episode Length: 37 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -29.00707 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.6))
+Episode Reward: -33.232227 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -7.271619 | Episode Length: 33 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: 1.843801 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -1.980695 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: 1.123834 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -34.791298 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: 0.630751 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.8))
+Episode Reward: -35.065584 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+-----------------------------------------
+| rollout/                |             |
+|    ep_len_mean          | 43.5        |
+|    ep_rew_mean          | -21.9       |
+| time/                   |             |
+|    fps                  | 1           |
+|    iterations           | 39          |
+|    time_elapsed         | 14824       |
+|    total_timesteps      | 19968       |
+| train/                  |             |
+|    approx_kl            | 0.011993671 |
+|    clip_fraction        | 0.107       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.77       |
+|    explained_variance   | 0.202       |
+|    learning_rate        | 0.0003      |
+|    loss                 | -0.0391     |
+|    n_updates            | 380         |
+|    policy_gradient_loss | -0.0197     |
+|    std                  | 0.855       |
+|    value_loss           | 0.0234      |
+-----------------------------------------
+Episode Reward: 0.922224 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -35.631214 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -2.977075 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.15))
+Episode Reward: -32.889351 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('spleen', np.float64(0.5))
+Episode Reward: -18.241545 | Episode Length: 60 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: -24.256117 | Episode Length: 32 | Episode Outcome: failed to advance | Hemorrhage: ('spleen', np.float64(0.7))
+Episode Reward: 0.714403 | Episode Length: 26 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -33.469146 | Episode Length: 62 | Episode Outcome: truncated | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: -20.336468 | Episode Length: 52 | Episode Outcome: stabilization | Hemorrhage: ('liver', np.float64(0.1))
+Episode Reward: 1.204466 | Episode Length: 21 | Episode Outcome: stabilization | Hemorrhage: ('spleen', np.float64(0.7))
+Eval num_timesteps=20480, episode_reward=-13.68 +/- 13.69
+Episode length: 29.40 +/- 10.59
+-----------------------------------------
+| eval/                   |             |
+|    mean_ep_length       | 29.4        |
+|    mean_reward          | -13.7       |
+| time/                   |             |
+|    total_timesteps      | 20480       |
+| train/                  |             |
+|    approx_kl            | 0.012030892 |
+|    clip_fraction        | 0.0891      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -3.77       |
+|    explained_variance   | 0.453       |
+|    learning_rate        | 0.0003      |
+|    loss                 | 0.00659     |
+|    n_updates            | 390         |
+|    policy_gradient_loss | -0.0173     |
+|    std                  | 0.856       |
+|    value_loss           | 0.0238      |
+-----------------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 43.3     |
+|    ep_rew_mean     | -21.3    |
+| time/              |          |
+|    fps             | 1        |
+|    iterations      | 40       |
+|    time_elapsed    | 15422    |
+|    total_timesteps | 20480    |
+---------------------------------

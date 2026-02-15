@@ -1,0 +1,45 @@
+{"time":"2025-11-21T09:36:52.0884049-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.0"}
+{"time":"2025-11-21T09:36:52.8357927-05:00","level":"INFO","msg":"stream: created new stream","id":"p8t8ype9"}
+{"time":"2025-11-21T09:36:52.8357927-05:00","level":"INFO","msg":"handler: started","stream_id":"p8t8ype9"}
+{"time":"2025-11-21T09:36:52.8378307-05:00","level":"INFO","msg":"stream: started","id":"p8t8ype9"}
+{"time":"2025-11-21T09:36:52.8378307-05:00","level":"INFO","msg":"writer: started","stream_id":"p8t8ype9"}
+{"time":"2025-11-21T09:36:52.8378307-05:00","level":"INFO","msg":"sender: started","stream_id":"p8t8ype9"}
+{"time":"2025-11-21T09:37:17.8138896-05:00","level":"WARN","msg":"tensorboard: no root directory","error":"timed out after 10s"}
+{"time":"2025-11-21T09:37:17.8138896-05:00","level":"INFO","msg":"tensorboard: tracking new log directory","rootDir":{},"logDir":"LocalOrCloudPath(LocalPath=\"C:\\\\Users\\\\michellexu\\\\Pulse\\\\engine\\\\src\\\\python\\\\pulse\\\\rl-hemorrhage-resuscitation\\\\ppo_wandb_logs\\\\ppo_wandb_5\")","namespace":""}
+{"time":"2025-11-21T09:37:17.8156504-05:00","level":"ERROR","msg":"tensorboard: failed to infer path where to save file","file":"C:\\Users\\michellexu\\Pulse\\engine\\src\\python\\pulse\\rl-hemorrhage-resuscitation\\ppo_wandb_logs\\ppo_wandb_5\\events.out.tfevents.1763735827.DESKTOP-JP5LEEC.2848.0","error":"\"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/ppo_wandb_logs/ppo_wandb_5/events.out.tfevents.1763735827.DESKTOP-JP5LEEC.2848.0\" does not start with \"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/env\""}
+{"time":"2025-11-21T10:10:23.3802181-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":482}
+{"time":"2025-11-21T10:10:23.3814657-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-21T10:46:03.9450743-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1022}
+{"time":"2025-11-21T10:46:03.9450743-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":2}
+{"time":"2025-11-21T11:10:24.3307087-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1374}
+{"time":"2025-11-21T11:10:24.3312599-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":9}
+{"time":"2025-11-21T11:42:04.835747-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1895}
+{"time":"2025-11-21T11:42:04.8365077-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-21T12:05:05.2008199-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2241}
+{"time":"2025-11-21T12:05:05.2023451-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-21T13:52:32.0008788-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3850}
+{"time":"2025-11-21T13:52:32.0008788-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":2}
+{"time":"2025-11-21T14:39:12.7613653-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":4559}
+{"time":"2025-11-21T14:39:12.7617638-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-21T15:00:48.157408-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":4915}
+{"time":"2025-11-21T15:00:48.157408-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-21T15:10:43.3239129-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":5078}
+{"time":"2025-11-21T15:10:43.326412-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-21T15:23:43.5525732-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":5253}
+{"time":"2025-11-21T15:23:43.5533197-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-21T15:51:53.3209588-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:52:08.321202-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:52:23.3210023-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:52:38.3214012-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:52:53.3213653-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:53:08.3213548-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:53:23.3214786-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:53:38.3219385-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:53:53.3221918-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:54:08.3222749-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:54:23.3224183-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:54:38.3225185-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:54:53.3227854-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:55:08.3226031-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:55:23.3230045-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}
+{"time":"2025-11-21T15:55:38.3230767-05:00","level":"ERROR","msg":"monitor: error sampling metrics: process does not exist"}

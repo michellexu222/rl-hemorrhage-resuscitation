@@ -1,0 +1,17 @@
+{"time":"2025-11-28T02:52:50.3205686-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.0"}
+{"time":"2025-11-28T02:52:51.0935377-05:00","level":"INFO","msg":"stream: created new stream","id":"97smd6y3"}
+{"time":"2025-11-28T02:52:51.0935377-05:00","level":"INFO","msg":"handler: started","stream_id":"97smd6y3"}
+{"time":"2025-11-28T02:52:51.095298-05:00","level":"INFO","msg":"stream: started","id":"97smd6y3"}
+{"time":"2025-11-28T02:52:51.095298-05:00","level":"INFO","msg":"writer: started","stream_id":"97smd6y3"}
+{"time":"2025-11-28T02:52:51.095298-05:00","level":"INFO","msg":"sender: started","stream_id":"97smd6y3"}
+{"time":"2025-11-28T02:53:21.1498899-05:00","level":"WARN","msg":"tensorboard: no root directory","error":"timed out after 10s"}
+{"time":"2025-11-28T02:53:21.1498899-05:00","level":"INFO","msg":"tensorboard: tracking new log directory","rootDir":{},"logDir":"LocalOrCloudPath(LocalPath=\"C:\\\\Users\\\\michellexu\\\\Pulse\\\\engine\\\\src\\\\python\\\\pulse\\\\rl-hemorrhage-resuscitation\\\\rppo_wandb_logs\\\\rppo_wandb_highsev_2\")","namespace":""}
+{"time":"2025-11-28T02:53:21.1507122-05:00","level":"ERROR","msg":"tensorboard: failed to infer path where to save file","file":"C:\\Users\\michellexu\\Pulse\\engine\\src\\python\\pulse\\rl-hemorrhage-resuscitation\\rppo_wandb_logs\\rppo_wandb_highsev_2\\events.out.tfevents.1764316391.DESKTOP-JP5LEEC.40140.0","error":"\"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/rppo_wandb_logs/rppo_wandb_highsev_2/events.out.tfevents.1764316391.DESKTOP-JP5LEEC.40140.0\" does not start with \"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/env\""}
+{"time":"2025-11-28T04:37:50.1929315-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1413}
+{"time":"2025-11-28T04:37:50.1935068-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-28T11:46:51.7374332-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-11-28T11:46:51.9152215-05:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-11-28T11:46:51.9291209-05:00","level":"INFO","msg":"stream: closing","id":"97smd6y3"}
+{"time":"2025-11-28T11:46:51.9291209-05:00","level":"INFO","msg":"handler: closed","stream_id":"97smd6y3"}
+{"time":"2025-11-28T11:46:51.9296756-05:00","level":"INFO","msg":"sender: closed","stream_id":"97smd6y3"}
+{"time":"2025-11-28T11:46:51.9296756-05:00","level":"INFO","msg":"stream: closed","id":"97smd6y3"}

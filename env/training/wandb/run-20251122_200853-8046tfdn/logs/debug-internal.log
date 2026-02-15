@@ -1,0 +1,68 @@
+{"time":"2025-11-22T20:08:56.2102007-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.0"}
+{"time":"2025-11-22T20:08:56.976573-05:00","level":"INFO","msg":"stream: created new stream","id":"8046tfdn"}
+{"time":"2025-11-22T20:08:56.9776998-05:00","level":"INFO","msg":"handler: started","stream_id":"8046tfdn"}
+{"time":"2025-11-22T20:08:56.9800614-05:00","level":"INFO","msg":"stream: started","id":"8046tfdn"}
+{"time":"2025-11-22T20:08:56.9806288-05:00","level":"INFO","msg":"writer: started","stream_id":"8046tfdn"}
+{"time":"2025-11-22T20:08:56.9806288-05:00","level":"INFO","msg":"sender: started","stream_id":"8046tfdn"}
+{"time":"2025-11-22T20:09:31.997148-05:00","level":"WARN","msg":"tensorboard: no root directory","error":"timed out after 10s"}
+{"time":"2025-11-22T20:09:31.997148-05:00","level":"INFO","msg":"tensorboard: tracking new log directory","rootDir":{},"logDir":"LocalOrCloudPath(LocalPath=\"C:\\\\Users\\\\michellexu\\\\Pulse\\\\engine\\\\src\\\\python\\\\pulse\\\\rl-hemorrhage-resuscitation\\\\ppo_wandb_logs\\\\ppo_wandb_12\")","namespace":""}
+{"time":"2025-11-22T20:09:31.9997985-05:00","level":"ERROR","msg":"tensorboard: failed to infer path where to save file","file":"C:\\Users\\michellexu\\Pulse\\engine\\src\\python\\pulse\\rl-hemorrhage-resuscitation\\ppo_wandb_logs\\ppo_wandb_12\\events.out.tfevents.1763860161.DESKTOP-JP5LEEC.24688.0","error":"\"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/ppo_wandb_logs/ppo_wandb_12/events.out.tfevents.1763860161.DESKTOP-JP5LEEC.24688.0\" does not start with \"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/env\""}
+{"time":"2025-11-22T20:19:32.2818468-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":153}
+{"time":"2025-11-22T20:19:32.2827062-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T20:24:52.4331897-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":251}
+{"time":"2025-11-22T20:24:52.4376942-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T21:02:17.9029584-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:02:26.8665398-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:02:35.6470202-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:02:49.0447452-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:03:15.0563577-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:03:55.2042988-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:05:00.3329404-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:06:05.8755271-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:07:12.3025506-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"An internal error occurred. Please contact support.\"}"}
+{"time":"2025-11-22T21:08:16.2012103-05:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-11-22T21:08:48.3645551-05:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-11-22T21:08:53.628786-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":779}
+{"time":"2025-11-22T21:09:07.4477576-05:00","level":"INFO","msg":"api: retrying HTTP error","status":500,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/8046tfdn/file_stream","body":"{\"error\":\"context deadline exceeded\"}"}
+{"time":"2025-11-22T21:09:22.9511173-05:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-11-22T21:09:57.0421274-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":32}
+{"time":"2025-11-22T21:24:29.0817393-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1067}
+{"time":"2025-11-22T21:24:29.0817393-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T21:47:09.6652339-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1303}
+{"time":"2025-11-22T21:47:09.6652339-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T21:52:29.8114941-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1398}
+{"time":"2025-11-22T21:52:29.8135065-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":4}
+{"time":"2025-11-22T22:13:55.4050635-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1619}
+{"time":"2025-11-22T22:13:55.4073004-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":9}
+{"time":"2025-11-22T22:24:05.6690033-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1810}
+{"time":"2025-11-22T22:24:05.6690033-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-22T22:29:25.8199597-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1900}
+{"time":"2025-11-22T22:29:25.8199597-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T22:46:21.2159045-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2124}
+{"time":"2025-11-22T22:46:21.2189199-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T22:51:46.367061-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2211}
+{"time":"2025-11-22T22:51:46.3678402-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T22:57:16.5182191-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2308}
+{"time":"2025-11-22T22:57:16.5182191-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T23:20:52.1353718-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2473}
+{"time":"2025-11-22T23:20:52.1353718-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":2}
+{"time":"2025-11-22T23:25:52.2635521-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2568}
+{"time":"2025-11-22T23:25:52.2635521-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T23:31:12.4132605-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2653}
+{"time":"2025-11-22T23:31:12.4141227-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T23:58:23.1405971-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2909}
+{"time":"2025-11-22T23:58:23.1405971-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-23T00:35:53.745391-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3404}
+{"time":"2025-11-23T00:35:53.7458326-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-23T00:46:53.9515548-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3584}
+{"time":"2025-11-23T00:46:53.9515548-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":3}
+{"time":"2025-11-23T00:59:24.1235315-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3701}
+{"time":"2025-11-23T00:59:24.1235315-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-23T01:30:03.4642205-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":4111}
+{"time":"2025-11-23T01:30:03.4653248-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":2}
+{"time":"2025-11-23T01:30:03.914157-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-11-23T01:30:04.1454867-05:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-11-23T01:30:04.1559882-05:00","level":"INFO","msg":"stream: closing","id":"8046tfdn"}
+{"time":"2025-11-23T01:30:04.1564969-05:00","level":"INFO","msg":"handler: closed","stream_id":"8046tfdn"}
+{"time":"2025-11-23T01:30:04.1569049-05:00","level":"INFO","msg":"sender: closed","stream_id":"8046tfdn"}
+{"time":"2025-11-23T01:30:04.1569049-05:00","level":"INFO","msg":"stream: closed","id":"8046tfdn"}

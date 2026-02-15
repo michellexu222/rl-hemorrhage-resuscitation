@@ -1,0 +1,282 @@
+_current_progress_remaining:
+    value: 1
+_custom_logger:
+    value: "False"
+_episode_num:
+    value: 0
+_last_episode_starts:
+    value: '[ True  True  True  True  True  True  True  True]'
+_last_obs:
+    value: |-
+        [[-1.0215029e+00  1.4702669e+00  1.4599122e+00 -2.2276666e-03
+          -6.8255466e-01 -1.2916607e-01 -6.7133045e-01 -4.5799783e-01
+          -5.1675510e-01  7.7458888e-01]
+         [ 1.0217423e+00 -5.3549051e-01 -4.2951649e-01  1.5374079e-03
+           6.4076728e-01 -1.2916607e-01  8.3933151e-01  1.3741894e+00
+           1.2555305e+00 -1.2909385e+00]
+         [ 1.1971990e-04 -2.0031229e-02 -4.9915642e-02 -1.9556664e-02
+           1.7145438e-01 -1.2916607e-01 -5.3365153e-01 -1.7812442e+00
+          -1.1075169e+00  7.7458888e-01]
+         [ 1.5325536e+00 -1.0277349e+00 -1.0090958e+00  5.8001459e-02
+           6.2630647e-01 -1.2916607e-01  7.1596348e-01  2.5451943e-01
+          -5.1675510e-01 -1.2909385e+00]
+         [ 1.0217423e+00 -5.3549051e-01 -4.2951649e-01  1.5374079e-03
+           6.4076728e-01 -1.2916607e-01  8.3933151e-01  1.3741894e+00
+           1.2555305e+00 -1.2909385e+00]
+         [-1.0215029e+00  1.4702669e+00  1.4599122e+00 -2.2276666e-03
+          -6.8255466e-01 -1.2916607e-01 -6.7133045e-01 -4.5799783e-01
+          -5.1675510e-01  7.7458888e-01]
+         [-1.1492057e+00  5.0104237e-01  4.4235772e-01 -3.7723125e-03
+          -4.6938956e-01 -1.2916607e-01 -2.1353412e-01  3.5630760e-01
+           1.2555305e+00  7.7458888e-01]
+         [-3.8298875e-01 -1.3205500e+00 -1.4414095e+00 -1.3583228e-02
+          -2.2123392e-01  9.3051952e-01 -2.8293180e-01 -6.6157418e-01
+          -1.1075169e+00  7.7458888e-01]]
+_last_original_obs:
+    value: |-
+        [[ 67.          95.09253    114.4582       0.97464514  35.884808
+           12.          32.7072      34.          21.           1.        ]
+         [ 83.          87.212715   106.92912      0.97466373  36.08693
+           12.          32.93431     52.          24.           0.        ]
+         [ 75.          89.23775    108.44177      0.97455955  36.015247
+           12.          32.727898    21.          20.           1.        ]
+         [ 87.          85.278885   104.61959      0.9749426   36.08472
+           12.          32.915764    41.          21.           0.        ]
+         [ 83.          87.212715   106.92912      0.97466373  36.08693
+           12.          32.93431     52.          24.           0.        ]
+         [ 67.          95.09253    114.4582       0.97464514  35.884808
+           12.          32.7072      34.          21.           1.        ]
+         [ 66.          91.284836   110.403404     0.9746375   35.917366
+           12.          32.776024    42.          24.           1.        ]
+         [ 72.          84.12853    102.89689      0.97458905  35.95527
+           12.048193    32.76559     32.          20.           1.        ]]
+_logger:
+    value: <stable_baselines3.common.logger.Logger object at 0x000001DC2E647770>
+_n_updates:
+    value: 0
+_num_timesteps_at_start:
+    value: 0
+_stats_window_size:
+    value: 100
+_total_timesteps:
+    value: 20000
+_vec_normalize_env:
+    value: <stable_baselines3.common.vec_env.vec_normalize.VecNormalize object at 0x000001DC282FA780>
+_wandb:
+    value:
+        cli_version: 0.23.0
+        e:
+            pck1danqb6s0x8g6czvrl7cfw2ojq6gp:
+                args:
+                    - --batch_size=128
+                    - --clip_range=0.2
+                    - --ent_coef=0.001
+                    - --gamma=0.8447056964746413
+                    - --learning_rate=0.0003
+                    - --log_std_init=-2
+                    - --n_steps=512
+                    - --total_timesteps=20000
+                codePath: env\train.py
+                codePathLocal: train.py
+                cpu_count: 12
+                cpu_count_logical: 16
+                disk:
+                    /:
+                        total: "510745636864"
+                        used: "351197868032"
+                email: michellexu37@gmail.com
+                executable: C:\Users\michellexu\anaconda3\envs\rlhr\python.exe
+                git:
+                    commit: eabf7c56eee683a7760b79f18da4b882a728b266
+                    remote: https://github.com/michellexu222/rl-hemorrhage-resuscitation.git
+                host: DESKTOP-JP5LEEC
+                memory:
+                    total: "16908300288"
+                os: Windows-11-10.0.26100-SP0
+                program: C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\train.py
+                python: CPython 3.12.11
+                root: C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env
+                startedAt: "2025-11-22T19:40:21.730565Z"
+                writerId: pck1danqb6s0x8g6czvrl7cfw2ojq6gp
+        m: []
+        python_version: 3.12.11
+        t:
+            "1":
+                - 1
+                - 2
+                - 3
+                - 5
+                - 53
+            "2":
+                - 1
+                - 2
+                - 3
+                - 5
+                - 53
+            "3":
+                - 2
+                - 14
+                - 16
+                - 22
+                - 35
+            "4": 3.12.11
+            "5": 0.23.0
+            "8":
+                - 3
+            "12": 0.23.0
+            "13": windows-amd64
+action_noise:
+    value: None
+action_space:
+    value: Box(0.0, 1.0, (3,), float32)
+algo:
+    value: PPO
+batch_size:
+    value: 128
+clip_range:
+    value: 0.2
+clip_range_vf:
+    value: None
+device:
+    value: cpu
+ent_coef:
+    value: 0.001
+env:
+    value: <stable_baselines3.common.vec_env.vec_normalize.VecNormalize object at 0x000001DC282FA780>
+ep_info_buffer:
+    value: deque([], maxlen=100)
+ep_success_buffer:
+    value: deque([], maxlen=100)
+gae_lambda:
+    value: 0.95
+gamma:
+    value: 0.8447056964746413
+learning_rate:
+    value: 0.0003
+log_std_init:
+    value: -2
+lr_schedule:
+    value: FloatSchedule(ConstantSchedule(val=0.0003))
+max_grad_norm:
+    value: 0.5
+method:
+    value: bayes
+metric:
+    value:
+        goal: maximize
+        name: rollout/ep_rew_mean
+n_envs:
+    value: 8
+n_epochs:
+    value: 10
+n_steps:
+    value: 512
+name:
+    value: ppo_rlhr
+normalize_advantage:
+    value: "True"
+num_timesteps:
+    value: 0
+observation_space:
+    value: Box(-inf, inf, (10,), float32)
+parameters:
+    value:
+        batch_size:
+            values:
+                - 64
+                - 128
+                - 256
+        clip_range:
+            values:
+                - 0.1
+                - 0.2
+                - 0.3
+        ent_coef:
+            values:
+                - 0
+                - 0.001
+                - 0.01
+        gamma:
+            max: 0.9997
+            min: 0.8
+        learning_rate:
+            values:
+                - 3e-05
+                - 0.0003
+                - 0.0001
+        log_std_init:
+            values:
+                - -2
+                - -1
+                - 0
+                - 1
+                - 2
+        n_steps:
+            values:
+                - 512
+                - 1024
+        total_timesteps:
+            values:
+                - 20000
+                - 40000
+policy:
+    value: |-
+        ActorCriticPolicy(
+          (features_extractor): FlattenExtractor(
+            (flatten): Flatten(start_dim=1, end_dim=-1)
+          )
+          (pi_features_extractor): FlattenExtractor(
+            (flatten): Flatten(start_dim=1, end_dim=-1)
+          )
+          (vf_features_extractor): FlattenExtractor(
+            (flatten): Flatten(start_dim=1, end_dim=-1)
+          )
+          (mlp_extractor): MlpExtractor(
+            (policy_net): Sequential(
+              (0): Linear(in_features=10, out_features=64, bias=True)
+              (1): Tanh()
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Tanh()
+            )
+            (value_net): Sequential(
+              (0): Linear(in_features=10, out_features=64, bias=True)
+              (1): Tanh()
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Tanh()
+            )
+          )
+          (action_net): Linear(in_features=64, out_features=3, bias=True)
+          (value_net): Linear(in_features=64, out_features=1, bias=True)
+        )
+policy_class:
+    value: <class 'stable_baselines3.common.policies.ActorCriticPolicy'>
+policy_kwargs:
+    value: '{''log_std_init'': -2}'
+program:
+    value: train.py
+project:
+    value: rlhr
+rollout_buffer:
+    value: <stable_baselines3.common.buffers.RolloutBuffer object at 0x000001DC28349670>
+rollout_buffer_class:
+    value: <class 'stable_baselines3.common.buffers.RolloutBuffer'>
+rollout_buffer_kwargs:
+    value: '{}'
+sde_sample_freq:
+    value: -1
+seed:
+    value: 42
+start_time:
+    value: 1763840449190286500
+target_kl:
+    value: None
+tensorboard_log:
+    value: C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\ppo_wandb_logs
+total_timesteps:
+    value: 20000
+use_sde:
+    value: "False"
+verbose:
+    value: 1
+vf_coef:
+    value: 0.5

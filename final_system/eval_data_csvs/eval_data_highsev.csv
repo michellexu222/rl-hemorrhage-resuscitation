@@ -1,7 +1,4 @@
 id,organ,severity,patient,outcome,length,blood_total,cryst_total,vp_total,map_violations
-0,liver,0.4,C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient204@0s.json,failed to advance,41,6098.3945,2892.3538,0.0,1
-1,liver,0.2,C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient224@0s.json,failed to advance,37,4758.646,358.20374,0.003881281,0
-2,liver,0.3,C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient232@0s.json,failed to advance,41,4867.118,1326.3425,0.039715048,5
 0,liver,0.4,C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient104@0s.json,stabilization,21,4116.996,0.0,0.053755242,0
 1,liver,0.2,C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient125@0s.json,stabilization,27,2717.5154,0.0,0.23317331,0
 2,liver,0.3,C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env\..\configs\test_patient_configs\Patient133@0s.json,stabilization,23,2942.969,0.0,0.078864835,1

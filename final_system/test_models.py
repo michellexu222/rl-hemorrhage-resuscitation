@@ -7,16 +7,15 @@ sys.path.append(parent_dir)
 import numpy as np
 import csv
 import stable_baselines3
-from env.hemorrhage_env import HemorrhageEnv
-from sb3_contrib import RecurrentPPO
-
-# save as eval_plot.py and run in same project / venv where Pulse and model exist
 import pandas as pd
 import matplotlib.pyplot as plt
+
+from sb3_contrib import RecurrentPPO
 from stable_baselines3 import PPO, SAC
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from stable_baselines3.common.monitor import Monitor
 from env.env_wrappers import SmoothActionDelayWrapper
+from env.hemorrhage_env import HemorrhageEnv
 from pid_baseline import PIDBaseline
 
 def make_env():
@@ -26,14 +25,14 @@ def make_env():
     return env
 
 # ---------- Load eval env & model ----------
-# venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_ppo_modsev_4.pkl")
-# model_path = os.path.join(parent_dir, "models", "ppo_modsev_4.zip")
+venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_ppo_modsev_4.pkl")
+model_path = os.path.join(parent_dir, "models", "ppo_modsev_4.zip")
 
-# venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_rppo_highsev_2.pkl")
-# model_path = os.path.join(parent_dir, "models", "rppo_highsev_2.zip")
+#venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_rppo_highsev_2.pkl")
+#model_path = os.path.join(parent_dir, "models", "rppo_highsev_2.zip")
 
-venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_16.pkl")
-model_path = os.path.join(parent_dir, "models", "ppo_baseline_16.zip")
+#venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_16.pkl")
+#model_path = os.path.join(parent_dir, "models", "ppo_baseline_16.zip")
 
 base_env = make_env()
 eval_env = DummyVecEnv([make_env])
@@ -48,7 +47,7 @@ model = PPO.load(model_path, env=eval_env)
 
 
 #normal_vitals = {"hr": 80, "map": 80, "sap": 110, "oxsat": 98, "etco2": 40, "rr": 16, "skintemp": 36.5}
-normal_vitals = {"skintemp": 36.5}
+normal_vitals = {"oxsat": 0.97, "etco2": 33.5, "rr": 12, "skintemp": 33}
 vital_index = {"hr": 0, "map": 1, "sap": 2, "oxsat": 3, "etco2": 4, "rr": 5, "skintemp": 6}
 
 for vital, normal_val in normal_vitals.items():
@@ -88,15 +87,6 @@ for vital, normal_val in normal_vitals.items():
             obs_norm = eval_env.normalize_obs(obs)
             total_reward += reward
             done_flag = terminated or truncated
-
-            # # Try to get the underlying state (MAP etc.) from the env:
-            # # Option A: if your wrapped env stores prev_obs on the inner env object:
-            # try:
-            #     inner = env.envs[0].env  # DummyVecEnv -> Monitor -> HemorrhageEnv
-            #     state_dict = getattr(inner, "prev_obs", None)
-            #     print(state_dict)
-            # except Exception:
-            #     state_dict = None
 
             # try to read MAP from observation array if present
             map_val = None
@@ -227,7 +217,7 @@ for vital, normal_val in normal_vitals.items():
     # plot_path = os.path.join(parent_dir, "episode_map_actions_mod_sev_bloodcost.png")
     # plot_episode(df, save_fig=plot_path, show=True)
 
-    eval_data_path = os.path.join(script_dir, "feature_ablation", "prototype", "csvs", f"no_{vital}.csv") # changed for feature ablation - no map
+    eval_data_path = os.path.join(script_dir, "feature_ablation", "low_sev_expert", "csvs", f"no_{vital}.csv") # changed for feature ablation - no map
     if not os.path.exists(eval_data_path):
         with open(eval_data_path, "w", newline="") as f:
             writer = csv.writer(f)
@@ -263,9 +253,9 @@ for vital, normal_val in normal_vitals.items():
         df.to_csv(out_csv, index=False)
         print(f"Saved episode CSV to: {out_csv}")
 
-        plot_path = os.path.join(parent_dir, "final_system", "feature_ablation", "prototype", "plots", f"no_{vital}") # changed for feature ablation
+        plot_path = os.path.join(parent_dir, "final_system", "feature_ablation", "low_sev_expert", "plots", f"no_{vital}") # changed for feature ablation
         os.makedirs(plot_path, exist_ok=True)
-        plot_path = os.path.join(parent_dir, "final_system", "feature_ablation", "prototype", "plots", f"no_{vital}", f"eval_episode{i+1}.png")
+        plot_path = os.path.join(parent_dir, "final_system", "feature_ablation", "low_sev_expert", "plots", f"no_{vital}", f"eval_episode{i+1}.png")
         plot_episode(df, save_fig=plot_path, show=False)
 
         # "id", "organ", "severity", "patient", "outcome", "length", "blood_total", "cryst_total", "vp_total", "map_violations"

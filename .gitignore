@@ -9,3 +9,4 @@ rppo_pulse_logs/
 sac_pulse_logs/
 rppo_wandb_logs/
 ppo_wandb_logs/
+env_check/

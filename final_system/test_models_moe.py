@@ -30,7 +30,6 @@ from gating.model import GatingNet
 
 def make_env():
     env = HemorrhageEnv(eval=True)
-    # env = SmoothActionDelayWrapper(env)
     env = Monitor(env)
     return env
 
@@ -54,20 +53,23 @@ eval_env = DummyVecEnv([make_env])
 #model = PPO.load(model_path, env=eval_env)
 #model = RecurrentPPO.load(model_path)
 
-# ---------- Run one deterministic episode and collect history ----------
+# ---------- Run one deterministic episode and collect history ------
 def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=None, index=None):
     #obs, info = base_env.reset(seed=seed)
     if index is not None:
         hem_sev = "high" if index < 25 else "low"
     else: hem_sev = None
     obs, reset_info = base_env.reset(seed=seed, sev=hem_sev)
+
+    # ---- for feature ablation ------
     #obs[1] = 80 # changed for feature ablation - no map
     #obs[0] = 80 # changed for feature ablation - no hr
     #obs[2] = 105 # changed for feature ablation - no sap
-    #bs[3] = 98 # changed for feature ablation - no oxsat
-    #obs[4] = 40 # changed for feature ablation - no etco2
-    #obs[5] = 16 # changed for feature ablation - no resp rate
-    obs[6] = 36.5 # changed for feature ablation - no skin temp
+    #obs[3] = 0.97 # changed for feature ablation - no oxsat
+    #obs[4] = 33.5 # changed for feature ablation - no etco2
+    #obs[5] = 12 # changed for feature ablation - no resp rate
+    #obs[6] = 33 # changed for feature ablation - no skin temp
+
     sev = reset_info['sev']
     map_high = 110 if sev == "low" else 90
 
@@ -77,12 +79,10 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
     # ---- gating ----
     gating_obs = torch.tensor((reset_info["bv1"] - reset_info["bv2"], reset_info["bv2"] - reset_info["bv3"]))
     gating_obs = gating_obs.unsqueeze(0)
-    #print(gating_obs)
     scaler = load(
         r'C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\gating\gating_scaler1.pkl')
     gating_obs = scaler.transform(gating_obs)
     gating_obs = torch.tensor(gating_obs, dtype=torch.float32)
-    #print(gating_obs)
 
     gating_model = GatingNet()
     gating_model.load_state_dict(torch.load(
@@ -137,26 +137,19 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
 
         obs, reward, terminated, truncated, info = base_env.step(action)
         if obs[1] > map_high: map_violations += 1
+
+        # --- for feature ablation: ---
         #obs[1] = 80 # changed for feature ablation - no map
         #obs[0] = 80 # changed for feature ablation - no hr
         #obs[2] = 105 # changed for feature ablation - no sap
-        #obs[3] = 98 # changed for feature ablation - no oxsat
-        #obs[4] = 40 # changed for feature ablation - no etco2
-        #obs[5] = 16 # changed for feature ablation - no resp rate
-        obs[6] = 36.5 # changed for feature ablation - no skin temp
+        #obs[3] = 0.97 # changed for feature ablation - no oxsat
+        #obs[4] = 33.5 # changed for feature ablation - no etco2
+        #obs[5] = 12 # changed for feature ablation - no resp rate
+        #obs[6] = 33 # changed for feature ablation - no skin temp
 
         obs_norm = eval_env.normalize_obs(obs)
         total_reward += reward
         done_flag = terminated or truncated
-
-        # # Try to get the underlying state (MAP etc.) from the env:
-        # # Option A: if your wrapped env stores prev_obs on the inner env object:
-        # try:
-        #     inner = env.envs[0].env  # DummyVecEnv -> Monitor -> HemorrhageEnv
-        #     state_dict = getattr(inner, "prev_obs", None)
-        #     print(state_dict)
-        # except Exception:
-        #     state_dict = None
 
         # try to read MAP from observation array if present
         map_val = None
@@ -319,9 +312,6 @@ for i in range(num_eps):
 
     # -------- save CSV and plot episode --------
     df = pd.DataFrame(records)
-    #out_csv = os.path.join(script_dir, "feature_ablation", "MoE", "csvs", "no_map.csv") # changed for feature ablation
-    #df.to_csv(out_csv, index=False)
-    #print(f"Saved episode CSV to: {out_csv}")
 
     plot_path = os.path.join(parent_dir, "final_system", "feature_ablation", "MoE", "plots", "no_skintemp") # changed for feature ablation
     os.makedirs(plot_path, exist_ok=True)

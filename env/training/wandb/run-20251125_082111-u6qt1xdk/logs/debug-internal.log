@@ -1,0 +1,75 @@
+{"time":"2025-11-25T08:21:13.8744533-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.0"}
+{"time":"2025-11-25T08:21:14.6527161-05:00","level":"INFO","msg":"stream: created new stream","id":"u6qt1xdk"}
+{"time":"2025-11-25T08:21:14.653376-05:00","level":"INFO","msg":"handler: started","stream_id":"u6qt1xdk"}
+{"time":"2025-11-25T08:21:14.6554139-05:00","level":"INFO","msg":"stream: started","id":"u6qt1xdk"}
+{"time":"2025-11-25T08:21:14.6554139-05:00","level":"INFO","msg":"writer: started","stream_id":"u6qt1xdk"}
+{"time":"2025-11-25T08:21:14.6554139-05:00","level":"INFO","msg":"sender: started","stream_id":"u6qt1xdk"}
+{"time":"2025-11-25T08:21:51.0443651-05:00","level":"WARN","msg":"tensorboard: no root directory","error":"timed out after 10s"}
+{"time":"2025-11-25T08:21:51.0443651-05:00","level":"INFO","msg":"tensorboard: tracking new log directory","rootDir":{},"logDir":"LocalOrCloudPath(LocalPath=\"C:\\\\Users\\\\michellexu\\\\Pulse\\\\engine\\\\src\\\\python\\\\pulse\\\\rl-hemorrhage-resuscitation\\\\ppo_wandb_logs\\\\ppo_wandb_highsev_2\")","namespace":""}
+{"time":"2025-11-25T08:21:51.0458159-05:00","level":"ERROR","msg":"tensorboard: failed to infer path where to save file","file":"C:\\Users\\michellexu\\Pulse\\engine\\src\\python\\pulse\\rl-hemorrhage-resuscitation\\ppo_wandb_logs\\ppo_wandb_highsev_2\\events.out.tfevents.1764076901.DESKTOP-JP5LEEC.25000.0","error":"\"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/ppo_wandb_logs/ppo_wandb_highsev_2/events.out.tfevents.1764076901.DESKTOP-JP5LEEC.25000.0\" does not start with \"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/env\""}
+{"time":"2025-11-25T08:47:46.5243365-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":377}
+{"time":"2025-11-25T08:47:46.5249565-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-25T08:52:16.5891864-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":472}
+{"time":"2025-11-25T08:52:16.5902519-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T09:57:02.7711312-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1380}
+{"time":"2025-11-25T09:57:02.7731424-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T10:09:15.4333156-05:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/u6qt1xdk/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-11-25T10:34:58.5085288-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1864}
+{"time":"2025-11-25T10:34:58.5085288-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-25T10:39:38.6999248-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1952}
+{"time":"2025-11-25T10:39:38.7019166-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":3}
+{"time":"2025-11-25T10:45:09.0410098-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2031}
+{"time":"2025-11-25T10:45:09.0430409-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":3}
+{"time":"2025-11-25T11:34:40.162201-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2684}
+{"time":"2025-11-25T11:34:40.1628575-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-25T11:56:14.8059416-05:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/u6qt1xdk/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-11-25T11:56:20.5340501-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2962}
+{"time":"2025-11-25T11:56:20.5349768-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-25T11:58:05.6556124-05:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/u6qt1xdk/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-11-25T12:23:05.9665797-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3335}
+{"time":"2025-11-25T12:23:05.9665797-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":2}
+{"time":"2025-11-25T12:39:06.2527126-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3592}
+{"time":"2025-11-25T12:39:06.2527126-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":3}
+{"time":"2025-11-25T12:51:11.4112509-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3705}
+{"time":"2025-11-25T12:51:11.4112509-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-25T13:01:46.6725883-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3882}
+{"time":"2025-11-25T13:01:46.6757825-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T13:07:21.7932708-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":3963}
+{"time":"2025-11-25T13:07:21.793785-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T13:23:07.1412819-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":4158}
+{"time":"2025-11-25T13:23:07.1412819-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-25T13:28:32.4588843-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":4237}
+{"time":"2025-11-25T13:28:32.4608434-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T13:34:02.7432204-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":4322}
+{"time":"2025-11-25T13:34:02.7452339-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T14:01:03.3421454-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":4688}
+{"time":"2025-11-25T14:01:03.3421454-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T14:27:08.7794852-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":5056}
+{"time":"2025-11-25T14:27:08.7802355-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":3}
+{"time":"2025-11-25T14:35:15.4196159-05:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/u6qt1xdk/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-11-25T14:36:45.2723408-05:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/u6qt1xdk/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-11-25T14:38:38.9399033-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":5169}
+{"time":"2025-11-25T14:38:38.9404418-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-25T15:04:49.1856806-05:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-11-25T15:05:34.4449818-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":5537}
+{"time":"2025-11-25T15:05:34.5977248-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-25T15:21:19.7928214-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":5796}
+{"time":"2025-11-25T15:21:19.7928214-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-25T15:33:59.9749212-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":5916}
+{"time":"2025-11-25T15:33:59.9754402-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-25T16:15:56.1807067-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":6541}
+{"time":"2025-11-25T16:15:56.1828067-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-25T16:26:26.5908237-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":6656}
+{"time":"2025-11-25T16:26:26.591351-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":9}
+{"time":"2025-11-25T16:31:12.1408731-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":6742}
+{"time":"2025-11-25T16:31:12.1408731-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":3}
+{"time":"2025-11-25T16:36:42.4129473-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":6827}
+{"time":"2025-11-25T16:36:42.4135568-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":2}
+{"time":"2025-11-25T17:05:13.1498445-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":7203}
+{"time":"2025-11-25T17:05:13.1498445-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":1}
+{"time":"2025-11-25T17:10:41.7304473-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-11-25T17:10:41.9559326-05:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-11-25T17:10:41.9673431-05:00","level":"INFO","msg":"stream: closing","id":"u6qt1xdk"}
+{"time":"2025-11-25T17:10:41.9673431-05:00","level":"INFO","msg":"handler: closed","stream_id":"u6qt1xdk"}
+{"time":"2025-11-25T17:10:41.9678511-05:00","level":"INFO","msg":"sender: closed","stream_id":"u6qt1xdk"}
+{"time":"2025-11-25T17:10:41.9678511-05:00","level":"INFO","msg":"stream: closed","id":"u6qt1xdk"}

@@ -1,0 +1,30 @@
+{"time":"2025-11-22T00:20:11.8170969-05:00","level":"INFO","msg":"stream: starting","core version":"0.23.0"}
+{"time":"2025-11-22T00:20:12.548325-05:00","level":"INFO","msg":"stream: created new stream","id":"d24hvhhp"}
+{"time":"2025-11-22T00:20:12.5488405-05:00","level":"INFO","msg":"handler: started","stream_id":"d24hvhhp"}
+{"time":"2025-11-22T00:20:12.5532234-05:00","level":"INFO","msg":"stream: started","id":"d24hvhhp"}
+{"time":"2025-11-22T00:20:12.553813-05:00","level":"INFO","msg":"writer: started","stream_id":"d24hvhhp"}
+{"time":"2025-11-22T00:20:12.553813-05:00","level":"INFO","msg":"sender: started","stream_id":"d24hvhhp"}
+{"time":"2025-11-22T00:20:37.9647889-05:00","level":"WARN","msg":"tensorboard: no root directory","error":"timed out after 10s"}
+{"time":"2025-11-22T00:20:37.9647889-05:00","level":"INFO","msg":"tensorboard: tracking new log directory","rootDir":{},"logDir":"LocalOrCloudPath(LocalPath=\"C:\\\\Users\\\\michellexu\\\\Pulse\\\\engine\\\\src\\\\python\\\\pulse\\\\rl-hemorrhage-resuscitation\\\\ppo_wandb_logs\\\\ppo_wandb_8\")","namespace":""}
+{"time":"2025-11-22T00:20:37.9660337-05:00","level":"ERROR","msg":"tensorboard: failed to infer path where to save file","file":"C:\\Users\\michellexu\\Pulse\\engine\\src\\python\\pulse\\rl-hemorrhage-resuscitation\\ppo_wandb_logs\\ppo_wandb_8\\events.out.tfevents.1763788827.DESKTOP-JP5LEEC.1456.0","error":"\"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/ppo_wandb_logs/ppo_wandb_8/events.out.tfevents.1763788827.DESKTOP-JP5LEEC.1456.0\" does not start with \"C:/Users/michellexu/Pulse/engine/src/python/pulse/rl-hemorrhage-resuscitation/env\""}
+{"time":"2025-11-22T01:13:13.8496968-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":598}
+{"time":"2025-11-22T01:13:13.8502682-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-22T02:32:45.2062057-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1519}
+{"time":"2025-11-22T02:32:45.206777-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":9}
+{"time":"2025-11-22T02:43:20.3944846-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1650}
+{"time":"2025-11-22T02:43:20.3944846-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T03:00:50.6545036-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":1813}
+{"time":"2025-11-22T03:00:50.8199322-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":12}
+{"time":"2025-11-22T03:28:11.1161042-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2114}
+{"time":"2025-11-22T03:28:11.1167495-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":2}
+{"time":"2025-11-22T04:05:36.8092551-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2563}
+{"time":"2025-11-22T04:05:36.8106391-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":3}
+{"time":"2025-11-22T04:15:43.4777327-05:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/michellexu37-none/rlhr/d24hvhhp/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-11-22T04:35:47.2796353-05:00","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":2880}
+{"time":"2025-11-22T04:35:47.2803783-05:00","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":6}
+{"time":"2025-11-22T04:51:02.1893183-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-11-22T04:51:02.3796668-05:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2025-11-22T04:51:02.3957493-05:00","level":"INFO","msg":"stream: closing","id":"d24hvhhp"}
+{"time":"2025-11-22T04:51:02.3957493-05:00","level":"INFO","msg":"handler: closed","stream_id":"d24hvhhp"}
+{"time":"2025-11-22T04:51:02.3967006-05:00","level":"INFO","msg":"sender: closed","stream_id":"d24hvhhp"}
+{"time":"2025-11-22T04:51:02.3967006-05:00","level":"INFO","msg":"stream: closed","id":"d24hvhhp"}

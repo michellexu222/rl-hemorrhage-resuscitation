@@ -6,13 +6,12 @@ sys.path.append(parent_dir)
 
 import numpy as np
 import csv
+import pandas as pd
+import matplotlib.pyplot as plt
 import stable_baselines3
 from env.hemorrhage_env import HemorrhageEnv
 from sb3_contrib import RecurrentPPO
 
-# save as eval_plot.py and run in same project / venv where Pulse and model exist
-import pandas as pd
-import matplotlib.pyplot as plt
 from stable_baselines3 import PPO, SAC
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 from stable_baselines3.common.monitor import Monitor
@@ -21,17 +20,10 @@ from pid_baseline import PIDBaseline
 
 def make_env():
     env = HemorrhageEnv(eval=True)
-    # env = SmoothActionDelayWrapper(env)
     env = Monitor(env)
     return env
 
-# ---------- Load eval env & model ----------
-# venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_ppo_modsev_4.pkl")
-# model_path = os.path.join(parent_dir, "models", "ppo_modsev_4.zip")
-
-# venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_rppo_highsev_2.pkl")
-# model_path = os.path.join(parent_dir, "models", "rppo_highsev_2.zip")
-
+# ---------- Load eval env ----------
 venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_16.pkl")
 model_path = os.path.join(parent_dir, "models", "ppo_baseline_16.zip")
 
@@ -41,10 +33,6 @@ eval_env = DummyVecEnv([make_env])
 eval_env = VecNormalize.load(venv_stats_path, eval_env)
 eval_env.training = False
 eval_env.norm_reward = False
-
-#model = PPO.load(model_path, env=eval_env)
-#model = PPO.load(model_path, env=eval_env)
-#model = RecurrentPPO.load(model_path)
 
 # ---------- Run one deterministic episode and collect history ----------
 def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=None, index=None):
@@ -74,12 +62,9 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
     map_violations = 0
 
     while not done and step < max_steps:
-        #action, lstm_states = model.predict(obs_norm, state=lstm_states, deterministic=deterministic)
         current_map = obs_norm[1]
         fluid_rate = model.step(current_map)
         action = [0.0, fluid_rate, 0.0] if hem_sev == "high" else [fluid_rate, 0.0, 0.0] # only crystalloid for low severity
-        # action, _ = model.predict(obs_norm, deterministic=deterministic)
-        # a = np.array(action).flatten()
 
         obs, reward, terminated, truncated, info = base_env.step(action)
         if obs[1] > map_high: map_violations += 1
@@ -87,15 +72,6 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
         obs_norm = eval_env.normalize_obs(obs)
         total_reward += reward
         done_flag = terminated or truncated
-
-        # # Try to get the underlying state (MAP etc.) from the env:
-        # # Option A: if your wrapped env stores prev_obs on the inner env object:
-        # try:
-        #     inner = env.envs[0].env  # DummyVecEnv -> Monitor -> HemorrhageEnv
-        #     state_dict = getattr(inner, "prev_obs", None)
-        #     print(state_dict)
-        # except Exception:
-        #     state_dict = None
 
         # try to read MAP from observation array if present
         map_val = None

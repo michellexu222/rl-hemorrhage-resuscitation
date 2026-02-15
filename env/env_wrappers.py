@@ -1,6 +1,7 @@
 import numpy as np
 import gymnasium as gym
 
+# *** wrappers no longer used due to being extremely slow ***
 class ActionDelayWrapper(gym.Wrapper):
     """
     Adds fixed-step delays for each component of the action vector.
@@ -10,7 +11,7 @@ class ActionDelayWrapper(gym.Wrapper):
     def __init__(self, env, delays=(3, 8, 1)):
         """
         delays: tuple of delay steps (in env timesteps) for each action dimension
-                e.g. (LR delay, blood delay, norepi delay)
+                (LR delay, blood delay, norepi delay)
         """
         super().__init__(env)
         self.delays = np.array(delays, dtype=int)
