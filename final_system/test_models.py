@@ -24,7 +24,7 @@ def make_env():
     env = Monitor(env)
     return env
 
-# ---------- Load eval env & model ----------
+### Load eval env & model
 venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_ppo_modsev_4.pkl")
 model_path = os.path.join(parent_dir, "models", "ppo_modsev_4.zip")
 
@@ -52,7 +52,7 @@ vital_index = {"hr": 0, "map": 1, "sap": 2, "oxsat": 3, "etco2": 4, "rr": 5, "sk
 
 for vital, normal_val in normal_vitals.items():
     idx = vital_index[vital]
-    # ---------- Run one deterministic episode and collect history ----------
+    ### Run one deterministic episode and collect history
     def run_and_collect(model, base_env, eval_env, max_steps=100, deterministic=True, seed=None, index=None):
         #obs, info = base_env.reset(seed=seed)
         if index is not None:
@@ -142,7 +142,7 @@ for vital, normal_val in normal_vitals.items():
 
         return records, total_reward, map_violations, step, reset_info, info
 
-    # ---------- Plotting ----------
+    ### Plotting
     def plot_episode(df, save_fig=None, show=True):
         fig = plt.figure(figsize=(14, 12))
         gs = fig.add_gridspec(5, 1, height_ratios=[1.5, 1, 1, 1.5, 1], hspace=0.3)
@@ -205,7 +205,7 @@ for vital, normal_val in normal_vitals.items():
             plt.show()
         plt.close(fig)
 
-    # # ---------- Run & plot one episode ----------
+    # ### Run & plot one episode
     # records, total_reward, map_violations, length, reset_info, final_info = run_and_collect(model, base_env, eval_env, max_steps=400, deterministic=True)
     #
     # # save CSV
@@ -223,7 +223,7 @@ for vital, normal_val in normal_vitals.items():
             writer = csv.writer(f)
             writer.writerow(["id", "organ", "severity", "patient", "outcome", "length", "blood_total", "cryst_total", "vp_total", "map_violations"])
 
-    # ---------- Run & calculate metrics for multiple episodes ----------
+    ### Run & calculate metrics for multiple episodes
     # vars for stabilization metrics
     num_eps = 50
     base_seed = 42
@@ -309,7 +309,7 @@ for vital, normal_val in normal_vitals.items():
         if final_info['o'] == "stabilization": stabilized_fluids_used.append(total_fluids)
         print(f"Episode {i+1} done. Outcome: {final_info['o']}")
 
-    # ---------- Print stabilization metrics ----------
+    ### Print stabilization metrics
     n_stable = n_stable_liver + n_stable_spleen
     total = total_liver + total_spleen
     print(f"% stabilized total: {n_stable}/{total} = {n_stable/total*100:.1f}%")
@@ -317,11 +317,11 @@ for vital, normal_val in normal_vitals.items():
     print(f"% stabilized spleen: {n_stable_spleen}/{total_spleen} = {n_stable_spleen/total_spleen*100:.1f}%")
     print(f"% died: {n_death}/{total} = {n_death/total*100:.1f}%")
 
-    # ---------- Print reward metric ----------
+    ## Print reward metric
     average_return = total_return / num_eps
     print(f"Average return over {num_eps} episodes: {average_return:.2f}")
 
-    # ---------- Print resource usage metrics ----------
+    ## Print resource usage metrics
     print(f"Median crystalloid used: {np.median(cryst_used):.1f} mL (mean {np.mean(cryst_used):.1f} mL)")
     print(f"Median blood used: {np.median(blood_used):.1f} mL (mean {np.mean(blood_used):.1f} mL)")
     print(f"Median vasopressor used: {np.median(vp_used):.3f} mL (mean {np.mean(vp_used):.3f} mL)")

@@ -39,11 +39,11 @@ def run_episode(model, base_env, eval_env, reset_obs):
 
     return info['o'], total_reward
 
-# ---- environment setup ----
+## environment setup
 base_env = HemorrhageEnv()
 eval_env = DummyVecEnv([make_env])
 
-# ---- gating ----
+## gating
 obs, info = base_env.reset()
 print(f"hemorrhage: {info['hem']}")
 

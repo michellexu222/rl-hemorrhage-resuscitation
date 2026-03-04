@@ -1,7 +1,4 @@
 import sys
-sys.path.insert(0, r"C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation")
-sys.path.insert(1, r"C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\gating")
-sys.path.insert(2, r"C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\env")
 from pulse.cdm.patient import SEPatientConfiguration
 from pulse.engine.PulseEngine import PulseEngine, eModelType
 from pulse.cdm.patient_actions import SEHemorrhage, eHemorrhage_Compartment, SESubstanceBolus, SESubstanceInfusion, SESubstanceCompoundInfusion, eSubstance_Administration
@@ -19,6 +16,7 @@ import time
 from stable_baselines3.common.env_checker import check_env
 
 class HemorrhageEnv (gym.Env):
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     def __init__(self, state_file=None, eval=False, log_file: string="episode_log.csv"):
@@ -100,7 +98,7 @@ class HemorrhageEnv (gym.Env):
         else:
             self.hemorrhage_type : tuple[string, float] = None # tuple["compartment", severity]
 
-        # ------- Clotting model variables -------
+        # Clotting model variables
         # updated 11/4/2025
         # clot formation
         self.k_form, self.k_form_base = 0.13, 0.13  # clot formation rate
@@ -121,14 +119,13 @@ class HemorrhageEnv (gym.Env):
         self.gamma = 0.2 # C_max = 1 - gamma * S_base
         self.eps_min, self.eps_max = 0.05, 0.2
         self.n = 1.5  # controls steepness of clotting effect on severity, n=1 (linear) -> bleed decrease steadily w/ clot,
-        # n=1.5-2 -> bleed stays moderate, then drops faster when clot matures (respond quickly to clotting)
-        # n=3-4-> clot has little effect until it almost complete (bleed resists clotting)
+                      # n=1.5-2 -> bleed stays moderate, then drops faster when clot matures (respond quickly to clotting)
+                      # n=3-4-> clot has little effect until it almost complete (bleed resists clotting)
 
         # dilution effects
         self.tau_clear = 5 # time constant for redistribution of crystalloid from the bloodstream (minutes) (cryst redistr. half life)
-        # k_beta_dil possibly
 
-        # other stuff
+        # other variables for clotting
         self.dt = 1.0
         self.V_blood_step = 0 # current blood given as action
         self.V_blood_recent = 0
@@ -139,7 +136,7 @@ class HemorrhageEnv (gym.Env):
         self.fluid_dev = 50
 
         self.C_prev = 0.05 # current fraction of clot formed
-        #self.S_base = 0
+
         if organ and severity:
             self.induce_hemorrhage(organ, severity)
         else:
@@ -149,11 +146,9 @@ class HemorrhageEnv (gym.Env):
         # # for creating gating dataset using blood volume
         bv1 = self._get_state()["BloodVolume"]
         self.pulse.advance_time_s(15)
-        # gating_obs_2 = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
         bv2 = self._get_state()["BloodVolume"]
         self.pulse.advance_time_s(15)
         bv3 = self._get_state()["BloodVolume"]
-        #gating_obs_3 = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
 
         obs = self._obs_to_array({feature: value for feature, value in self._get_state().items() if feature in self.f})
         info = {"state_file": self.last_patient_file, "hem": self.hemorrhage_type}
@@ -172,16 +167,12 @@ class HemorrhageEnv (gym.Env):
             loaded = self.pulse.serialize_from_file(self.state_file, None)
             if not loaded:
                 raise FileNotFoundError(f"State file {self.state_file} not found.")
-            #print("loaded given state file")
             with open(self.state_file, "r") as f:
                 self.patient_data = json.load(f)
-            #print(self.patient_data["Configuration"]["TimeStep"]["ScalarTime"]["Value"])
 
         else:
-            # print("loading random state file")
             # load random patient file
             chosen_file = self._rng.choice(self.patient_files)
-            # chosen_file = os.path.join(self.script_dir, "configs", "patient_configs", "Patient2@0s.json")
             loaded = self.pulse.serialize_from_file(chosen_file, None)
             if not loaded:
                 raise RuntimeError(f"Failed to load patient state: {chosen_file}")
@@ -190,7 +181,6 @@ class HemorrhageEnv (gym.Env):
                 self.patient_data = json.load(f)
 
         self.last_patient_file = chosen_file if chosen_file else self.state_file
-        # print(self.patient_data["CurrentPatient"]["MeanArterialPressureBaseline"]["ScalarPressure"]["Value"])
 
     def _get_state(self):
         data = self.pulse.pull_data()
@@ -245,14 +235,8 @@ class HemorrhageEnv (gym.Env):
 
     def set_severity(self, map, temp):
         """
-        Update clot strength and compute new severity
-
-        Params:
-        - MAP: current mean arterial pressure (mmHg)
-        - temp: current skin temperature)
-
-        Returns:
-        - S_new: updated hemorrhage severity (0-1)
+        Update clot strength (0-1) and new severity
+        Returns C_new and S_new
         """
 
         self.V_blood_recent = self.V_blood_recent * np.exp(-self.dt / self.tau_blood) + self.V_blood_step
@@ -303,7 +287,7 @@ class HemorrhageEnv (gym.Env):
 
     def give_saline(self, volume: float = 250, rate: float = 250):
         """
-        unused currently
+        unused currently - potential future action (currently only Lactated Ringer's used for simpliciitly in action space
         """
 
         substance = SESubstanceCompoundInfusion()
@@ -318,26 +302,16 @@ class HemorrhageEnv (gym.Env):
         """
         volume given in mL
         rate given in mL/min
-        use high rate to simulate bolus
         """
-        # self.decay_k()
         rate = rate * 400 # scale from [0, 1] to [0, 600] increased max to 600 11/15/2025
-        # rate = np.clip(rate, self.prev_blood - self.fluid_dev, self.prev_blood + self.fluid_dev)
-        #rate = np.clip(rate, 0, 300)
-        #self.prev_blood = rate
 
         substance = SESubstanceCompoundInfusion()
         substance.set_compound("Blood")
         substance.get_bag_volume().set_value(rate, VolumeUnit.mL)
         substance.get_rate().set_value(rate, VolumePerTimeUnit.mL_Per_min)
         self.pulse.process_action(substance)
-        # print(self.k_form)
-        #self.V_blood += rate
+
         self.V_blood_step = rate
-        # factor = 1 + 0.001 * rate * 1
-        # self.k_form *= factor
-        # print(f"new k_form = {self.k_form}")
-        # self.k_lysis *= 1 / factor
 
     def give_lactated_ringers(self, rate):
         """
@@ -371,6 +345,7 @@ class HemorrhageEnv (gym.Env):
 
     def decay_k(self):
         # every step decay k_form and k_lysis towards base values
+        # now deprecated / unused for clotting model
         LAMBDA = 0.02
         self.k_form = self.k_form + LAMBDA * (self.k_form_base - self.k_form) * 1 # 1 minute
         self.k_lysis = self.k_lysis + LAMBDA * (self.k_lysis_base - self.k_lysis) * 1  # 1 minute
@@ -474,7 +449,7 @@ class HemorrhageEnv (gym.Env):
         # Clip and scale down (to not dominate total reward)
         r_map = max(-3, min(1, r_map))
 
-        # ------- heart rate --------- 11/17/2025
+        ### heart rate - 11/17/2025
         # Keep previous HR in state: self.hr_prev
         dHR = HR - self.prev_obs["HeartRate"]
         # Penalize big negative drops and low absolute HR
@@ -490,7 +465,7 @@ class HemorrhageEnv (gym.Env):
 
         r_hr = np.clip(r_hr, -1, 1)
 
-        # ------- shock index --------
+        ### shock index
         if shock_index <= 0.8:
             r_shock = 0
         elif shock_index >= 1.0:
@@ -499,7 +474,7 @@ class HemorrhageEnv (gym.Env):
             r_shock = - (shock_index - 0.8) / (1.0 - 0.8)
         r_shock = max(-1, min(0, r_shock))  # only penalty
 
-        # ------ cardiac output -------
+        ### cardiac output
         if 3.0 <= CO <= 6.0:  # typical normal range - decreased minimal low from 4 to 3 for the permissive hypo model
             r_co = 1
         elif CO < 3.0:
@@ -508,14 +483,14 @@ class HemorrhageEnv (gym.Env):
             r_co = - (CO - 6.0) / 4.0  # down to -1 if CO=10
         r_co = max(-1, min(0.5, r_co))  # clipped
 
-        # Action cost
+        ### Action cost
         r_blood_cost = -0.005 * blood_step
         r_blood = np.clip(r_blood_cost, -1, 0)
 
         r_cryst_cost = -0.002 * cryst_step # -1 at 400 mL if 0.0025
         r_cryst = np.clip(r_cryst_cost, -1, 0)
 
-        # ------- Clotting reward -------
+        ### Clotting factor
         r_clot = (
             1.5 * self.C_prev  # reward stronger clot
             + 1.0 * self.dC_dt  # reward new clot formation
@@ -529,7 +504,8 @@ class HemorrhageEnv (gym.Env):
         else:
             r_clot = (r_clot - 0.088) / (0.6 - 0.088)  # extend linearly below 0.088
 
-        # Weighted sum of components
+        # Weighted sum of components for final reward
+        # different weights for training high and low severity experts
         reward = (
                 0.4 * r_map +
                 #0.1 * r_shock + # changed to 0.2 11/17/2025 changed to 0.1 for high sev model
@@ -584,7 +560,7 @@ class HemorrhageEnv (gym.Env):
         heart_rates = np.array([s['HeartRate'] for s in state_window])
         shock_indices = heart_rates / saps
         COs = np.array([s['CardiacOutput'] for s in state_window])
-        # BVs = np.array([s['BloodVolume'] for s in state_window])
+
         # stabilization
         if (min(maps) >= stable_map_low and max(maps) <= stable_map_high
                 # and (shock_indices <= shock_index_limit).all() # remove for permissive hypo model

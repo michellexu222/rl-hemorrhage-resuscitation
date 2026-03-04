@@ -37,7 +37,7 @@ def make_env():
     env = Monitor(env)
     return env
 
-# ---------- Load eval env & model ----------
+### Load eval env & model
 # venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_ppo_modsev_4.pkl")
 # model_path = os.path.join(parent_dir, "models", "ppo_modsev_4.zip")
 
@@ -49,7 +49,7 @@ recurrent = False
 base_env = make_env()
 eval_env = DummyVecEnv([make_env])
 
-# ---------- Run one deterministic episode and collect history ----------
+### Run one deterministic episode and collect history
 def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=None, index=None):
     #obs, info = base_env.reset(seed=seed)
     if index is not None:
@@ -70,15 +70,13 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
     print(f"hemorrhage: {reset_info['hem']}, patient: {reset_info['state_file']}")
     #obs_norm = eval_env.normalize_obs(obs)
 
-    # ---- gating ----
+    ### gating
     gating_obs = torch.tensor((reset_info["bv1"] - reset_info["bv2"], reset_info["bv2"] - reset_info["bv3"]))
     gating_obs = gating_obs.unsqueeze(0)
-    #print(gating_obs)
     scaler = load(
         r'C:\Users\michellexu\Pulse\engine\src\python\pulse\rl-hemorrhage-resuscitation\gating\gating_scaler1.pkl')
     gating_obs = scaler.transform(gating_obs)
     gating_obs = torch.tensor(gating_obs, dtype=torch.float32)
-    #print(gating_obs)
 
     gating_model = GatingNet()
     gating_model.load_state_dict(torch.load(
@@ -88,7 +86,6 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
     with torch.no_grad():
         output = gating_model(gating_obs)
         output = torch.softmax(output, dim=-1)
-        #print(output)
         severity = torch.argmax(output, dim=1)  # 0 = low, 1 = high
         print(severity)
 
@@ -145,15 +142,6 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
         obs_norm = eval_env.normalize_obs(obs)
         total_reward += reward
         done_flag = terminated or truncated
-
-        # # Try to get the underlying state (MAP etc.) from the env:
-        # # Option A: if your wrapped env stores prev_obs on the inner env object:
-        # try:
-        #     inner = env.envs[0].env  # DummyVecEnv -> Monitor -> HemorrhageEnv
-        #     state_dict = getattr(inner, "prev_obs", None)
-        #     print(state_dict)
-        # except Exception:
-        #     state_dict = None
 
         # try to read MAP from observation array if present
         map_val = None

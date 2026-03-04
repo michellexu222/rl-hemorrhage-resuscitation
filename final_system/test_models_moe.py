@@ -16,7 +16,6 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from joblib import load
 
-# save as eval_plot.py and run in same project / venv where Pulse and model exist
 
 import stable_baselines3
 from stable_baselines3 import PPO, SAC
@@ -33,7 +32,7 @@ def make_env():
     env = Monitor(env)
     return env
 
-# ---------- Load eval env & model ----------
+### Load eval env & model
 # venv_stats_path = os.path.join(parent_dir, "venv_stats", "venv_stats_ppo_modsev_4.pkl")
 # model_path = os.path.join(parent_dir, "models", "ppo_modsev_4.zip")
 
@@ -53,7 +52,7 @@ eval_env = DummyVecEnv([make_env])
 #model = PPO.load(model_path, env=eval_env)
 #model = RecurrentPPO.load(model_path)
 
-# ---------- Run one deterministic episode and collect history ------
+### Run one deterministic episode and collect history
 def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=None, index=None):
     #obs, info = base_env.reset(seed=seed)
     if index is not None:
@@ -61,7 +60,7 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
     else: hem_sev = None
     obs, reset_info = base_env.reset(seed=seed, sev=hem_sev)
 
-    # ---- for feature ablation ------
+    ### for feature ablation
     #obs[1] = 80 # changed for feature ablation - no map
     #obs[0] = 80 # changed for feature ablation - no hr
     #obs[2] = 105 # changed for feature ablation - no sap
@@ -74,9 +73,8 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
     map_high = 110 if sev == "low" else 90
 
     print(f"hemorrhage: {reset_info['hem']}, patient: {reset_info['state_file']}")
-    #obs_norm = eval_env.normalize_obs(obs)
 
-    # ---- gating ----
+    ### gating
     gating_obs = torch.tensor((reset_info["bv1"] - reset_info["bv2"], reset_info["bv2"] - reset_info["bv3"]))
     gating_obs = gating_obs.unsqueeze(0)
     scaler = load(
@@ -92,7 +90,6 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
     with torch.no_grad():
         output = gating_model(gating_obs)
         output = torch.softmax(output, dim=-1)
-        #print(output)
         severity = torch.argmax(output, dim=1)  # 0 = low, 1 = high
         print(severity)
 
@@ -205,7 +202,7 @@ def run_and_collect(base_env, eval_env, max_steps=100, deterministic=True, seed=
 
     return records, total_reward, map_violations, step, severity, reset_info, info
 
-# ---------- Plotting ----------
+### Plotting
 def plot_episode(df, save_fig=None, show=True):
     fig = plt.figure(figsize=(14, 12))
     gs = fig.add_gridspec(5, 1, height_ratios=[1.5, 1, 1, 1.5, 1], hspace=0.3)
@@ -268,7 +265,7 @@ def plot_episode(df, save_fig=None, show=True):
         plt.show()
     plt.close(fig)
 
-# # ---------- Run & plot one episode ----------
+# ### Run & plot one episode
 # records, total_reward, map_violations, length, reset_info, final_info = run_and_collect(model, base_env, eval_env, max_steps=400, deterministic=True)
 #
 # # save CSV
@@ -286,7 +283,7 @@ if not os.path.exists(eval_data_path):
         writer = csv.writer(f)
         writer.writerow(["id", "organ", "severity", "gating", "patient", "outcome", "length", "blood_total", "cryst_total", "vp_total", "map_violations"])
 
-# ---------- Run & calculate metrics for multiple episodes ----------
+### Run & calculate metrics for multiple episodes
 # vars for stabilization metrics
 num_eps = 50
 base_seed = 42
@@ -310,7 +307,7 @@ for i in range(num_eps):
     seed = base_seed + i
     records, total_reward, map_violations, length, gating, reset_info, final_info = run_and_collect(base_env, eval_env, max_steps=400, deterministic=True, seed=seed, index=i)
 
-    # -------- save CSV and plot episode --------
+    ### save CSV and plot episode
     df = pd.DataFrame(records)
 
     plot_path = os.path.join(parent_dir, "final_system", "feature_ablation", "MoE", "plots", "no_skintemp") # changed for feature ablation
@@ -370,7 +367,7 @@ for i in range(num_eps):
     if final_info['o'] == "stabilization": stabilized_fluids_used.append(total_fluids)
     print(f"Episode {i+1} done. Outcome: {final_info['o']}")
 
-# ---------- Print stabilization metrics ----------
+### Print stabilization metrics
 n_stable = n_stable_liver + n_stable_spleen
 total = total_liver + total_spleen
 print(f"% stabilized total: {n_stable}/{total} = {n_stable/total*100:.1f}%")
@@ -378,11 +375,11 @@ print(f"% stabilized liver: {n_stable_liver}/{total_liver} = {n_stable_liver/tot
 print(f"% stabilized spleen: {n_stable_spleen}/{total_spleen} = {n_stable_spleen/total_spleen*100:.1f}%")
 print(f"% died: {n_death}/{total} = {n_death/total*100:.1f}%")
 
-# ---------- Print reward metric ----------
+## Print reward metric
 average_return = total_return / num_eps
 print(f"Average return over {num_eps} episodes: {average_return:.2f}")
 
-# ---------- Print resource usage metrics ----------
+## Print resource usage metrics
 print(f"Median crystalloid used: {np.median(cryst_used):.1f} mL (mean {np.mean(cryst_used):.1f} mL)")
 print(f"Median blood used: {np.median(blood_used):.1f} mL (mean {np.mean(blood_used):.1f} mL)")
 print(f"Median vasopressor used: {np.median(vp_used):.3f} mL (mean {np.mean(vp_used):.3f} mL)")

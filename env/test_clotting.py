@@ -1,3 +1,4 @@
+# *** Used for tuning clotting model
 import numpy as np
 
 k_form, k_form_base = 0.13, 0.13  # clot formation rate

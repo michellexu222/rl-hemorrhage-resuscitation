@@ -62,10 +62,3 @@ while i < n:
         except RuntimeError as e:
             continue
 
-#
-# file_path = os.path.join(target_dir, "MyPatient@1s.json")
-#
-# create_patient("Male", 30, 70, 180, file_path)
-#
-#
-# print("CWD:", os.getcwd())

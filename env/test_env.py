@@ -1,3 +1,4 @@
+# *** used during development for testing environment
 import os
 # os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 # # reduce thread overhead (Windows)

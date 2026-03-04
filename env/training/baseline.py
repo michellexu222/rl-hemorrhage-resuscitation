@@ -42,7 +42,7 @@ if __name__ == '__main__':
     parent_dir = os.path.dirname(script_dir)
     os.makedirs(parent_dir, exist_ok=True)
 
-    # ----- Environment -----
+    ### Environment
     n_envs = 8
     train_env = SubprocVecEnv([make_env for _ in range(n_envs)])
     train_env.seed(42)
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     eval_env.training = False
     eval_env.norm_reward = False
 
-    # ----- Callbacks -----
+    ### Callbacks
     checkpoint_callback = CheckpointCallback(
         save_freq=4096//n_envs,
         save_path=os.path.join(parent_dir, "models", "checkpoints", "ppo_modsev_4"),
