@@ -1,0 +1,15 @@
+{
+  "TimeStep_s": 0.05,
+  "RenalEnabled": false,
+  "NervousEnabled": false,
+  "EndocrineEnabled": false,
+  "TissueEnabled": false,
+  "EnergyEnabled": false,
+  "DrugEnabled": false,
+  "InhalerEnabled": false,
+  "EnvironmentalEnabled": false,
+  "CardiovascularEnabled": true,
+  "RespiratoryEnabled": true,
+  "BloodChemistryEnabled": true,
+  "FluidAndElectrolyteEnabled": true
+}
