@@ -72,8 +72,8 @@ def run_and_collect_live(base_env, eval_env, left_col, right_col, max_steps=100,
 
     with left_col:
         st.markdown(
-            f"**Hem:** {reset_info['hem'][0]} &nbsp;|&nbsp; "
-            f"**Sev:** {reset_info['hem'][1]:.3f} &nbsp;|&nbsp; "
+            f"**Organ:** {reset_info['hem'][0]} &nbsp;|&nbsp; "
+            f"**Severity:** {reset_info['hem'][1]:.3f} &nbsp;|&nbsp; "
             f"**Predicted:** {severity_str} &nbsp;|&nbsp; "
             f"**Agent:** {agent_str}",
             unsafe_allow_html=True
@@ -191,14 +191,14 @@ def run_and_collect_live(base_env, eval_env, left_col, right_col, max_steps=100,
                 with r1c2:
                     st.metric("HR", f"{hr_val:.0f}")
                 with r1c3:
-                    st.metric("SpO₂", f"{oxsat_val:.1f}%")
+                    st.metric("SpO₂", f"{oxsat_val*100:.1f}%")
                 r2c1, r2c2, r2c3 = st.columns(3)
                 with r2c1:
                     st.metric("SAP", f"{sap_val:.0f}")
                 with r2c2:
-                    st.metric("Shock Idx", f"{hr_val / sap_val:.2f}" if sap_val > 0 else "N/A")
+                    st.metric("Shock Index", f"{hr_val / sap_val:.2f}" if sap_val > 0 else "N/A")
                 with r2c3:
-                    st.metric("RespRate", f"{resp_val:.0f}")
+                    st.metric("Respiratory Rate", f"{resp_val:.0f}")
 
             with actions_placeholder.container():
                 a1, a2 = st.columns(2)
@@ -214,7 +214,7 @@ def run_and_collect_live(base_env, eval_env, left_col, right_col, max_steps=100,
                 with m1:
                     st.metric("Reward", f"{total_reward:.1f}")
                 with m2:
-                    st.metric("MAP Viol.", map_violations)
+                    st.metric("MAP Violations", map_violations)
 
         # Right column updates
         if step % 1 == 0 or done_flag:
@@ -236,7 +236,7 @@ def run_and_collect_live(base_env, eval_env, left_col, right_col, max_steps=100,
 
 def plot_episode_compact(df, final_info, total_reward, current_step, max_steps):
     """
-    4 dynamic plots (MAP, HR, Fluids, Clot)
+    4 dynamic plots - MAP, HR, fluids, clot frac
     """
     fig, axes = plt.subplots(4, 1, figsize=(6, 5.5), sharex=True)
     fig.subplots_adjust(hspace=0.15, top=0.93, bottom=0.08, left=0.14, right=0.97)
@@ -247,8 +247,8 @@ def plot_episode_compact(df, final_info, total_reward, current_step, max_steps):
     #ax0.axhline(y=65, color='orange', linestyle='--', alpha=0.6, linewidth=1)
     #ax0.axhline(y=50, color='red', linestyle=':', alpha=0.4)
     #ax0.axhline(y=110, color='red', linestyle=':', alpha=0.4)
-    ax0.set_ylabel("Mean Arterial Pressure (mmHg)", fontsize=8)
-    ax0.set_title(f"Step {current_step}/{max_steps}  |  Reward: {total_reward:.1f}",
+    ax0.set_ylabel("Mean Arterial Pressure (mmHg)", fontsize=6)
+    ax0.set_title(f"Step {current_step} (1 step = 1 minute)",
                   fontweight='bold', fontsize=9, pad=2)
     ax0.grid(True, alpha=0.3)
     ax0.set_ylim(30, 120)
@@ -260,7 +260,7 @@ def plot_episode_compact(df, final_info, total_reward, current_step, max_steps):
 
     ax1 = axes[1]
     ax1.plot(df["timestep"], df["HR"], 'r-', linewidth=1.5)
-    ax1.set_ylabel("Heart Rate (BPM)", fontsize=8)
+    ax1.set_ylabel("Heart Rate (bpm)", fontsize=8)
     ax1.grid(True, alpha=0.3)
     ax1.set_ylim(40, 180)
     ax1.tick_params(labelsize=7)
@@ -268,7 +268,7 @@ def plot_episode_compact(df, final_info, total_reward, current_step, max_steps):
     ax2 = axes[2]
     ax2.fill_between(df["timestep"], 0, df["cryst_ml_per_min"], step='post', alpha=0.7, label="Crystalloids", color='#87CEEB')
     ax2.fill_between(df["timestep"], 0, df["blood_ml_per_min"], step='post', alpha=0.7, label="Blood", color='#DC143C')
-    ax2.set_ylabel("mL/min", fontsize=8)
+    ax2.set_ylabel("Fluid Use mL/min", fontsize=8)
     ax2.legend(loc='upper right', fontsize=7, framealpha=0.9)
     ax2.grid(True, alpha=0.3)
     ax2.set_ylim(0, 450)
